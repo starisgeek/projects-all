@@ -17,12 +17,12 @@
 
     <sql id="selectAllColumns">
         SELECT id, app_id, name, number, create_time, public_key, platform_public_key, platform_private_key, remark
-        FROM jf_partner
+        FROM partner
     </sql>
 
 
     <insert id="insertPartner" parameterType="com.yunfenghui.jf.partner.model.Partner" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO jf_partner(app_id, name, number, create_time, remark)
+        INSERT INTO partner(app_id, name, number, create_time, remark)
         VALUES (#{appId}, #{name}, #{number}, #{createTime}, #{remark})
     </insert>
 
@@ -31,15 +31,15 @@
     </select>
 
     <select id="queryPartnerIdByName" resultType="integer">
-        SELECT id FROM jf_partner WHERE name = #{name}
+        SELECT id FROM partner WHERE name = #{name}
     </select>
 
     <select id="queryPartnerIdByAppId" resultType="integer">
-        SELECT id FROM jf_partner WHERE app_id = #{appId}
+        SELECT id FROM partner WHERE app_id = #{appId}
     </select>
 	
 	<select id="queryPartnerIdByNumber" resultType="integer">
-		SELECT id FROM jf_partner WHERE number = #{number}
+		SELECT id FROM partner WHERE number = #{number}
 	</select>
 	
 	<select id="queryPartnerByAppId" resultMap="partnerResultMap">
@@ -47,6 +47,6 @@
 	</select>
 	
 	<update id="updatePublicKey">
-		UPDATE jf_partner SET public_key = #{publicKey} WHERE id = #{partnerId}
+		UPDATE partner SET public_key = #{publicKey} WHERE id = #{partnerId}
 	</update>
 </mapper>
