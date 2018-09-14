@@ -12,7 +12,6 @@
 		<module>yunfenghui-jf-common</module>
 		<module>yunfenghui-jf-score-service</module>
 		<module>yunfenghui-jf-score-service-impl</module>
-		<module>yunfenghui-partner-service</module>
-		<module>yunfenghui-partner-service-impl</module>
+		<module>yunfenghui-jf-partner-service</module>
 	</modules>
 </project>
