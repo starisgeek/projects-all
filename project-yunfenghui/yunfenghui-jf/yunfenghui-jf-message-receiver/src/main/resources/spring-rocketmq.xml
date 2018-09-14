@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	     http://www.springframework.org/schema/beans/spring-beans.xsd
+	     http://www.springframework.org/schema/tx
+	     http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<bean id="abstractMessageListener" abstract="true">
+		<property name="scoreService" ref="scoreService" />
+	</bean>
+	
+	<bean id="whiteScoreSendRecordMessageListener" class="com.yunfenghui.jf.message.receiver.listener.WhiteScoreSendRecordMessageListener" parent="abstractMessageListener" />
+	
+	<bean id="whiteScoreSendRecordNotifyMessageListener" class="com.yunfenghui.jf.message.receiver.listener.WhiteScoreSendRecordNotifyMessageListener" parent="abstractMessageListener" />
+	
+	<bean id="baseMqConsumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer" init-method="start" destroy-method="shutdown" abstract="true">
+		<property name="namesrvAddr" value="${rocketmq.nameserver.address}" />
+		<property name="consumeMessageBatchMaxSize" value="5" />
+	</bean>
+	
+	<bean parent="baseMqConsumer">
+		<property name="consumerGroup" value="${rocketmq.consumer.group.whitescore.sendrecord}" />
+		<property name="messageListener" ref="whiteScoreSendRecordMessageListener" />
+		<property name="subscription">
+			<map>
+				<entry key="${rocketmq.topic.whitescore.sendrecord}">
+					<value>*</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean parent="baseMqConsumer">
+		<property name="consumerGroup" value="${rocketmq.consumer.group.whitescore.sendrecordnotify}" />
+		<property name="messageListener" ref="whiteScoreSendRecordNotifyMessageListener" />
+		<property name="subscription">
+			<map>
+				<entry key="${rocketmq.topic.whitescore.sendrecordnotify}">
+					<value>*</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>
