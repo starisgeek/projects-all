@@ -13,58 +13,58 @@
 	</resultMap>
 	
 	<insert id="insertAccount" parameterType="com.yunfenghui.jf.score.model.PartnerAccount">
-		INSERT INTO jf_partner_account(partner_id, stock_scores, white_scores, red_scores, balance, create_time)
+		INSERT INTO partner_account(partner_id, stock_scores, white_scores, red_scores, balance, create_time)
 		VALUES(#{partnerId}, #{stockScores}, #{whiteScores}, #{redScores}, #{balance}, #{createTime})
 	</insert>
 	
 	<select id="queryAccountById" resultMap="partnerAccountResultMap">
 		SELECT partner_id, stock_scores, white_scores, red_scores, balance, create_time
-		FROM jf_partner_account WHERE partner_id = #{partnerId}
+		FROM partner_account WHERE partner_id = #{partnerId}
 	</select>
 	
 	<update id="increaseStockScoreAndWhiteScore">
-		UPDATE jf_partner_account SET stock_scores = stock_scores + #{stockScoreIncrement}, 
+		UPDATE partner_account SET stock_scores = stock_scores + #{stockScoreIncrement}, 
 		white_scores = white_scores + #{whiteScoreIncrement}
 		WHERE partner_id = #{partnerId}
 	</update>
 	
 	<update id="increaseStockScore">
-		UPDATE jf_partner_account SET stock_scores = stock_scores + #{increment}
+		UPDATE partner_account SET stock_scores = stock_scores + #{increment}
 		WHERE partner_id = #{partnerId}
 	</update>
 	
 	<update id="decreaseStockScore">
-		UPDATE jf_partner_account SET stock_scores = stock_scores - #{decrement}
+		UPDATE partner_account SET stock_scores = stock_scores - #{decrement}
 		WHERE partner_id = #{partnerId} AND stock_scores >= #{decrement}
 	</update>
 	
 	<update id="increaseWhiteScore">
-		UPDATE jf_partner_account SET white_scores = white_scores + #{increment}
+		UPDATE partner_account SET white_scores = white_scores + #{increment}
 		WHERE partner_id = #{partnerId}
 	</update>
 	
 	<update id="decreaseWhiteScore">
-		UPDATE jf_partner_account SET white_scores = white_scores - #{decrement}
+		UPDATE partner_account SET white_scores = white_scores - #{decrement}
 		WHERE partner_id = #{partnerId} AND white_scores >= #{decrement}
 	</update>
 	
 	<update id="increaseRedScore">
-		UPDATE jf_partner_account SET red_scores = red_scores + #{increment}
+		UPDATE partner_account SET red_scores = red_scores + #{increment}
 		WHERE partner_id = #{partnerId}
 	</update>
 	
 	<update id="decreaseRedScore">
-		UPDATE jf_partner_account SET red_scores = red_scores - #{decrement}
+		UPDATE partner_account SET red_scores = red_scores - #{decrement}
 		WHERE partner_id = #{partnerId} AND red_scores >= #{decrement}
 	</update>
 	
 	<update id="increaseBalance">
-		UPDATE jf_partner_account SET balance = balance + #{increment}
+		UPDATE partner_account SET balance = balance + #{increment}
 		WHERE partner_id = #{partnerId}
 	</update>
 	
 	<update id="decreaseBalance">
-		UPDATE jf_partner_account SET balance = balance - #{decrement}
+		UPDATE partner_account SET balance = balance - #{decrement}
 		WHERE partner_id = #{partnerId} AND balance >= #{decrement}
 	</update>
 </mapper>

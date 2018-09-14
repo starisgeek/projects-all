@@ -18,22 +18,22 @@
 	</resultMap>
 	
 	<insert id="insertSendRecord" parameterType="com.yunfenghui.jf.score.model.WhiteScoreSendRecord">
-		INSERT INTO jf_white_score_send_record(record_no, member_id, partner_id, out_trade_no, send_scores, deal_type, notify_url, create_time, status)
+		INSERT INTO white_score_send_record(record_no, member_id, partner_id, out_trade_no, send_scores, deal_type, notify_url, create_time, status)
 		VALUES(#{recordNo}, #{memberId}, #{partnerId}, #{outTradeNo}, #{sendScores}, #{dealType}, #{notifyUrl}, #{createTime}, #{status})
 	</insert>
 	
 	<select id="queryRecordNoByPartnerIdAndOutTradeNo" resultType="string">
-		SELECT record_no FROM jf_white_score_send_record
+		SELECT record_no FROM white_score_send_record
 		WHERE partner_id = #{partnerId} AND out_trade_no = #{outTradeNo}
 	</select>
 	
 	<select id="querySendRecordByPartnerIdAndOutTradeNo" resultMap="sendRecordResultMap">
 		SELECT record_no, member_id, partner_id, out_trade_no, send_scores, deal_type, notify_url, create_time, modify_time, status, error_code
-		FROM jf_white_score_send_record WHERE partner_id = #{partnerId} AND out_trade_no = #{outTradeNo}
+		FROM white_score_send_record WHERE partner_id = #{partnerId} AND out_trade_no = #{outTradeNo}
 	</select>
 	
 	<update id="updateSendRecordStatusAndErrorCode">
-		UPDATE jf_white_score_send_record SET status = #{updateStatus}, error_code = #{errorCode}, modify_time = #{modifyTime}
+		UPDATE white_score_send_record SET status = #{updateStatus}, error_code = #{errorCode}, modify_time = #{modifyTime}
 		WHERE record_no = #{recordNo} AND status = #{expectStatus}
 	</update>
 </mapper>

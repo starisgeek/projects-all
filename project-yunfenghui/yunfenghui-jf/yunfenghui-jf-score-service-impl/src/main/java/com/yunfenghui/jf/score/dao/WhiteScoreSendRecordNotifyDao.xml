@@ -4,7 +4,7 @@
 
 <mapper namespace="com.yunfenghui.jf.score.dao.WhiteScoreSendRecordNotifyDao">
 	<insert id="batchInsertNotifies">
-        INSERT INTO jf_white_score_send_record_notify(record_no, member_id, partner_id, out_trade_no, send_scores, create_time, status, error_code)
+        INSERT INTO white_score_send_record_notify(record_no, member_id, partner_id, out_trade_no, send_scores, create_time, status, error_code)
 		VALUES
 		<foreach collection="notifies" item="notify" separator=",">
             (#{notify.recordNo}, #{notify.memberId}, #{notify.partnerId}, #{notify.outTradeNo}, #{notify.sendScores}, #{notify.createTime}, #{notify.status}, #{notify.errorCode})
@@ -12,7 +12,7 @@
 	</insert>
 	
 	<delete id="batchDeleteNotifies">
-		DELETE FROM jf_white_score_send_record_notify WHERE record_no IN
+		DELETE FROM white_score_send_record_notify WHERE record_no IN
 		<foreach collection="recordNos" item="recordNo" open="(" close=")" separator=",">
         	#{recordNo}
         </foreach>

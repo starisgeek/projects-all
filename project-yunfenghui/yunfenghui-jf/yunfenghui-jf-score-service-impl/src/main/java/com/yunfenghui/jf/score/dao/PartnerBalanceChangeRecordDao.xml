@@ -4,7 +4,7 @@
 
 <mapper namespace="com.yunfenghui.jf.score.dao.PartnerBalanceChangeRecordDao">
 	<insert id="insertChangeRecord" parameterType="com.yunfenghui.jf.score.model.AccountChangeRecord">
-		INSERT INTO jf_partner_balance_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
+		INSERT INTO partner_balance_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
 		VALUES(#{serialNumber}, #{accountId}, #{changeAmount}, #{dealType}, #{originalRecordNo}, #{createTime})
 	</insert>
 </mapper>

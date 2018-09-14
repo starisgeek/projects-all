@@ -4,12 +4,12 @@
 
 <mapper namespace="com.yunfenghui.jf.score.dao.PartnerStockScoreChangeRecordDao">
 	<insert id="insertChangeRecord" parameterType="com.yunfenghui.jf.score.model.AccountChangeRecord">
-		INSERT INTO jf_partner_stock_score_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
+		INSERT INTO partner_stock_score_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
 		VALUES(#{serialNumber}, #{accountId}, #{changeAmount}, #{dealType}, #{originalRecordNo}, #{createTime})
 	</insert>
 	
 	<insert id="batchInsertChangeRecords">
-		INSERT INTO jf_partner_stock_score_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
+		INSERT INTO partner_stock_score_change_record(serial_number, partner_id, change_amount, deal_type, original_record_no, create_time)
 		VALUES
 		<foreach collection="changeRecords" item="changeRecord" separator=",">
             (#{changeRecord.serialNumber}, #{changeRecord.accountId}, #{changeRecord.changeAmount}, #{changeRecord.dealType}, #{changeRecord.originalRecordNo}, #{changeRecord.createTime})
