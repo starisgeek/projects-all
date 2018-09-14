@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.jf.score.dao.PartnerAccountDao">
+	<resultMap type="com.yunfenghui.jf.score.model.PartnerAccount" id="partnerAccountResultMap">
+		<result property="partnerId" column="partner_id"/>
+		<result property="stockScores" column="stock_scores"/>
+		<result property="whiteScores" column="white_scores"/>
+		<result property="redScores" column="red_scores"/>
+		<result property="balance" column="balance"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<insert id="insertAccount" parameterType="com.yunfenghui.jf.score.model.PartnerAccount">
+		INSERT INTO jf_partner_account(partner_id, stock_scores, white_scores, red_scores, balance, create_time)
+		VALUES(#{partnerId}, #{stockScores}, #{whiteScores}, #{redScores}, #{balance}, #{createTime})
+	</insert>
+	
+	<select id="queryAccountById" resultMap="partnerAccountResultMap">
+		SELECT partner_id, stock_scores, white_scores, red_scores, balance, create_time
+		FROM jf_partner_account WHERE partner_id = #{partnerId}
+	</select>
+	
+	<update id="increaseStockScoreAndWhiteScore">
+		UPDATE jf_partner_account SET stock_scores = stock_scores + #{stockScoreIncrement}, 
+		white_scores = white_scores + #{whiteScoreIncrement}
+		WHERE partner_id = #{partnerId}
+	</update>
+	
+	<update id="increaseStockScore">
+		UPDATE jf_partner_account SET stock_scores = stock_scores + #{increment}
+		WHERE partner_id = #{partnerId}
+	</update>
+	
+	<update id="decreaseStockScore">
+		UPDATE jf_partner_account SET stock_scores = stock_scores - #{decrement}
+		WHERE partner_id = #{partnerId} AND stock_scores >= #{decrement}
+	</update>
+	
+	<update id="increaseWhiteScore">
+		UPDATE jf_partner_account SET white_scores = white_scores + #{increment}
+		WHERE partner_id = #{partnerId}
+	</update>
+	
+	<update id="decreaseWhiteScore">
+		UPDATE jf_partner_account SET white_scores = white_scores - #{decrement}
+		WHERE partner_id = #{partnerId} AND white_scores >= #{decrement}
+	</update>
+	
+	<update id="increaseRedScore">
+		UPDATE jf_partner_account SET red_scores = red_scores + #{increment}
+		WHERE partner_id = #{partnerId}
+	</update>
+	
+	<update id="decreaseRedScore">
+		UPDATE jf_partner_account SET red_scores = red_scores - #{decrement}
+		WHERE partner_id = #{partnerId} AND red_scores >= #{decrement}
+	</update>
+	
+	<update id="increaseBalance">
+		UPDATE jf_partner_account SET balance = balance + #{increment}
+		WHERE partner_id = #{partnerId}
+	</update>
+	
+	<update id="decreaseBalance">
+		UPDATE jf_partner_account SET balance = balance - #{decrement}
+		WHERE partner_id = #{partnerId} AND balance >= #{decrement}
+	</update>
+</mapper>

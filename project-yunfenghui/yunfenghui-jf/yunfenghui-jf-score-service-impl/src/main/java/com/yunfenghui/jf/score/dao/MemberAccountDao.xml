@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.jf.score.dao.MemberAccountDao">
+	<resultMap type="com.yunfenghui.jf.score.model.MemberAccount" id="memberAccountResultMap">
+		<result property="memberId" column="member_id"/>
+		<result property="whiteScores" column="white_scores"/>
+		<result property="redScores" column="red_scores"/>
+		<result property="balance" column="balance"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<insert id="insertAccount" parameterType="com.yunfenghui.jf.score.model.MemberAccount">
+		INSERT INTO jf_member_account(member_id, white_scores, red_scores, balance, create_time)
+		VALUES(#{memberId}, #{whiteScores}, #{redScores}, #{balance}, #{createTime})
+	</insert>
+	
+	<select id="queryAccountById" resultMap="memberAccountResultMap">
+		SELECT member_id, white_scores, red_scores, balance, create_time
+		FROM jf_member_account WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="queryWhiteScores" resultType="integer">
+		SELECT white_scores FROM jf_member_account WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="queryRedScores" resultType="integer">
+		SELECT red_scores FROM jf_member_account WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="queryBalance" resultType="integer">
+		SELECT balance FROM jf_member_account WHERE member_id = #{memberId}
+	</select>
+	
+	<update id="increaseWhiteScore">
+		UPDATE jf_member_account SET white_scores = white_scores + #{increment}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="decreaseWhiteScore">
+		UPDATE jf_member_account SET white_scores = white_scores - #{decrement}
+		WHERE member_id = #{memberId} AND white_scores >= #{decrement}
+	</update>
+	
+	<update id="increaseRedScore">
+		UPDATE jf_member_account SET red_scores = red_scores + #{increment}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="decreaseRedScore">
+		UPDATE jf_member_account SET red_scores = red_scores - #{decrement}
+		WHERE member_id = #{memberId} AND red_scores >= #{decrement}
+	</update>
+	
+	<update id="increaseBalance">
+		UPDATE jf_member_account SET balance = balance + #{increment}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="decreaseBalance">
+		UPDATE jf_member_account SET balance = balance - #{decrement}
+		WHERE member_id = #{memberId} AND balance >= #{decrement}
+	</update>
+</mapper>
