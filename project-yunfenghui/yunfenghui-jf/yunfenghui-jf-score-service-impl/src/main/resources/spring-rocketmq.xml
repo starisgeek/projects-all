@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	     http://www.springframework.org/schema/beans/spring-beans.xsd
+	     http://www.springframework.org/schema/tx
+	     http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <bean id="mqProducer" class="com.alibaba.rocketmq.client.producer.DefaultMQProducer" init-method="start" destroy-method="shutdown">
+    	<property name="producerGroup" value="${rocketmq.producer.group.default}" />
+    	<property name="namesrvAddr" value="${rocketmq.nameserver.address}" />
+    	<property name="retryTimesWhenSendFailed" value="0" />
+    </bean>
+    
+    <bean id="baseMessageSender" class="com.yunfenghui.jf.score.service.support.RetriedMessageSender" abstract="true">
+    	<property name="producer" ref="mqProducer" />
+    </bean>
+    
+    <bean id="whiteScoreSendRecordMessageSender" parent="baseMessageSender">
+    	<property name="poolNameFormat" value="whiteScoreSendRecordMessage-pool-%d" />
+    	<property name="defaultTopicName" value="${rocketmq.topic.whitescore.sendrecord}" />
+    </bean>
+    
+    <bean id="whiteScoreSendRecordNotifyMessageSender" parent="baseMessageSender">
+    	<property name="poolNameFormat" value="whiteScoreSendRecordNotifyMessage-pool-%d" />
+    	<property name="defaultTopicName" value="${rocketmq.topic.whitescore.sendrecordnotify}" />
+    </bean>
+</beans>
