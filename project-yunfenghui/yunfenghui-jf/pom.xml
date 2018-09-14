@@ -14,5 +14,6 @@
 		<module>yunfenghui-jf-score-service-impl</module>
 		<module>yunfenghui-jf-partner-service</module>
 		<module>yunfenghui-jf-partner-service-impl</module>
+		<module>yunfenghui-jf-api</module>
 	</modules>
 </project>
