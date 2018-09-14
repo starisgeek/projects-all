@@ -2,7 +2,7 @@ package com.yunfenghui.common.service.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.yfh.erp.common.service.PasswordService;
+import com.yunfenghui.common.service.PasswordService;
 
 public class Md5PasswordService implements PasswordService {
 	@Override

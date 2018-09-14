@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.yfh.jf.common.service.NumberGenerator;
+import com.yunfenghui.common.service.NumberGenerator;
 
 public class DefaultNumberGenerator implements NumberGenerator {
 	private AtomicInteger counter = new AtomicInteger(new Random().nextInt());

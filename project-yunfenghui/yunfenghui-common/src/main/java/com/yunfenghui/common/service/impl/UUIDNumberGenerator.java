@@ -2,7 +2,7 @@ package com.yunfenghui.common.service.impl;
 
 import java.util.UUID;
 
-import com.yfh.jf.common.service.NumberGenerator;
+import com.yunfenghui.common.service.NumberGenerator;
 
 public class UUIDNumberGenerator implements NumberGenerator {
 	@Override
