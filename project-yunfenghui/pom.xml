@@ -394,5 +394,6 @@
 	</build>
 	<modules>
 		<module>yunfenghui-jf</module>
+		<module>yunfenghui-common</module>
 	</modules>
 </project>
