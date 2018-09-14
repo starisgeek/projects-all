@@ -151,24 +151,4 @@ public abstract class DateTimes {
 		return (int) (milliseconds / 60_000);
 	}
 
-	public static int getPayPasswordLockedRemaindMinute(int failCount, int lockedMinute)
-			throws ERPException {
-		int remainedMinute = 0;
-		final int PAY_PASSWORD_FAILED_5_TIMES_LOCK_MINUTE = 60;
-		final int PAY_PASSWORD_FAILED_4_TIMES_LOCK_MINUTE = 30;
-		final int PAY_PASSWORD_FAILED_3_TIMES_LOCK_MINUTE = 15;
-		if (failCount == 3 && lockedMinute < PAY_PASSWORD_FAILED_3_TIMES_LOCK_MINUTE) {
-			remainedMinute = PAY_PASSWORD_FAILED_3_TIMES_LOCK_MINUTE - lockedMinute;
-		} else if (failCount == 4 && lockedMinute < PAY_PASSWORD_FAILED_4_TIMES_LOCK_MINUTE) {
-			remainedMinute = PAY_PASSWORD_FAILED_4_TIMES_LOCK_MINUTE - lockedMinute;
-		} else if (failCount >= 5 && lockedMinute < PAY_PASSWORD_FAILED_5_TIMES_LOCK_MINUTE) {
-			remainedMinute = PAY_PASSWORD_FAILED_5_TIMES_LOCK_MINUTE - lockedMinute;
-		}
-		return remainedMinute;
-	}
-
-	public static String timeString(Date date) {
-		return new SimpleDateFormat(PATTERN_HH_MM_SS).format(date);
-	}
-
 }
