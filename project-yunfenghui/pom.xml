@@ -395,5 +395,6 @@
 	<modules>
 		<module>yunfenghui-jf</module>
 		<module>yunfenghui-common</module>
+		<module>yunfenghui-erp</module>
 	</modules>
 </project>
