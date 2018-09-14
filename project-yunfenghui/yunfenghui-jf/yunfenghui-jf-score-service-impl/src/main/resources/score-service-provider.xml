@@ -22,7 +22,7 @@
 
     <dubbo:application name="score-service-provider"  />
     
-    <dubbo:registry protocol="zookeeper" address="192.168.1.128:2181" />
+    <dubbo:registry protocol="zookeeper" address="192.168.0.128:2181" />
     
     <dubbo:protocol name="dubbo" port="21881" />
     
