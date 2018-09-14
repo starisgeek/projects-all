@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration(locations = { "classpath:spring-context.xml" })
+@ContextConfiguration(locations = { "classpath:spring-context-test.xml" })
 @Transactional(transactionManager = "transactionManager", propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.DEFAULT)
 @Commit
 public class BaseDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
