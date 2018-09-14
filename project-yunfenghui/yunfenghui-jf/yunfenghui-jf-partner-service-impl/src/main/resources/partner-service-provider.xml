@@ -22,10 +22,10 @@
 
     <dubbo:application name="partner-service-provider"  />
     
-    <dubbo:registry protocol="zookeeper" address="192.168.1.128:2181" />
+    <dubbo:registry protocol="zookeeper" address="192.168.0.128:2181" />
     
-    <dubbo:protocol name="dubbo" port="21881" />
+    <dubbo:protocol name="dubbo" port="21880" />
     
-	<dubbo:service interface="com.yfh.jf.partner.service.PartnerService" ref="partnerService" />
+	<dubbo:service interface="com.yunfenghui.jf.partner.service.PartnerService" ref="partnerService" />
 	
 </beans>
