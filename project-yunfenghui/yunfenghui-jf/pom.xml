@@ -8,4 +8,7 @@
 	</parent>
 	<artifactId>yunfenghui-jf</artifactId>
 	<packaging>pom</packaging>
+	<modules>
+		<module>yunfenghui-jf-common</module>
+	</modules>
 </project>
