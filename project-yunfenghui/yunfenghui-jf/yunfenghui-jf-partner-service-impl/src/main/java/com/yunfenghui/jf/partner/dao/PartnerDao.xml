@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.jf.partner.dao.PartnerDao">
+    <resultMap id="partnerResultMap" type="com.yunfenghui.jf.partner.model.Partner">
+        <id property="id" column="id"/>
+        <result property="appId" column="app_id"/>
+        <result property="name" column="name"/>
+        <result property="number" column="number"/>
+        <result property="createTime" column="create_time"/>
+        <result property="publicKey" column="public_key"/>
+        <result property="platformPublicKey" column="platform_public_key"/>
+        <result property="platformPrivateKey" column="platform_private_key"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectAllColumns">
+        SELECT id, app_id, name, number, create_time, public_key, platform_public_key, platform_private_key, remark
+        FROM jf_partner
+    </sql>
+
+
+    <insert id="insertPartner" parameterType="com.yunfenghui.jf.partner.model.Partner" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO jf_partner(app_id, name, number, create_time, remark)
+        VALUES (#{appId}, #{name}, #{number}, #{createTime}, #{remark})
+    </insert>
+
+    <select id="queryPartnerById" resultMap="partnerResultMap">
+        <include refid="selectAllColumns" /> WHERE id = #{id}
+    </select>
+
+    <select id="queryPartnerIdByName" resultType="integer">
+        SELECT id FROM jf_partner WHERE name = #{name}
+    </select>
+
+    <select id="queryPartnerIdByAppId" resultType="integer">
+        SELECT id FROM jf_partner WHERE app_id = #{appId}
+    </select>
+	
+	<select id="queryPartnerIdByNumber" resultType="integer">
+		SELECT id FROM jf_partner WHERE number = #{number}
+	</select>
+	
+	<select id="queryPartnerByAppId" resultMap="partnerResultMap">
+		<include refid="selectAllColumns" /> WHERE app_id = #{appId}
+	</select>
+	
+	<update id="updatePublicKey">
+		UPDATE jf_partner SET public_key = #{publicKey} WHERE id = #{partnerId}
+	</update>
+</mapper>
