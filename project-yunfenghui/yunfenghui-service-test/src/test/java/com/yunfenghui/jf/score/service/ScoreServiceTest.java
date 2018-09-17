@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import com.yunfenghui.common.service.NumberGenerator;
 import com.yunfenghui.common.service.impl.UUIDNumberGenerator;
 import com.yunfenghui.jf.score.model.ChangeRecordDealTypes.WhiteScoreChangeRecordDealType;
+import com.yunfenghui.jf.score.model.MemberAccount;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRequest;
 
@@ -40,5 +41,14 @@ public class ScoreServiceTest extends AbstractJUnit4SpringContextTests {
 		scoreService.sendWhiteScore(sendRequest);
 		WhiteScoreSendRecord sendRecord = scoreService.sendWhiteScore(sendRequest);
 		logger.info("Send white score request success, sendRecord:{}", sendRecord.getRecordNo());
+	}
+
+	@Test
+	public void testGetMemberAccountBy() {
+		int memberId = 1;
+		MemberAccount account = scoreService.getMemberAccountBy(memberId);
+		logger.info("Found memberAccount whiteScores:{}, redScores:{}, by id:{}",
+				account != null ? account.getWhiteScores() : "not found",
+				account != null ? account.getRedScores() : "not found", memberId);
 	}
 }
