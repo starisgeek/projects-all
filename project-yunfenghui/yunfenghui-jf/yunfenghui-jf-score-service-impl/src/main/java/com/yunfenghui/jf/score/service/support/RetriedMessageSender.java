@@ -1,6 +1,5 @@
 package com.yunfenghui.jf.score.service.support;
 
-import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -46,8 +45,7 @@ public class RetriedMessageSender {
 	}
 
 	protected Message buildMessage(Object obj, String topicName) {
-		return new Message(topicName,
-				JSON.toJSONString(obj).getBytes(Charset.forName(Commons.UTF8)));
+		return new Message(topicName, JSON.toJSONString(obj).getBytes(Commons.CHARSET_UTF8));
 	}
 
 	private void sendToMQ(RetriedMessage retriedMessage) {
