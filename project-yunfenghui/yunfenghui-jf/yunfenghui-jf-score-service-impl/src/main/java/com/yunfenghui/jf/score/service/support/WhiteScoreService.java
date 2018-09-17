@@ -262,7 +262,11 @@ public class WhiteScoreService {
 	 */
 	public WhiteScoreSendRecord getWhiteScoreSendRecordBy(String tradeNo, int partnerId,
 			String outTradeNo) {
-		return null;
+		if (tradeNo != null) {
+			return whiteScoreSendRecordDao.querySendRecordByRecordNo(tradeNo);
+		}
+		return whiteScoreSendRecordDao.querySendRecordByPartnerIdAndOutTradeNo(partnerId,
+				outTradeNo);
 	}
 
 	/**
