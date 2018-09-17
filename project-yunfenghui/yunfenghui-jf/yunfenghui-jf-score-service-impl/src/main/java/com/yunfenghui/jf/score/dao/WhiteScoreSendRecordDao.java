@@ -41,7 +41,15 @@ public interface WhiteScoreSendRecordDao {
 			@Param("outTradeNo") String outTradeNo);
 
 	/**
-	 * 根据商户id和外部交易号查询白积分发放记录。主要用于发放白积分时验证是否存在.
+	 * 根据recordNo查询白积分发放记录。
+	 * 
+	 * @param recordNo
+	 * @return
+	 */
+	WhiteScoreSendRecord querySendRecordByRecordNo(@Param("recordNo") String recordNo);
+
+	/**
+	 * 根据商户id和外部交易号查询白积分发放记录。
 	 * 
 	 * @param partnerId
 	 * @param outTradeNo

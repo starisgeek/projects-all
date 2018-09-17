@@ -27,6 +27,11 @@
 		WHERE partner_id = #{partnerId} AND out_trade_no = #{outTradeNo}
 	</select>
 	
+	<select id="querySendRecordByRecordNo" resultMap="sendRecordResultMap">
+		SELECT record_no, member_id, partner_id, out_trade_no, send_scores, deal_type, notify_url, create_time, modify_time, status, error_code
+		FROM white_score_send_record WHERE record_no = #{recordNo}
+	</select>
+	
 	<select id="querySendRecordByPartnerIdAndOutTradeNo" resultMap="sendRecordResultMap">
 		SELECT record_no, member_id, partner_id, out_trade_no, send_scores, deal_type, notify_url, create_time, modify_time, status, error_code
 		FROM white_score_send_record WHERE partner_id = #{partnerId} AND out_trade_no = #{outTradeNo}
