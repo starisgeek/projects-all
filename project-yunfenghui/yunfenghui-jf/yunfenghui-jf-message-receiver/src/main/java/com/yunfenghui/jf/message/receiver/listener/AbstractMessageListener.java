@@ -39,6 +39,7 @@ public abstract class AbstractMessageListener<E> implements MessageListenerConcu
 				return handleOnException(e, objs);
 			}
 		}
+		logger.debug("Consume and handle message success");
 		return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 	}
 
