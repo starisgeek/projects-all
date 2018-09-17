@@ -59,4 +59,16 @@ public class ScoreServiceTest extends AbstractJUnit4SpringContextTests {
 		logger.info("Found whiteScores:{} by memberId:{}", whiteScores != null ? whiteScores : 0,
 				memberId);
 	}
+
+	@Test
+	public void testGetWhiteScoreSendRecordBy() {
+		String tradeNo = null;
+		int partnerId = 1;
+		String outTradeNo = "66fe047d75894e508864324b45104526";
+		WhiteScoreSendRecord sendRecord = scoreService.getWhiteScoreSendRecordBy(tradeNo, partnerId,
+				outTradeNo);
+		logger.info("Found sendRecord, whiteScores:{} by tradeNo:{}, partnerId:{}, outTradeNo:{}",
+				sendRecord != null ? sendRecord.getSendScores() : "not found", tradeNo, partnerId,
+				outTradeNo);
+	}
 }
