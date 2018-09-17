@@ -51,4 +51,12 @@ public class ScoreServiceTest extends AbstractJUnit4SpringContextTests {
 				account != null ? account.getWhiteScores() : "not found",
 				account != null ? account.getRedScores() : "not found", memberId);
 	}
+
+	@Test
+	public void testGetWhiteScoreBalance() {
+		int memberId = 1;
+		Integer whiteScores = scoreService.getWhiteScoreBalance(memberId);
+		logger.info("Found whiteScores:{} by memberId:{}", whiteScores != null ? whiteScores : 0,
+				memberId);
+	}
 }
