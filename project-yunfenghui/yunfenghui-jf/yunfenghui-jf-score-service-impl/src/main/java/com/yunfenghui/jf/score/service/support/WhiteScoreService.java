@@ -249,7 +249,7 @@ public class WhiteScoreService {
 	 * @return
 	 */
 	public Integer getWhiteScoreBalance(int memberId) {
-		return null;
+		return memberAccountDao.queryWhiteScores(memberId);
 	}
 
 	/**
