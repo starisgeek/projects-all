@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.rocketmq.client.producer.MQProducer;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.rocketmq.client.producer.MQProducer;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.common.service.NumberGenerator;

@@ -6,7 +6,7 @@
 	     http://www.springframework.org/schema/beans/spring-beans.xsd
 	     http://www.springframework.org/schema/tx
 	     http://www.springframework.org/schema/tx/spring-tx.xsd">
-    <bean id="mqProducer" class="com.alibaba.rocketmq.client.producer.DefaultMQProducer" init-method="start" destroy-method="shutdown">
+    <bean id="mqProducer" class="org.apache.rocketmq.client.producer.DefaultMQProducer" init-method="start" destroy-method="shutdown">
     	<property name="producerGroup" value="${rocketmq.producer.group.default}" />
     	<property name="namesrvAddr" value="${rocketmq.nameserver.address}" />
     	<property name="retryTimesWhenSendFailed" value="0" />

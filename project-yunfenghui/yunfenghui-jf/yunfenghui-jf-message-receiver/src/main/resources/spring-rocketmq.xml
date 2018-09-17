@@ -14,7 +14,7 @@
 	
 	<bean id="whiteScoreSendRecordNotifyMessageListener" class="com.yunfenghui.jf.message.receiver.listener.WhiteScoreSendRecordNotifyMessageListener" parent="abstractMessageListener" />
 	
-	<bean id="baseMqConsumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer" init-method="start" destroy-method="shutdown" abstract="true">
+	<bean id="baseMqConsumer" class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer" init-method="start" destroy-method="shutdown" abstract="true">
 		<property name="namesrvAddr" value="${rocketmq.nameserver.address}" />
 		<property name="consumeMessageBatchMaxSize" value="5" />
 	</bean>
