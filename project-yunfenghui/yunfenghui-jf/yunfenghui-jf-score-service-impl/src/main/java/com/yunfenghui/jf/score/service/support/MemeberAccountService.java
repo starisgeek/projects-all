@@ -1,5 +1,6 @@
 package com.yunfenghui.jf.score.service.support;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,15 @@ public class MemeberAccountService {
 	}
 
 	/**
-	 * 查询topN会员账户，条件必须大于memberId.结果需要按照memberId升序排序。
+	 * 查询topN会员账户，条件必须大于memberId，且白积分余额必须大于等于whiteScores,账户创建时间必须小于createTime.
 	 * 用于白积分转换红积分Job调用.
 	 * 
 	 * @param topN
 	 * @param memberId
 	 * @return
 	 */
-	public List<MemberAccount> getTopNAccounts(int topN, int memberId) {
-		return null;
+	public List<MemberAccount> getTopNAccounts(int topN, int memberId, int whiteScores,
+			Date createTime) {
+		return memberAccountDao.queryTopNAccounts(topN, memberId, whiteScores, createTime);
 	}
 }
