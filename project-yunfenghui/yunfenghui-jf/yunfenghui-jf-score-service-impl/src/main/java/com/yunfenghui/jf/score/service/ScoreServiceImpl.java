@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.common.service.NumberGenerator;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.score.model.AccountChangeRecord;
 import com.yunfenghui.jf.score.model.MemberAccount;
 import com.yunfenghui.jf.score.model.PartnerAccount;
@@ -28,8 +29,6 @@ import com.yunfenghui.jf.score.service.support.MemeberAccountService;
 import com.yunfenghui.jf.score.service.support.PartnerAccountService;
 import com.yunfenghui.jf.score.service.support.RedScoreService;
 import com.yunfenghui.jf.score.service.support.WhiteScoreService;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 @Service(ScoreService.ID)
 public class ScoreServiceImpl implements ScoreService {

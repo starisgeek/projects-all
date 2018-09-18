@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.score.model.AccountChangeRecord;
 import com.yunfenghui.jf.score.model.MemberAccount;
 import com.yunfenghui.jf.score.model.PartnerAccount;
@@ -18,8 +19,6 @@ import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecordNotify;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRequest;
 import com.yunfenghui.jf.score.model.WhiteScoreTransformRecord;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 public interface ScoreService {
 	String ID = "scoreService";

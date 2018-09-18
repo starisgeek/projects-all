@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.score.model.AccountChangeRecord;
 import com.yunfenghui.jf.score.model.PayRecord;
 import com.yunfenghui.jf.score.model.PayRequest;
@@ -14,8 +15,6 @@ import com.yunfenghui.jf.score.model.RefundRequest;
 import com.yunfenghui.jf.score.service.ScoreService.ChangeRecordQuery;
 import com.yunfenghui.jf.score.service.ScoreService.PayRecordQuery;
 import com.yunfenghui.jf.score.service.ScoreService.RefundRecordQuery;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 @Service(BalanceService.ID)
 public class BalanceService {

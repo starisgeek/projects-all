@@ -12,11 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yunfenghui.common.Commons;
 import com.yunfenghui.common.service.NumberGenerator;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.partner.dao.PartnerDao;
 import com.yunfenghui.jf.partner.model.Partner;
 import com.yunfenghui.jf.partner.util.PartnerMessageCode;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 @Service(PartnerService.ID)
 public class PartnerServiceImpl implements PartnerService {

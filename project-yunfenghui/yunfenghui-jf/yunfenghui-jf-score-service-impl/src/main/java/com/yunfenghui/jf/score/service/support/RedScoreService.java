@@ -4,12 +4,11 @@ import org.springframework.stereotype.Service;
 
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.score.model.AccountChangeRecord;
 import com.yunfenghui.jf.score.model.RedScoreTransformRecord;
 import com.yunfenghui.jf.score.service.ScoreService.ChangeRecordQuery;
 import com.yunfenghui.jf.score.service.ScoreService.ScoreTransformRecordQuery;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 @Service(RedScoreService.ID)
 public class RedScoreService {

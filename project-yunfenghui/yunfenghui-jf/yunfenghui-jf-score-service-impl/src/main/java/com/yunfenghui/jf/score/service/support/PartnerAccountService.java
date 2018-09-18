@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.common.service.NumberGenerator;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.score.dao.PartnerAccountDao;
 import com.yunfenghui.jf.score.dao.PartnerStockScoreChangeRecordDao;
 import com.yunfenghui.jf.score.dao.PartnerStockScoreRechargeRecordDao;
@@ -25,8 +26,6 @@ import com.yunfenghui.jf.score.model.StockScoreRechargeRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreTransformRecord;
 import com.yunfenghui.jf.score.service.ScoreService.ChangeRecordQuery;
 import com.yunfenghui.jf.score.service.ScoreService.ScoreTransformRecordQuery;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 @Service(PartnerAccountService.ID)
 public class PartnerAccountService {
