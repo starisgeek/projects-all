@@ -193,8 +193,9 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<MemberAccount> getTopNMemberAccounts(int topN, int memberId) {
-		return memberAccountService.getTopNAccounts(topN, memberId);
+	public List<MemberAccount> getTopNMemberAccounts(int topN, int memberId, int whiteScores,
+			Date createTime) {
+		return memberAccountService.getTopNAccounts(topN, memberId, whiteScores, createTime);
 	}
 
 	@Override

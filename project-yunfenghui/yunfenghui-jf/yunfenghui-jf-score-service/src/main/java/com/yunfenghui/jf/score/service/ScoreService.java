@@ -238,14 +238,17 @@ public interface ScoreService {
 	List<RefundRecord> getRefundRecordsByPayRecordNo(String payRecordNo);
 
 	/**
-	 * 查询topN会员账户，条件必须大于memberId.结果需要按照memberId升序排序。
+	 * 查询topN会员账户，条件必须大于memberId，且白积分余额必须大于等于whiteScores,账户创建时间必须小于createTime.
+	 * 结果需要按照memberId升序排序。
 	 * 用于白积分转换红积分Job调用.
 	 * 
 	 * @param topN
 	 * @param memberId
+	 * @param whiteScores
 	 * @return
 	 */
-	List<MemberAccount> getTopNMemberAccounts(int topN, int memberId);
+	List<MemberAccount> getTopNMemberAccounts(int topN, int memberId, int whiteScores,
+			Date createTime);
 
 	/**
 	 * 根据条件分页查询余额变动流水
