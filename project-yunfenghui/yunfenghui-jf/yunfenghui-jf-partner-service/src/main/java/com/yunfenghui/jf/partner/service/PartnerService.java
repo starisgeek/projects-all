@@ -1,8 +1,7 @@
 package com.yunfenghui.jf.partner.service;
 
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.partner.model.Partner;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 public interface PartnerService {
 	String ID = "partnerService";
