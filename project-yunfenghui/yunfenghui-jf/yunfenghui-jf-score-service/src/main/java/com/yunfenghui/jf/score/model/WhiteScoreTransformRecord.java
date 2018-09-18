@@ -16,9 +16,9 @@ public class WhiteScoreTransformRecord implements Serializable {
 	 */
 	private String recordNo;
 	/**
-	 * 账户id
+	 * 会员id
 	 */
-	private int accountId;
+	private int memberId;
 	/**
 	 * 转换积分
 	 */
@@ -37,12 +37,12 @@ public class WhiteScoreTransformRecord implements Serializable {
 		this.recordNo = recordNo;
 	}
 
-	public int getAccountId() {
-		return accountId;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	public int getTransformScores() {
