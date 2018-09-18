@@ -1,5 +1,8 @@
 package com.yunfenghui.jf.score.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +24,18 @@ public interface MemberAccountDao {
 	 * @return
 	 */
 	MemberAccount queryAccountById(@Param("memberId") int memberId);
+
+	/**
+	 * 查询账户列表。
+	 * 
+	 * @param topN
+	 * @param memberId
+	 * @param whiteScores
+	 * @param createTime
+	 * @return
+	 */
+	List<MemberAccount> queryTopNAccounts(@Param("topN") int topN, @Param("memberId") int memberId,
+			@Param("whiteScores") int whiteScores, @Param("createTime") Date createTime);
 
 	/**
 	 * 根据会员id查询白积分余额

@@ -21,6 +21,14 @@
 		FROM member_account WHERE member_id = #{memberId}
 	</select>
 	
+	<select id="queryTopNAccounts" resultMap="memberAccountResultMap">
+		<![CDATA[SELECT member_id, white_scores, red_scores, balance, create_time
+		FROM member_account 
+		WHERE member_id > #{memberId} AND white_scores >= #{whiteScores}
+		AND create_time < #{createTime}
+		ORDER BY member_id LIMIT #{topN}]]>
+	</select>
+	
 	<select id="queryWhiteScores" resultType="integer">
 		SELECT white_scores FROM member_account WHERE member_id = #{memberId}
 	</select>
