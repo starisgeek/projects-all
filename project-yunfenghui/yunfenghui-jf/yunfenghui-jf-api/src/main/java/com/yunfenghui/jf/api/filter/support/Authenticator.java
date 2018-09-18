@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yunfenghui.jf.api.support.ApiMessageCode;
+import com.yunfenghui.jf.common.JFException;
 import com.yunfenghui.jf.partner.model.Partner;
 import com.yunfenghui.jf.partner.service.PartnerService;
-
-import ocm.yunfenghui.jf.common.JFException;
 
 public class Authenticator {
 	private Logger logger = LoggerFactory.getLogger(getClass());

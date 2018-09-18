@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.yunfenghui.jf.api.response.ApiResponse;
-
-import ocm.yunfenghui.jf.common.JFException;
+import com.yunfenghui.jf.common.JFException;
 
 public abstract class AbstractApiFilter implements Filter {
 	protected Logger logger = LoggerFactory.getLogger(getClass());

@@ -10,8 +10,7 @@ import com.alipay.api.AlipayConstants;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.yunfenghui.common.Commons;
 import com.yunfenghui.jf.api.support.ApiMessageCode;
-
-import ocm.yunfenghui.jf.common.JFException;
+import com.yunfenghui.jf.common.JFException;
 
 public class SignVerificator {
 	public static final String ID = "signVerificator";
