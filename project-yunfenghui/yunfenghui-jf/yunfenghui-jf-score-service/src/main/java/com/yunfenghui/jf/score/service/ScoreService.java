@@ -1,7 +1,6 @@
 package com.yunfenghui.jf.score.service;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -81,9 +80,9 @@ public interface ScoreService {
 	/**
 	 * 查询或者创建白积分转换Job
 	 * 
-	 * @param day
+	 * @param transformDate
 	 */
-	WhiteScoreTransformJob getOrCreateWhiteScoreTransformJob(int day);
+	WhiteScoreTransformJob getOrCreateWhiteScoreTransformJob(int transformDate);
 
 	/**
 	 * 批量添加白积分转换记录
@@ -114,10 +113,10 @@ public interface ScoreService {
 	/**
 	 * 根据日期获取白积分转换比率
 	 * 
-	 * @param day
+	 * @param transformDate
 	 * @return
 	 */
-	BigDecimal getWhiteScoreTransformRatio(int day);
+	Integer getWhiteScoreTransformRatio(int transformDate);
 
 	/**
 	 * 查询会员红积分余额。如果memberId对应的账户不存在，则返回0
