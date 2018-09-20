@@ -55,7 +55,7 @@ CREATE TABLE `white_score_transform_job` (
 
 CREATE TABLE `white_score_transform_ratio` (
   `transform_date` int(11) NOT NULL COMMENT '转换日期yyyyMMdd',
-  `int` int(11) NOT NULL COMMENT '转换比率(万分之)',
+  `ratio` int(11) NOT NULL COMMENT '转换比率(万分之)',
   PRIMARY KEY (`transform_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
