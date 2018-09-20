@@ -19,6 +19,7 @@ import com.yunfenghui.jf.score.model.RefundRequest;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecordNotify;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRequest;
+import com.yunfenghui.jf.score.model.WhiteScoreTransformJob;
 import com.yunfenghui.jf.score.model.WhiteScoreTransformRecord;
 
 public interface ScoreService {
@@ -78,6 +79,13 @@ public interface ScoreService {
 	PageResult<AccountChangeRecord> getWhiteScoreChangeRecords(ChangeRecordQuery query, Page page);
 
 	/**
+	 * 查询或者创建白积分转换Job
+	 * 
+	 * @param day
+	 */
+	WhiteScoreTransformJob getOrCreateWhiteScoreTransformJob(int day);
+
+	/**
 	 * 批量添加白积分转换记录
 	 * 
 	 * @param transformRecords
@@ -109,7 +117,7 @@ public interface ScoreService {
 	 * @param day
 	 * @return
 	 */
-	BigDecimal getWhiteScoreTransformRatio(Date day);
+	BigDecimal getWhiteScoreTransformRatio(int day);
 
 	/**
 	 * 查询会员红积分余额。如果memberId对应的账户不存在，则返回0
