@@ -1,6 +1,7 @@
 package com.yunfenghui.jf.score.service;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,13 @@ public interface ScoreService {
 	PageResult<AccountChangeRecord> getWhiteScoreChangeRecords(ChangeRecordQuery query, Page page);
 
 	/**
+	 * 批量添加白积分转换记录
+	 * 
+	 * @param transformRecords
+	 */
+	void addWhiteScoreTransformRecords(List<WhiteScoreTransformRecord> transformRecords);
+
+	/**
 	 * 根据条件分页查询白积分转换记录。按照时间降序排序。
 	 * 
 	 * @param query
@@ -85,6 +93,23 @@ public interface ScoreService {
 	 */
 	PageResult<WhiteScoreTransformRecord> getWhiteScoreTransformRecords(
 			ScoreTransformRecordQuery query, Page page);
+
+	/**
+	 * 根据时间范围查询最大的memberId
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	Integer getMaxMemberIdOfWhiteScoreTransformRecordsBy(Date startDate, Date endDate);
+
+	/**
+	 * 根据日期获取白积分转换比率
+	 * 
+	 * @param day
+	 * @return
+	 */
+	BigDecimal getWhiteScoreTransformRatio(Date day);
 
 	/**
 	 * 查询会员红积分余额。如果memberId对应的账户不存在，则返回0
