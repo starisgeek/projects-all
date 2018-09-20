@@ -47,6 +47,18 @@ CREATE TABLE `white_score_transform_record` (
   PRIMARY KEY (`record_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `white_score_transform_job` (
+  `transform_date` int(11) NOT NULL COMMENT '转换日期yyyyMMdd',
+  `status` int(11) NOT NULL COMMENT '状态',
+  PRIMARY KEY (`transform_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `white_score_transform_ratio` (
+  `transform_date` int(11) NOT NULL COMMENT '转换日期yyyyMMdd',
+  `int` int(11) NOT NULL COMMENT '转换比率(万分之)',
+  PRIMARY KEY (`transform_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `red_score_transform_record` (
   `record_no` varchar(32) NOT NULL COMMENT '记录号',
   `member_id` int(11) NOT NULL COMMENT '会员id',
