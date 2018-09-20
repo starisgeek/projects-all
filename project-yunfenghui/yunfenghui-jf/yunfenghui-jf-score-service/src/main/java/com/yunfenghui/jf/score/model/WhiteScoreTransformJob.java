@@ -17,7 +17,7 @@ public class WhiteScoreTransformJob implements Serializable {
 	/**
 	 * 执行状态
 	 */
-	private int status;
+	private int status = STATUS_PENDING;
 
 	/**
 	 * 待执行
