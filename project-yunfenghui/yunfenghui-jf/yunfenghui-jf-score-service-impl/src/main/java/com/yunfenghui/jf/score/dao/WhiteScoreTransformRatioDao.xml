@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.jf.score.dao.WhiteScoreTransformRatioDao">
+	<insert id="insertTransformRatio">
+		INSERT INTO white_score_transform_ratio(transform_date, ratio)
+		VALUES(#{transformDate}, #{ratio})
+	</insert>
+	
+	<select id="queryTransformRatio" resultType="integer">
+		SELECT ratio FROM white_score_transform_ratio
+		WHERE transform_date = #{transformDate}
+	</select>
+</mapper>
