@@ -88,6 +88,7 @@ public interface ScoreService {
 	 * 批量转换会员白积分
 	 * 
 	 * @param memberAccounts
+	 * @param transformDate
 	 */
 	void batchTransformWhiteScore(List<MemberAccount> memberAccounts, int transformDate);
 
