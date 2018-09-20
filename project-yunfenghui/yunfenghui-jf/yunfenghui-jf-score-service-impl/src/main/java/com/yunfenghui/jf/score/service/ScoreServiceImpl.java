@@ -2,6 +2,7 @@ package com.yunfenghui.jf.score.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -136,8 +137,19 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public Integer getWhiteScoreTransformRatio(int transformDate) {
-		return null;
+	public int getWhiteScoreTransformRatio(int transformDate) {
+		// query from cache first
+		// get from cache
+		Integer ratio = whiteScoreService.getTransformRatio(transformDate);
+		if (ratio != null) {
+			// add to cache
+			return ratio;
+		}
+		Random r = new Random();
+		ratio = 500 + r.nextInt(100);
+		whiteScoreService.addTransformRatio(transformDate, ratio);
+		// add to cache
+		return ratio;
 	}
 
 	@Override
