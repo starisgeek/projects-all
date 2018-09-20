@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class WhiteScoreTransformJob implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * 执行日期20180920
+	 * 执行日期(yyyyMMdd)
 	 */
 	private int executeDate;
 	/**
