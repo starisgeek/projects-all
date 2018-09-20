@@ -125,7 +125,7 @@ public interface ScoreService {
 	 * @param transformDate
 	 * @return
 	 */
-	Integer getWhiteScoreTransformRatio(int transformDate);
+	int getWhiteScoreTransformRatio(int transformDate);
 
 	/**
 	 * 查询会员红积分余额。如果memberId对应的账户不存在，则返回0
