@@ -25,12 +25,16 @@ import com.yunfenghui.jf.score.dao.PartnerStockScoreChangeRecordDao;
 import com.yunfenghui.jf.score.dao.WhiteScoreChangeRecordDao;
 import com.yunfenghui.jf.score.dao.WhiteScoreSendRecordDao;
 import com.yunfenghui.jf.score.dao.WhiteScoreSendRecordNotifyDao;
+import com.yunfenghui.jf.score.dao.WhiteScoreTransformJobDao;
+import com.yunfenghui.jf.score.dao.WhiteScoreTransformRatioDao;
+import com.yunfenghui.jf.score.dao.WhiteScoreTransformRecordDao;
 import com.yunfenghui.jf.score.model.AccountChangeRecord;
 import com.yunfenghui.jf.score.model.ChangeRecordDealTypes.PartnerStockScoreChangeRecordDealType;
 import com.yunfenghui.jf.score.model.ChangeRecordDealTypes.WhiteScoreChangeRecordDealType;
 import com.yunfenghui.jf.score.model.MemberAccount;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecordNotify;
+import com.yunfenghui.jf.score.model.WhiteScoreTransformJob;
 import com.yunfenghui.jf.score.model.WhiteScoreTransformRecord;
 import com.yunfenghui.jf.score.service.ScoreService.ChangeRecordQuery;
 import com.yunfenghui.jf.score.service.ScoreService.ScoreTransformRecordQuery;
@@ -45,11 +49,17 @@ public class WhiteScoreService {
 	@Autowired
 	private MemberAccountDao memberAccountDao;
 	@Autowired
-	private WhiteScoreSendRecordDao whiteScoreSendRecordDao;
+	private WhiteScoreSendRecordDao sendRecordDao;
 	@Autowired
-	private WhiteScoreChangeRecordDao whiteScoreChangeRecordDao;
+	private WhiteScoreChangeRecordDao changeRecordDao;
 	@Autowired
-	private WhiteScoreSendRecordNotifyDao whiteScoreSendRecordNotifyDao;
+	private WhiteScoreTransformRecordDao transformRecordDao;
+	@Autowired
+	private WhiteScoreTransformJobDao transformJobDao;
+	@Autowired
+	private WhiteScoreTransformRatioDao transformRatioDao;
+	@Autowired
+	private WhiteScoreSendRecordNotifyDao sendRecordNotifyDao;
 	@Autowired
 	private PartnerAccountDao partnerAccountDao;
 	@Autowired
@@ -57,22 +67,21 @@ public class WhiteScoreService {
 	@Resource(name = "serialNumberGenerator")
 	private NumberGenerator numberGenerator;
 	@Resource(name = "whiteScoreSendRecordMessageSender")
-	private RetriedMessageSender whiteScoreSendRecordMessageSender;
+	private RetriedMessageSender sendRecordMessageSender;
 	@Resource(name = "whiteScoreSendRecordNotifyMessageSender")
-	private RetriedMessageSender whiteScoreSendRecordNotifyMessageSender;
+	private RetriedMessageSender sendRecordNotifyMessageSender;
 
 	public WhiteScoreSendRecord getWhiteScoreSendRecord(int partnerId, String outTradeNo) {
-		return whiteScoreSendRecordDao.querySendRecordByPartnerIdAndOutTradeNo(partnerId,
-				outTradeNo);
+		return sendRecordDao.querySendRecordByPartnerIdAndOutTradeNo(partnerId, outTradeNo);
 	}
 
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
 	public void addWhiteScoreSendRecord(WhiteScoreSendRecord sendRecord) {
-		whiteScoreSendRecordDao.insertSendRecord(sendRecord);
+		sendRecordDao.insertSendRecord(sendRecord);
 	}
 
 	public void sendWhiteScoreSendRecordMessage(WhiteScoreSendRecord sendRecord) {
-		whiteScoreSendRecordMessageSender.send(sendRecord);
+		sendRecordMessageSender.send(sendRecord);
 	}
 
 	/**
@@ -91,7 +100,7 @@ public class WhiteScoreService {
 						sendRecord.getSendScores());
 				// partner stock score not enough
 				if (updated == 0) {
-					updated = whiteScoreSendRecordDao.updateSendRecordStatusAndErrorCode(
+					updated = sendRecordDao.updateSendRecordStatusAndErrorCode(
 							sendRecord.getRecordNo(), WhiteScoreSendRecord.STATUS_PENDING,
 							WhiteScoreSendRecord.STATUS_SEND_FAILED,
 							ScoreMessageCode.PARTNER_STOCK_SCORE_NOT_ENOUGH, new Date());
@@ -109,7 +118,7 @@ public class WhiteScoreService {
 								WhiteScoreSendRecord.STATUS_SEND_FAILED);
 					}
 				} else {
-					updated = whiteScoreSendRecordDao.updateSendRecordStatusAndErrorCode(
+					updated = sendRecordDao.updateSendRecordStatusAndErrorCode(
 							sendRecord.getRecordNo(), WhiteScoreSendRecord.STATUS_PENDING,
 							WhiteScoreSendRecord.STATUS_SEND_SUCCESS, null, new Date());
 					// 幂等判断
@@ -130,7 +139,7 @@ public class WhiteScoreService {
 			}
 
 			if (!notifies.isEmpty()) {
-				whiteScoreSendRecordNotifyDao.batchInsertNotifies(notifies);
+				sendRecordNotifyDao.batchInsertNotifies(notifies);
 			}
 
 			return notifies;
@@ -147,7 +156,7 @@ public class WhiteScoreService {
 				// Here should send a notify to partner notify url
 				logger.info("Handled white score send record notify:{}", notify.getRecordNo());
 			}
-			whiteScoreSendRecordNotifyDao.batchDeleteNotifies(recordNos);
+			sendRecordNotifyDao.batchDeleteNotifies(recordNos);
 		}
 	}
 
@@ -160,7 +169,7 @@ public class WhiteScoreService {
 	}
 
 	protected void sendWhiteScoreSendRecordNotifyMessage(WhiteScoreSendRecordNotify notify) {
-		whiteScoreSendRecordNotifyMessageSender.send(notify);
+		sendRecordNotifyMessageSender.send(notify);
 	}
 
 	private void handleSuccessWhiteScoreSendRecords(List<WhiteScoreSendRecord> sendRecords) {
@@ -174,7 +183,7 @@ public class WhiteScoreService {
 			whiteScoreChangeRecords.add(buildWhiteScoreChangeRecord(sendRecord));
 		}
 		partnerStockScoreChangeRecordDao.batchInsertChangeRecords(partnerStockScoreChangeRecords);
-		whiteScoreChangeRecordDao.batchInsertChangeRecords(whiteScoreChangeRecords);
+		changeRecordDao.batchInsertChangeRecords(whiteScoreChangeRecords);
 	}
 
 	private AccountChangeRecord buildPartnerStockScoreChangeRecord(
@@ -248,7 +257,7 @@ public class WhiteScoreService {
 	 * @param memberId
 	 * @return
 	 */
-	public Integer getWhiteScoreBalance(int memberId) {
+	public Integer getBalance(int memberId) {
 		return memberAccountDao.queryWhiteScores(memberId);
 	}
 
@@ -260,13 +269,11 @@ public class WhiteScoreService {
 	 * @param outTradeNo
 	 * @return
 	 */
-	public WhiteScoreSendRecord getWhiteScoreSendRecordBy(String tradeNo, int partnerId,
-			String outTradeNo) {
+	public WhiteScoreSendRecord getSendRecordBy(String tradeNo, int partnerId, String outTradeNo) {
 		if (tradeNo != null) {
-			return whiteScoreSendRecordDao.querySendRecordByRecordNo(tradeNo);
+			return sendRecordDao.querySendRecordByRecordNo(tradeNo);
 		}
-		return whiteScoreSendRecordDao.querySendRecordByPartnerIdAndOutTradeNo(partnerId,
-				outTradeNo);
+		return sendRecordDao.querySendRecordByPartnerIdAndOutTradeNo(partnerId, outTradeNo);
 	}
 
 	/**
@@ -276,9 +283,84 @@ public class WhiteScoreService {
 	 * @param page
 	 * @return
 	 */
-	public PageResult<AccountChangeRecord> getWhiteScoreChangeRecords(ChangeRecordQuery query,
-			Page page) {
+	public PageResult<AccountChangeRecord> getChangeRecords(ChangeRecordQuery query, Page page) {
 		return null;
+	}
+
+	/**
+	 * 根据transformDate查询WhiteScoreTransformJob
+	 * 
+	 * @param transformDate
+	 * @return
+	 */
+	public WhiteScoreTransformJob getTransformJob(int transformDate) {
+		return transformJobDao.queryTransformJob(transformDate);
+	}
+
+	/**
+	 * 添加WhiteScoreTransformJob
+	 * 
+	 * @param job
+	 */
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+	public void addTransformJob(WhiteScoreTransformJob job) {
+		transformJobDao.insertTransformJob(job);
+	}
+
+	/**
+	 * 批量新增WhiteScoreTransformRecord
+	 * 
+	 * @param transformRecords
+	 */
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+	public void addTransformRecords(List<WhiteScoreTransformRecord> transformRecords) {
+		transformRecordDao.batchInsertTransformRecords(transformRecords);
+	}
+
+	/**
+	 * 根据时间范围查询最大的memberId
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public Integer getMaxMemberIdOfTransformRecordsBy(Date startTime, Date endTime) {
+		return transformRecordDao.queryMaxMemberIdBy(startTime, endTime);
+	}
+
+	/**
+	 * 批量新增WhiteScoreTransformRecord并且设置WhiteScoreTransformJob为完成
+	 * 
+	 * @param transformRecords
+	 * @param transformDate
+	 */
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+	public void addTransformRecordsAndComplateTransformJob(
+			List<WhiteScoreTransformRecord> transformRecords, int transformDate) {
+		transformRecordDao.batchInsertTransformRecords(transformRecords);
+		transformJobDao.updateTransformJobStatus(transformDate,
+				WhiteScoreTransformJob.STATUS_COMPLETED);
+	}
+
+	/**
+	 * 根据transformDate查询ratio
+	 * 
+	 * @param transformDate
+	 * @return
+	 */
+	public Integer getTransformRatio(int transformDate) {
+		return transformRatioDao.queryTransformRatio(transformDate);
+	}
+
+	/**
+	 * 添加白积分转换比率
+	 * 
+	 * @param transformDate
+	 * @param ratio
+	 */
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+	public void addTransformRatio(int transformDate, int ratio) {
+		transformRatioDao.insertTransformRatio(transformDate, ratio);
 	}
 
 	/**
@@ -288,7 +370,7 @@ public class WhiteScoreService {
 	 * @param page
 	 * @return
 	 */
-	public PageResult<WhiteScoreTransformRecord> getWhiteScoreTransformRecords(
+	public PageResult<WhiteScoreTransformRecord> getTransformRecords(
 			ScoreTransformRecordQuery query, Page page) {
 		return null;
 	}

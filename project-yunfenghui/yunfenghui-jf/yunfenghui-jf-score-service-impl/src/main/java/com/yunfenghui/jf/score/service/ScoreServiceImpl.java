@@ -23,6 +23,7 @@ import com.yunfenghui.jf.score.model.RefundRequest;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecordNotify;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRequest;
+import com.yunfenghui.jf.score.model.WhiteScoreTransformJob;
 import com.yunfenghui.jf.score.model.WhiteScoreTransformRecord;
 import com.yunfenghui.jf.score.service.support.BalanceService;
 import com.yunfenghui.jf.score.service.support.MemeberAccountService;
@@ -85,7 +86,7 @@ public class ScoreServiceImpl implements ScoreService {
 	@Override
 	public WhiteScoreSendRecord getWhiteScoreSendRecordBy(String tradeNo, int partnerId,
 			String outTradeNo) {
-		return whiteScoreService.getWhiteScoreSendRecordBy(tradeNo, partnerId, outTradeNo);
+		return whiteScoreService.getSendRecordBy(tradeNo, partnerId, outTradeNo);
 	}
 
 	@Override
@@ -95,20 +96,54 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public int getWhiteScoreBalance(int memberId) {
-		Integer balance = whiteScoreService.getWhiteScoreBalance(memberId);
+		Integer balance = whiteScoreService.getBalance(memberId);
 		return balance != null ? balance : ABSENT_BALANCE;
 	}
 
 	@Override
 	public PageResult<AccountChangeRecord> getWhiteScoreChangeRecords(ChangeRecordQuery query,
 			Page page) {
-		return whiteScoreService.getWhiteScoreChangeRecords(query, page);
+		return whiteScoreService.getChangeRecords(query, page);
+	}
+
+	@Override
+	public WhiteScoreTransformJob getOrCreateWhiteScoreTransformJob(int transformDate) {
+		WhiteScoreTransformJob job = whiteScoreService.getTransformJob(transformDate);
+		if (job == null) {
+			job = new WhiteScoreTransformJob();
+			job.setTransformDate(transformDate);
+			job.setStatus(WhiteScoreTransformJob.STATUS_COMPLETED);
+			whiteScoreService.addTransformJob(job);
+		}
+		return job;
+	}
+
+	@Override
+	public void addWhiteScoreTransformRecords(List<WhiteScoreTransformRecord> transformRecords) {
+		whiteScoreService.addTransformRecords(transformRecords);
+	}
+
+	@Override
+	public void addWhiteScoreTransformRecordsAndCompleteWhiteScoreTransformJob(
+			List<WhiteScoreTransformRecord> transformRecords, int transformDate) {
+		whiteScoreService.addTransformRecordsAndComplateTransformJob(transformRecords,
+				transformDate);
+	}
+
+	@Override
+	public Integer getMaxMemberIdOfWhiteScoreTransformRecordsBy(Date startTime, Date endTime) {
+		return whiteScoreService.getMaxMemberIdOfTransformRecordsBy(startTime, endTime);
+	}
+
+	@Override
+	public Integer getWhiteScoreTransformRatio(int transformDate) {
+		return null;
 	}
 
 	@Override
 	public PageResult<WhiteScoreTransformRecord> getWhiteScoreTransformRecords(
 			ScoreTransformRecordQuery query, Page page) {
-		return whiteScoreService.getWhiteScoreTransformRecords(query, page);
+		return whiteScoreService.getTransformRecords(query, page);
 	}
 
 	@Override
