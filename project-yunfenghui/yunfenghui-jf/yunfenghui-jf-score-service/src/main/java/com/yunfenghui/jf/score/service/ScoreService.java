@@ -92,13 +92,13 @@ public interface ScoreService {
 	void batchTransformWhiteScore(List<MemberAccount> memberAccounts);
 
 	/**
-	 * 批量添加白积分转换记录并设置转换job状态为完成
+	 * 批量转换白积分并设置转换job状态为完成
 	 * 
-	 * @param transformRecords
+	 * @param memberAccounts
 	 * @param transformDate
 	 */
-	void addWhiteScoreTransformRecordsAndCompleteWhiteScoreTransformJob(
-			List<WhiteScoreTransformRecord> transformRecords, int transformDate);
+	void batchTransformWhiteScoreAndCompleteWhiteScoreTransformJob(
+			List<MemberAccount> memberAccounts, int transformDate);
 
 	/**
 	 * 根据条件分页查询白积分转换记录。按照时间降序排序。
