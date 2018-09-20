@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.jf.score.dao.WhiteScoreTransformRecordDao">
+	<insert id="batchInsertTransformRecords">
+		INSERT INTO white_score_transform_record(record_no, member_id, transform_scores, create_time)
+		VALUES
+		<foreach collection="transformRecords" item="transformRecord" separator=",">
+            (#{transformRecord.recordNo}, #{transformRecord.memberId}, #{transformRecord.transformScores}, #{transformRecord.createTime})
+        </foreach>
+	</insert>
+	
+	<select id="queryMaxMemberIdBy" resultType="integer">
+		SELECT MAX(member_id) FROM white_score_transform_record
+		WHERE create_time BETWEEN #{startTime} AND #{endTime} ORDER BY member_id
+	</select>
+</mapper>
