@@ -104,11 +104,11 @@ public interface ScoreService {
 	/**
 	 * 根据时间范围查询最大的memberId
 	 * 
-	 * @param startDate
-	 * @param endDate
+	 * @param startTime
+	 * @param endTime
 	 * @return
 	 */
-	Integer getMaxMemberIdOfWhiteScoreTransformRecordsBy(Date startDate, Date endDate);
+	Integer getMaxMemberIdOfWhiteScoreTransformRecordsBy(Date startTime, Date endTime);
 
 	/**
 	 * 根据日期获取白积分转换比率
