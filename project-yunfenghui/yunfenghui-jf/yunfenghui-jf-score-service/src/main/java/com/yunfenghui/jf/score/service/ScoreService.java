@@ -85,11 +85,11 @@ public interface ScoreService {
 	WhiteScoreTransformJob getOrCreateWhiteScoreTransformJob(int transformDate);
 
 	/**
-	 * 批量添加白积分转换记录
+	 * 批量转换会员白积分
 	 * 
-	 * @param transformRecords
+	 * @param memberAccounts
 	 */
-	void addWhiteScoreTransformRecords(List<WhiteScoreTransformRecord> transformRecords);
+	void batchTransformWhiteScore(List<MemberAccount> memberAccounts);
 
 	/**
 	 * 批量添加白积分转换记录并设置转换job状态为完成
