@@ -13,7 +13,7 @@ public class WhiteScoreTransformJob implements Serializable {
 	/**
 	 * 执行日期(yyyyMMdd)
 	 */
-	private int executeDate;
+	private int transformDate;
 	/**
 	 * 执行状态
 	 */
@@ -28,12 +28,12 @@ public class WhiteScoreTransformJob implements Serializable {
 	 */
 	public static final int STATUS_COMPLETED = 2;
 
-	public int getExecuteDate() {
-		return executeDate;
+	public int getTransformDate() {
+		return transformDate;
 	}
 
-	public void setExecuteDate(int executeDate) {
-		this.executeDate = executeDate;
+	public void setTransformDate(int transformDate) {
+		this.transformDate = transformDate;
 	}
 
 	public int getStatus() {
