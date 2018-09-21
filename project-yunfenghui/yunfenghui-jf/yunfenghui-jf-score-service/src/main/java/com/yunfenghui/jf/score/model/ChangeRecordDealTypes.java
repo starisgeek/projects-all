@@ -50,5 +50,22 @@ public interface ChangeRecordDealTypes {
 		 * 销售
 		 */
 		int SELL = 3;
+
+		/**
+		 * 转换红积分
+		 */
+		int TRANSFORM_TO_REDSCORE = 4;
+	}
+
+	interface RedScoreChangeRecordDealType {
+		/**
+		 * 白积分转入
+		 */
+		int TRANSFORM_FROM_WHITESCORE = 1;
+
+		/**
+		 * 转换余额
+		 */
+		int TRANSFORM_TO_BALANCE = 2;
 	}
 }
