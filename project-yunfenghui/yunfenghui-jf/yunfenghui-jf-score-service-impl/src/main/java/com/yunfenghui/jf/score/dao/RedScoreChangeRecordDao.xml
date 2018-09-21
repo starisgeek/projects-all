@@ -7,4 +7,12 @@
 		INSERT INTO red_score_change_record(serial_number, member_id, change_amount, deal_type, original_record_no, create_time)
 		VALUES(#{serialNumber}, #{accountId}, #{changeAmount}, #{dealType}, #{originalRecordNo}, #{createTime})
 	</insert>
+	
+	<insert id="batchInsertChangeRecords">
+		INSERT INTO red_score_change_record(serial_number, member_id, change_amount, deal_type, original_record_no, create_time)
+		VALUES
+		<foreach collection="changeRecords" item="changeRecord" separator=",">
+            (#{changeRecord.serialNumber}, #{changeRecord.accountId}, #{changeRecord.changeAmount}, #{changeRecord.dealType}, #{changeRecord.originalRecordNo}, #{changeRecord.createTime})
+        </foreach>
+	</insert>
 </mapper>
