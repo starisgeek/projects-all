@@ -51,6 +51,12 @@
 		WHERE member_id = #{memberId} AND white_scores >= #{decrement}
 	</update>
 	
+	<update id="decreaseWhiteScoreAndIncreaseRedScore">
+		UPDATE member_account SET white_scores = white_scores - #{decrement},
+		red_scores = red_scores + #{increment}
+		WHERE member_id = #{memberId}
+	</update>
+	
 	<update id="increaseRedScore">
 		UPDATE member_account SET red_scores = red_scores + #{increment}
 		WHERE member_id = #{memberId}

@@ -80,6 +80,17 @@ public interface MemberAccountDao {
 	int decreaseWhiteScore(@Param("memberId") int memberId, @Param("decrement") int decrement);
 
 	/**
+	 * 扣减白积分并增加红积分
+	 * 
+	 * @param memberId
+	 * @param decrement
+	 * @param increment
+	 * @return
+	 */
+	int decreaseWhiteScoreAndIncreaseRedScore(@Param("memberId") int memberId,
+			@Param("decrement") int decrement, @Param("increment") int increment);
+
+	/**
 	 * 增加红积分
 	 * 
 	 * @param memberId
