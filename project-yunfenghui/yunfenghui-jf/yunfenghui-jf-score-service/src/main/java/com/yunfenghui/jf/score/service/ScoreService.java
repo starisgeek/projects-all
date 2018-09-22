@@ -102,6 +102,13 @@ public interface ScoreService {
 			List<MemberAccount> memberAccounts, int transformDate);
 
 	/**
+	 * 设置白积分转换job状态为完成
+	 * 
+	 * @param transformDate
+	 */
+	void completeWhiteScoreTransformJob(int transformDate);
+
+	/**
 	 * 根据条件分页查询白积分转换记录。按照时间降序排序。
 	 * 
 	 * @param query
