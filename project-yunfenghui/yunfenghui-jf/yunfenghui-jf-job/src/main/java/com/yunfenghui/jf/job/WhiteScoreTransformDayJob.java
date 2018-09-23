@@ -55,8 +55,4 @@ public class WhiteScoreTransformDayJob {
 		logger.info("{} completed, transform date:{}", getClass().getSimpleName(), transformDate);
 	}
 
-	public void setScoreService(ScoreService scoreService) {
-		this.scoreService = scoreService;
-	}
-
 }
