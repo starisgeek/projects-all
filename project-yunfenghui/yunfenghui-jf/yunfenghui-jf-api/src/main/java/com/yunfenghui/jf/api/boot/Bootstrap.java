@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 
 import com.yunfenghui.jf.api.filter.FilterConfiguration;
 
-@SpringBootApplication(scanBasePackages = { "com.yfh.jf.api.web" })
+@SpringBootApplication(scanBasePackages = { "com.yunfenghui.jf.api.controller" })
 @ImportResource("classpath:service-consumer.xml")
 @Import(value = { FilterConfiguration.class })
 public class Bootstrap {
