@@ -39,7 +39,10 @@ public class PartnerServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testModifyPartnerPublicKey() {
-		fail("Not yet implemented");
+		int partnerId = 1;
+		String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnwAwWthHk0Lqfr31RxjkqsNHDUyOon7hlZvf/oPkfQDXXFqgZp4KUfrqQiBl+E86v/5W7vk22Vr6Pet2gcpJKlRVk97nehqJYbiZYGU3T493qf92gJEBUNC9lPZ8xVIsfEswm7+1P4WKXOBf24KBphs7PsEZx3hQtMeT1G6QEhyG85LAHgueItIOphmp3PyxMCU4ITpv4KY4laVZwRSk7k7yYBDm45KJQ8dAMVPZS6jETqPmv/vivqGKKS4I6AHzbcIqUOTIvIVwUNoz91G0bYbnAj84VtqERxE+20QgTw9+ZM2NK/Ns/GRnnoc4/pN3ZY7susunUCacgsbXfUlU6wIDAQAB";
+		partnerService.modifyPartnerPublicKey(partnerId, publicKey);
+		logger.info("modifyPartnerPublicKey success");
 	}
 
 }
