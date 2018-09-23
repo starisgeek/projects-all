@@ -12,10 +12,6 @@ public class WhiteScoreSendRequest {
 	 */
 	private int memberId;
 	/**
-	 * 商户id
-	 */
-	private int partnerId;
-	/**
 	 * 外包交易号
 	 */
 	private String outTradeNo;
@@ -40,14 +36,6 @@ public class WhiteScoreSendRequest {
 
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
-	}
-
-	public int getPartnerId() {
-		return partnerId;
-	}
-
-	public void setPartnerId(int partnerId) {
-		this.partnerId = partnerId;
 	}
 
 	public String getOutTradeNo() {
