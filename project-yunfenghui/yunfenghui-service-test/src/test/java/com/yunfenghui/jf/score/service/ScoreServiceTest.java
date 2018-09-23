@@ -1,5 +1,7 @@
 package com.yunfenghui.jf.score.service;
 
+import java.util.Random;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -24,7 +26,7 @@ public class ScoreServiceTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testRechargePartnerStockScore() {
-		int partnerId = 1, rechargeMoney = 100_00_00, createUserId = 7961;
+		int partnerId = 1, rechargeMoney = 10000_00_00, createUserId = 7961;
 		scoreService.rechargePartnerStockScore(partnerId, rechargeMoney, createUserId);
 		logger.info("Recharge partner:{} stockScore success.", partnerId);
 	}
@@ -41,6 +43,23 @@ public class ScoreServiceTest extends AbstractJUnit4SpringContextTests {
 		scoreService.sendWhiteScore(sendRequest);
 		WhiteScoreSendRecord sendRecord = scoreService.sendWhiteScore(sendRequest);
 		logger.info("Send white score request success, sendRecord:{}", sendRecord.getRecordNo());
+	}
+
+	@Test
+	public void testBatchSendWhiteScore() {
+		Random r = new Random();
+		for (int i = 1; i <= 1500; i++) {
+			WhiteScoreSendRequest sendRequest = new WhiteScoreSendRequest();
+			sendRequest.setMemberId(i);
+			sendRequest.setPartnerId(1);
+			sendRequest.setOutTradeNo(generator.generate());
+			sendRequest.setSendScores(r.nextInt(50000) + 1);
+			sendRequest.setDealType(WhiteScoreChangeRecordDealType.CONSUME);
+			sendRequest.setNotifyUrl("http://localhost/partner/whitescore/sendrecord/notify/");
+			scoreService.sendWhiteScore(sendRequest);
+		}
+
+		logger.info("Batch send white score request success");
 	}
 
 	@Test
