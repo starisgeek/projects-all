@@ -31,7 +31,7 @@ public class Subject {
 		this.publicKey = publicKey;
 	}
 
-	public static void hold(Subject subject) {
+	public static void bind(Subject subject) {
 		holder.set(subject);
 	}
 
@@ -39,7 +39,7 @@ public class Subject {
 		return holder.get();
 	}
 
-	public static void unhold() {
+	public static void unbind() {
 		holder.remove();
 	}
 

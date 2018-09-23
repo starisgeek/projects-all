@@ -18,11 +18,11 @@ public class AuthentionFilter extends AbstractApiFilter {
 		Subject subject = null;
 		try {
 			subject = authenticator.authenticate(request.getParameter("appId"));
-			Subject.hold(subject);
+			Subject.bind(subject);
 			chain.doFilter(request, response);
 		} finally {
 			if (subject != null) {
-				Subject.unhold();
+				Subject.unbind();
 			}
 		}
 	}
