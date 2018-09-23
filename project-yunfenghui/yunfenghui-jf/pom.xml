@@ -16,5 +16,6 @@
 		<module>yunfenghui-jf-partner-service-impl</module>
 		<module>yunfenghui-jf-api</module>
 		<module>yunfenghui-jf-message-receiver</module>
+		<module>yunfenghui-jf-job</module>
 	</modules>
 </project>
