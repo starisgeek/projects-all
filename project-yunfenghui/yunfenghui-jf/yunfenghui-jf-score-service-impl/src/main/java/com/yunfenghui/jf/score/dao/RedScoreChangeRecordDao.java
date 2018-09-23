@@ -21,5 +21,5 @@ public interface RedScoreChangeRecordDao {
 	 * 
 	 * @param changeRecords
 	 */
-	void batchInsertChangeRecord(@Param("changeRecords") List<AccountChangeRecord> changeRecords);
+	void batchInsertChangeRecords(@Param("changeRecords") List<AccountChangeRecord> changeRecords);
 }
