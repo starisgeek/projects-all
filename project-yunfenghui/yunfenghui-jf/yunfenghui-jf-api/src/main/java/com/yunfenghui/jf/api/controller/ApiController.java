@@ -2,9 +2,9 @@ package com.yunfenghui.jf.api.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.yunfenghui.jf.api.filter.support.Subject;
 import com.yunfenghui.jf.api.request.WhiteScoreSendQueryRequest;
@@ -15,7 +15,7 @@ import com.yunfenghui.jf.api.response.WhiteScoreSendResponse;
 import com.yunfenghui.jf.score.model.WhiteScoreSendRecord;
 import com.yunfenghui.jf.score.service.ScoreService;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class ApiController {
 	@Resource(name = ScoreService.ID)
@@ -39,7 +39,7 @@ public class ApiController {
 			WhiteScoreSendRequest request) {
 		com.yunfenghui.jf.score.model.WhiteScoreSendRequest sendRequest = new com.yunfenghui.jf.score.model.WhiteScoreSendRequest();
 		sendRequest.setMemberId(request.getMemberId());
-		sendRequest.setPartnerId(request.getPartnerId());
+		sendRequest.setPartnerId(Subject.get().getPartnerId());
 		sendRequest.setOutTradeNo(request.getOutTradeNo());
 		sendRequest.setSendScores(request.getSendScores());
 		sendRequest.setDealType(request.getDealType());
