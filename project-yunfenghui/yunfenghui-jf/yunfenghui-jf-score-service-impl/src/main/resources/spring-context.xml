@@ -16,4 +16,5 @@
     
     <import resource="spring-persistence.xml"/>
     <import resource="spring-rocketmq.xml"/>
+    <import resource="spring-cache.xml"/>
 </beans>
