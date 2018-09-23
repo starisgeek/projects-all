@@ -1,5 +1,6 @@
 package com.yunfenghui.jf.score.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Random;
 import javax.annotation.Resource;
 
 import org.apache.rocketmq.client.producer.MQProducer;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.yunfenghui.common.page.Page;
@@ -48,7 +50,10 @@ public class ScoreServiceImpl implements ScoreService {
 	private BalanceService balanceService;
 	@Resource(name = PartnerAccountService.ID)
 	private PartnerAccountService partnerAccountService;
+	@Resource(name = "stringRedisTemplate")
+	private StringRedisTemplate redisTemplate;
 	private static final int ABSENT_BALANCE = 0;
+	private static final String TRANSFORM_RATIO_KEY_PREFIX = "transform:";
 
 	@Override
 	public WhiteScoreSendRecord sendWhiteScore(WhiteScoreSendRequest sendRequest) {
@@ -113,22 +118,58 @@ public class ScoreServiceImpl implements ScoreService {
 		if (job == null) {
 			job = new WhiteScoreTransformJob();
 			job.setTransformDate(transformDate);
-			job.setStatus(WhiteScoreTransformJob.STATUS_COMPLETED);
+			job.setStatus(WhiteScoreTransformJob.STATUS_PENDING);
 			whiteScoreService.addTransformJob(job);
 		}
 		return job;
 	}
 
 	@Override
-	public void addWhiteScoreTransformRecords(List<WhiteScoreTransformRecord> transformRecords) {
-		whiteScoreService.addTransformRecords(transformRecords);
+	public void batchTransformWhiteScore(List<MemberAccount> memberAccounts, int transformDate) {
+		int transformRatio = getWhiteScoreTransformRatio(transformDate);
+		List<WhiteScoreTransformRecord> transformRecords = buildWhiteScoreTransformRecords(
+				memberAccounts, transformDate, transformRatio);
+		whiteScoreService.handleTransformRecords(transformRecords);
 	}
 
 	@Override
-	public void addWhiteScoreTransformRecordsAndCompleteWhiteScoreTransformJob(
-			List<WhiteScoreTransformRecord> transformRecords, int transformDate) {
-		whiteScoreService.addTransformRecordsAndComplateTransformJob(transformRecords,
+	public void batchTransformWhiteScoreAndCompleteWhiteScoreTransformJob(
+			List<MemberAccount> memberAccounts, int transformDate) {
+		int transformRatio = getWhiteScoreTransformRatio(transformDate);
+		List<WhiteScoreTransformRecord> transformRecords = buildWhiteScoreTransformRecords(
+				memberAccounts, transformDate, transformRatio);
+		whiteScoreService.handleTransformRecordsAndCompleteTransformJob(transformRecords,
 				transformDate);
+	}
+
+	@Override
+	public void completeWhiteScoreTransformJob(int transformDate) {
+		whiteScoreService.completeTransformJob(transformDate);
+	}
+
+	private List<WhiteScoreTransformRecord> buildWhiteScoreTransformRecords(
+			List<MemberAccount> memberAccounts, int transformDate, int transformRatio) {
+		List<WhiteScoreTransformRecord> transformRecords = new ArrayList<>(memberAccounts.size());
+		for (MemberAccount memberAccount : memberAccounts) {
+			transformRecords.add(buildWhiteScoreTransformRecord(memberAccount, transformRatio));
+		}
+
+		return transformRecords;
+	}
+
+	private WhiteScoreTransformRecord buildWhiteScoreTransformRecord(MemberAccount memberAccount,
+			int transformRatio) {
+		WhiteScoreTransformRecord transformRecord = new WhiteScoreTransformRecord();
+		transformRecord.setRecordNo(numberGenerator.generate());
+		transformRecord.setMemberId(memberAccount.getMemberId());
+		transformRecord.setTransformScores(
+				calculateTransformWhiteScore(memberAccount.getWhiteScores(), transformRatio));
+		transformRecord.setCreateTime(new Date());
+		return transformRecord;
+	}
+
+	private int calculateTransformWhiteScore(int whiteScores, int transformRatio) {
+		return (whiteScores / 10000) * transformRatio / 100;
 	}
 
 	@Override
@@ -138,17 +179,25 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public int getWhiteScoreTransformRatio(int transformDate) {
+		final String key = TRANSFORM_RATIO_KEY_PREFIX + transformDate;
 		// query from cache first
-		// get from cache
+		String ratioString = redisTemplate.opsForValue().get(key);
+		if (ratioString != null) {
+			return Integer.valueOf(ratioString);
+		}
+		// get from db
 		Integer ratio = whiteScoreService.getTransformRatio(transformDate);
 		if (ratio != null) {
 			// add to cache
+			redisTemplate.opsForValue().set(key, ratio.toString());
 			return ratio;
 		}
+		// 这里考虑用分布式锁实现
 		Random r = new Random();
 		ratio = 500 + r.nextInt(100);
 		whiteScoreService.addTransformRatio(transformDate, ratio);
 		// add to cache
+		redisTemplate.opsForValue().set(key, ratio.toString());
 		return ratio;
 	}
 
