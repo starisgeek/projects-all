@@ -20,11 +20,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="partner-service-provider"  />
+    <dubbo:application name="${dubbo.service.app.name}"  />
     
-    <dubbo:registry protocol="zookeeper" address="192.168.0.128:2181" />
+    <dubbo:registry protocol="zookeeper" address="${zookeeper.server.address}" />
     
-    <dubbo:protocol name="dubbo" port="21880" />
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" />
     
 	<dubbo:service interface="com.yunfenghui.jf.partner.service.PartnerService" ref="partnerService" />
 	

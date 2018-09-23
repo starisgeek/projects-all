@@ -10,7 +10,7 @@
 
     <context:component-scan base-package="com.yunfenghui.jf.partner.service" />
 
-    <context:property-placeholder location="classpath:datasource.properties" file-encoding="utf-8"/>
+    <context:property-placeholder location="classpath:application.properties" file-encoding="utf-8"/>
     
     <bean id="uuidNumberGenerator" class="com.yunfenghui.common.service.impl.UUIDNumberGenerator" />
     
