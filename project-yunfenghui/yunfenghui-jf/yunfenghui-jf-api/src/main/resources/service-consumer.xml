@@ -22,7 +22,9 @@
 
     <dubbo:application name="yunfenghui-jf-api"  />
     
-    <dubbo:registry protocol="zookeeper" address="192.168.1.128:2181" />
+    <dubbo:registry protocol="zookeeper" address="192.168.0.128:2181" />
     
 	<dubbo:reference id="scoreService" interface="com.yunfenghui.jf.score.service.ScoreService" />
+	
+	<dubbo:reference id="partnerService" interface="com.yunfenghui.jf.partner.service.PartnerService" />
 </beans>
