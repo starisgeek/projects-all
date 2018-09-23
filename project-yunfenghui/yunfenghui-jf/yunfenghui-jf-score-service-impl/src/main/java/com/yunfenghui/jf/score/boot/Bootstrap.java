@@ -35,9 +35,9 @@ public class Bootstrap {
 				public void run() {
 					try {
 						shutdown();
-						logger.info("Service shutdown!");
+						logger.info("ScoreService shutdown!");
 					} catch (Throwable t) {
-						logger.error("Service shutdown failed!", t);
+						logger.error("ScoreService shutdown failed!", t);
 					}
 					try {
 						LOCK.lock();
@@ -49,9 +49,9 @@ public class Bootstrap {
 			});
 
 			startup();
-			logger.info("Service started!");
+			logger.info("ScoreService started!");
 		} catch (RuntimeException e) {
-			logger.error("Service start failed!", e);
+			logger.error("ScoreService start failed!", e);
 			System.exit(1);
 		}
 		try {
