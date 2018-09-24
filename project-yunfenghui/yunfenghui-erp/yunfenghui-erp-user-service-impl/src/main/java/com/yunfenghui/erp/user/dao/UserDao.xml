@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.user.dao.UserDao">
+    <resultMap id="userResultMap" type="com.yunfenghui.erp.user.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="user_name"/>
+        <result property="loginPhone" column="login_phone"/>
+        <result property="password" column="password"/>
+        <result property="passwordSalt" column="password_salt"/>
+        <result property="category" column="category"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="isSuper" column="is_super"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+    <insert id="insertUser" parameterType="com.yunfenghui.erp.user.model.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO user(user_name, login_phone, password, password_salt, category, shop_id, is_super, create_time)
+        VALUES (#{username}, #{loginPhone}, #{password}, #{passwordSalt}, #{category}, #{shopId}, #{isSuper}, #{createTime})
+    </insert>
+    
+    <select id="queryUserById" resultMap="userResultMap">
+    	SELECT id, user_name, login_phone, password, password_salt, category, shop_id, is_super, create_time
+    	FROM user WHERE id = #{id}
+    </select>
+    
+    <select id="queryUserByLoginPhoneAndShopId" resultMap="userResultMap">
+    	SELECT id, user_name, login_phone, password, password_salt, category, shop_id, is_super, create_time
+    	FROM user WHERE login_phone = #{loginPhone} AND shop_id = #{shopId}
+    </select>
+
+	<select id="queryCountByShopIdAndIsSuper" resultType="_int">
+		SELECT COUNT(*) FROM user WHERE shop_id = #{shopId} AND is_super = #{isSuper}
+	</select>
+</mapper>
