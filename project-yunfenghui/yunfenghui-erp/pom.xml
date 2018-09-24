@@ -8,4 +8,8 @@
 	</parent>
 	<artifactId>yunfenghui-erp</artifactId>
 	<packaging>pom</packaging>
+	<modules>
+		<module>yunfenghui-erp-shop-service</module>
+		<module>yunfenghui-erp-common</module>
+	</modules>
 </project>
