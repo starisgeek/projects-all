@@ -11,5 +11,6 @@
 	<modules>
 		<module>yunfenghui-erp-shop-service</module>
 		<module>yunfenghui-erp-common</module>
+		<module>yunfenghui-erp-shop-service-impl</module>
 	</modules>
 </project>
