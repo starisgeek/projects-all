@@ -17,14 +17,14 @@ CREATE TABLE `shop` (
 
 CREATE TABLE `balance_account` (
   `shop_id` int(11) NOT NULL COMMENT '门店ID',
-  `balance` decimal(18,2) NOT NULL COMMENT '余额',
+  `balance` int(11) NOT NULL COMMENT '余额',
   PRIMARY KEY (`shop_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `balance_account_change_record` (
   `serial_number` varchar(32) NOT NULL COMMENT '流水号',
   `original_serial_number` varchar(32) NOT NULL COMMENT '源流水号',
-  `change_amount` decimal(18,2) NOT NULL COMMENT '变动金额',
+  `change_amount` int(11) NOT NULL COMMENT '变动金额',
   `business_type` int(11) NOT NULL COMMENT '业务类型',
   `create_time` datetime(3) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`serial_number`)
