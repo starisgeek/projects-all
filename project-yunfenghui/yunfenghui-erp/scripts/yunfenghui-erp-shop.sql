@@ -1,6 +1,6 @@
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`yunfenghui_erp_shop` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `yfh_erp_shop`;
+USE `yunfenghui_erp_shop`;
 
 
 CREATE TABLE `shop` (
