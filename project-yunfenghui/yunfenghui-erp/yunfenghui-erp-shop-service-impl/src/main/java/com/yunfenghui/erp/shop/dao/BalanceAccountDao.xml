@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.shop.dao.BalanceAccountDao">
+    <resultMap id="balanceAccountResultMap" type="com.yunfenghui.erp.shop.model.BalanceAccount">
+    	<result property="shopId" column="shop_id"/>
+        <result property="balance" column="balance"/>
+    </resultMap>
+
+    <insert id="insertBalanceAccount" parameterType="com.yunfenghui.erp.shop.model.BalanceAccount">
+        INSERT INTO balance_account(shop_id, balance) VALUES (#{shopId}, #{balance})
+    </insert>
+</mapper>

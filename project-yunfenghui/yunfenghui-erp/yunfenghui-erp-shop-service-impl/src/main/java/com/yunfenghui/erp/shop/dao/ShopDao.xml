@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.shop.dao.ShopDao">
+    <resultMap id="shopResultMap" type="com.yunfenghui.erp.shop.model.Shop">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="name" column="name"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberPhone" column="member_phone"/>
+        <result property="location" column="location"/>
+        <result property="createTime" column="create_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectAllColumns">
+        SELECT id, number, name, member_id, member_phone, location, create_time, remark
+        FROM shop
+    </sql>
+
+
+    <insert id="insertShop" parameterType="com.yunfenghui.erp.shop.model.Shop" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO shop(number, name,member_id, member_phone, location,create_time, remark)
+        VALUES (#{number}, #{name}, #{memberId}, #{memberPhone}, #{location}, #{createTime}, #{remark});
+    </insert>
+
+    <select id="queryShopById" resultMap="shopResultMap">
+        <include refid="selectAllColumns" /> WHERE id = #{id}
+    </select>
+
+    <select id="queryShopName" resultType="string">
+        SELECT name FROM shop WHERE name = #{name}
+    </select>
+
+    <select id="queryShopByNumber" resultMap="shopResultMap">
+        <include refid="selectAllColumns" /> WHERE number = #{number}
+    </select>
+	
+	<select id="queryAllShops" resultMap="shopResultMap">
+		SELECT id, name FROM shop
+	</select>
+</mapper>
