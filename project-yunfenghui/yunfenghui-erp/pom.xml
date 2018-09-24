@@ -13,5 +13,6 @@
 		<module>yunfenghui-erp-common</module>
 		<module>yunfenghui-erp-shop-service-impl</module>
 		<module>yunfenghui-erp-user-service</module>
+		<module>yunfenghui-erp-user-service-impl</module>
 	</modules>
 </project>
