@@ -15,6 +15,10 @@ public class Stock implements Serializable {
 	 */
 	private int goodsId;
 	/**
+	 * 门店id
+	 */
+	private int shopId;
+	/**
 	 * 库存数量
 	 */
 	private int quantity;
@@ -30,6 +34,14 @@ public class Stock implements Serializable {
 
 	public void setGoodsId(int goodsId) {
 		this.goodsId = goodsId;
+	}
+
+	public int getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
 	}
 
 	public int getQuantity() {
