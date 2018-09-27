@@ -1,7 +1,9 @@
 package com.yunfenghui.erp.stock.service;
 
+import java.util.Date;
 import java.util.List;
 
+import com.yunfenghui.common.DateTimes;
 import com.yunfenghui.common.KeyValue;
 import com.yunfenghui.erp.common.ERPException;
 
@@ -40,4 +42,58 @@ public interface StockService {
 	 * @param orderNo
 	 */
 	void decreaseStock(String orderNo);
+
+	/**
+	 * 入库单查询条件
+	 * 
+	 * @author Administrator
+	 *
+	 */
+	class StockRecordQuery {
+		private Integer shopId;
+		private String recordNo;
+		private Date startTime;
+		private Date endTime;
+
+		public Integer getShopId() {
+			return shopId;
+		}
+
+		public void setShopId(Integer shopId) {
+			this.shopId = shopId;
+		}
+
+		public String getRecordNo() {
+			return recordNo;
+		}
+
+		public void setRecordNo(String recordNo) {
+			this.recordNo = recordNo;
+		}
+
+		public Date getStartTime() {
+			return startTime;
+		}
+
+		public Date getEarliestStartTime() {
+			return startTime != null ? DateTimes.earliestOf(startTime) : null;
+		}
+
+		public void setStartTime(Date startTime) {
+			this.startTime = startTime;
+		}
+
+		public Date getEndTime() {
+			return endTime;
+		}
+
+		public Date getLatestEndTime() {
+			return endTime != null ? DateTimes.latestOf(endTime) : null;
+		}
+
+		public void setEndTime(Date endTime) {
+			this.endTime = endTime;
+		}
+
+	}
 }
