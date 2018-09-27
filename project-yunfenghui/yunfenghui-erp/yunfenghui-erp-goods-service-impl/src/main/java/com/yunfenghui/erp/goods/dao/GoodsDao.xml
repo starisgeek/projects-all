@@ -42,18 +42,31 @@
     
     <insert id="insertGoods" parameterType="com.yunfenghui.erp.goods.model.Goods" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO erp_goods (barcode, name, pinyin, shop_id, latest_buy_price, original_price, sale_price, member_price, discount, score_ratio,
-                               category_id, brand_id, unit_id, stock_quantity, create_time, status, remark)
-        VALUES (#{barcode}, #{name}, #{pinyin}, #{shopId}, #{latestBuyPrice}, #{originalPrice}, #{salePrice}, #{memberPrice},
-                            #{discount}, #{scoreRatio}, #{category.id}, #{brand.id}, #{unit.id}, #{stockQuantity}, #{createTime}, #{status}, #{remark})
+        INSERT INTO goods (barcode, name, pinyin, shop_id, original_price, sale_price, member_price, discount, score_ratio,
+                               category_id, brand_id, unit_id, create_time, status, remark)
+        VALUES (#{barcode}, #{name}, #{pinyin}, #{shopId}, #{originalPrice}, #{salePrice}, #{memberPrice},
+                            #{discount}, #{scoreRatio}, #{category.id}, #{brand.id}, #{unit.id}, #{createTime}, #{status}, #{remark})
     </insert>
     
+    <update id="updateGoodsStatus">
+    	UPDATE goods SET status = #{updatedStatus}
+    	WHERE id = #{goodsId} AND status IN
+    	<foreach collection="expectedStatuses" item="expectedStatus" open="(" close=")" separator=",">
+             #{expectedStatus}
+        </foreach>
+    </update>
+    
+    <update id="updateGoodsSalePrice">
+    	UPDATE goods SET sale_price = #{newSalePrice}
+    	WHERE id = #{goodsId}
+    </update>
+    
     <select id="queryGoodsIdByShopIdAndName" resultType="integer">
-    	SELECT id FROM erp_goods WHERE shop_id = #{shopId} AND `name` = #{name}
+    	SELECT id FROM goods WHERE shop_id = #{shopId} AND `name` = #{name}
     </select>
     
     <select id="queryGoodsIdByShopIdAndBarcode" resultType="integer">
-    	SELECT id FROM erp_goods WHERE shop_id = #{shopId} AND `barcode` = #{barcode}
+    	SELECT id FROM goods WHERE shop_id = #{shopId} AND `barcode` = #{barcode}
     </select>
     
     <sql id="selectAllColumns">
@@ -64,10 +77,10 @@
             t.category_id, c.name AS category_name,
             t.brand_id, g.name AS brand_name, 
             t.unit_id, u.name AS unit_name
-        FROM erp_goods t
-            LEFT JOIN erp_goods_category c ON c.id = t.category_id
-            LEFT JOIN erp_goods_brand g ON g.id = t.brand_id
-            LEFT JOIN erp_goods_unit u ON u.id = t.unit_id
+        FROM goods t
+            LEFT JOIN goods_category c ON c.id = t.category_id
+            LEFT JOIN goods_brand g ON g.id = t.brand_id
+            LEFT JOIN goods_unit u ON u.id = t.unit_id
     </sql>
     
     <select id="queryGoodsBy" resultMap="goodsResultMap">

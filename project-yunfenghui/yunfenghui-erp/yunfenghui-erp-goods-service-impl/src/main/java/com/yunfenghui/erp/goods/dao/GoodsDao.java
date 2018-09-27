@@ -19,6 +19,28 @@ public interface GoodsDao {
 	void insertGoods(Goods goods);
 
 	/**
+	 * 更新状态
+	 * 
+	 * @param goodsId
+	 * @param expectedStatuses
+	 * @param updatedStatus
+	 * @return
+	 */
+	int updateGoodsStatus(@Param("goodsId") int goodsId,
+			@Param("expectedStatuses") int[] expectedStatuses,
+			@Param("updatedStatus") int updatedStatus);
+
+	/**
+	 * 修改售价
+	 * 
+	 * @param goodsId
+	 * @param newSalePrice
+	 * @return
+	 */
+	int updateGoodsSalePrice(@Param("goodsId") int goodsId,
+			@Param("newSalePrice") int newSalePrice);
+
+	/**
 	 * 根据shopId和name查询商品id。主要用于新增商品时验证名称唯一性
 	 * 
 	 * @param shopId
