@@ -12,5 +12,7 @@
 
     <context:property-placeholder location="classpath:application.properties" file-encoding="utf-8"/>
     
+    <bean id="numberGenerator" class="com.yunfenghui.common.service.impl.DefaultNumberGenerator" />
+    
     <import resource="spring-persistence.xml"/>
 </beans>
