@@ -108,4 +108,59 @@ public class GoodsAdjustPriceRecord implements Serializable {
 		this.reason = reason;
 	}
 
+	public static Builder newBuilder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private final GoodsAdjustPriceRecord record;
+
+		private Builder() {
+			this.record = new GoodsAdjustPriceRecord();
+		}
+
+		public Builder recordNo(String recordNo) {
+			this.record.setRecordNo(recordNo);
+			return this;
+		}
+
+		public Builder shopId(int shopId) {
+			this.record.setShopId(shopId);
+			return this;
+		}
+
+		public Builder goodsId(int goodsId) {
+			this.record.setGoods(new Goods(goodsId));
+			return this;
+		}
+
+		public Builder oldPrice(int oldPrice) {
+			this.record.setOldPrice(oldPrice);
+			return this;
+		}
+
+		public Builder newPrice(int newPrice) {
+			this.record.setNewPrice(newPrice);
+			return this;
+		}
+
+		public Builder createUserId(int createUserId) {
+			this.record.setCreateUserId(createUserId);
+			return this;
+		}
+
+		public Builder createTime(Date createTime) {
+			this.record.setCreateTime(createTime);
+			return this;
+		}
+
+		public Builder reason(String reason) {
+			this.record.setReason(reason);
+			return this;
+		}
+
+		public GoodsAdjustPriceRecord build() {
+			return record;
+		}
+	}
 }
