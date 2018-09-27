@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.goods.dao.GoodsUnitDao">
+    <resultMap id="goodsUnitResultMap" type="com.yunfenghui.erp.goods.model.GoodsUnit">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+    </resultMap>
+
+    <sql id="selectAllColumns">
+        SELECT id, name FROM erp_goods_unit
+    </sql>
+
+    <select id="queryGoodsUnitById" resultMap="goodsUnitResultMap">
+        <include refid="selectAllColumns" /> where id = #{id}
+    </select>
+
+    <select id="queryAllGoodsUnits" resultMap="goodsUnitResultMap">
+        <include refid="selectAllColumns" />
+    </select>
+</mapper>
