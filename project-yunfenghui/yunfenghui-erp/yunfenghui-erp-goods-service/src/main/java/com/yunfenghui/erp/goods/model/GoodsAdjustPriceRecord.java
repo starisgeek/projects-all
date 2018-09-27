@@ -39,6 +39,10 @@ public class GoodsAdjustPriceRecord implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 调价原因
+	 */
+	private String reason;
 
 	public String getRecordNo() {
 		return recordNo;
@@ -94,6 +98,14 @@ public class GoodsAdjustPriceRecord implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 }
