@@ -49,6 +49,18 @@ public interface GoodsService {
 	void soldOutGoods(int goodsId) throws ERPException;
 
 	/**
+	 * 调价
+	 * 
+	 * @param goodsId
+	 * @param newSalePrice
+	 * @param createUserId
+	 * @param reason
+	 * @throws ERPException
+	 */
+	void adjustSalePrice(int goodsId, int newSalePrice, int createUserId, String reason)
+			throws ERPException;
+
+	/**
 	 * 根据id查询
 	 *
 	 * @param goodsId
@@ -112,6 +124,5 @@ public interface GoodsService {
 			this.status = status;
 		}
 	}
-
 
 }
