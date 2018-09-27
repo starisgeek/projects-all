@@ -52,13 +52,12 @@ public interface GoodsService {
 	 * 调价
 	 * 
 	 * @param goodsId
-	 * @param shopId
 	 * @param newSalePrice
 	 * @param createUserId
 	 * @param reason
 	 * @throws ERPException
 	 */
-	void adjustSalePrice(int goodsId, int shopId, int newSalePrice, int createUserId, String reason)
+	void adjustSalePrice(int goodsId, int newSalePrice, int createUserId, String reason)
 			throws ERPException;
 
 	/**
