@@ -214,4 +214,79 @@ public class Goods implements Serializable {
 		this.remark = remark;
 	}
 
+	public static Builder newBuilder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private final Goods goods;
+
+		private Builder() {
+			this.goods = new Goods();
+		}
+
+		public Builder barcode(String barcode) {
+			this.goods.setBarcode(barcode);
+			return this;
+		}
+
+		public Builder name(String name) {
+			this.goods.setName(name);
+			return this;
+		}
+
+		public Builder shopId(int shopId) {
+			this.goods.setShopId(shopId);
+			return this;
+		}
+
+		public Builder pinyin(String pinyin) {
+			this.goods.setPinyin(pinyin);
+			return this;
+		}
+
+		public Builder salePrice(int salePrice) {
+			this.goods.setSalePrice(salePrice);
+			return this;
+		}
+
+		public Builder scoreRatio(int scoreRatio) {
+			this.goods.setScoreRatio(scoreRatio);
+			return this;
+		}
+
+		public Builder categoryId(int categoryId) {
+			this.goods.setCategory(new GoodsCategory(categoryId));
+			return this;
+		}
+
+		public Builder brandId(int brandId) {
+			this.goods.setBrand(new GoodsBrand(brandId));
+			return this;
+		}
+
+		public Builder unitId(int unitId) {
+			this.goods.setUnit(new GoodsUnit(unitId));
+			return this;
+		}
+
+		public Builder status(int status) {
+			this.goods.setStatus(status);
+			return this;
+		}
+
+		public Builder createTime(Date createTime) {
+			this.goods.setCreateTime(createTime);
+			return this;
+		}
+
+		public Builder remark(String remark) {
+			this.goods.setRemark(remark);
+			return this;
+		}
+
+		public Goods build() {
+			return this.goods;
+		}
+	}
 }
