@@ -50,21 +50,9 @@ public class Goods implements Serializable {
 	 */
 	private String pinyin;
 	/**
-	 * 原价
-	 */
-	private int originalPrice;
-	/**
 	 * 销售价格
 	 */
 	private int salePrice;
-	/**
-	 * 会员价格
-	 */
-	private int memberPrice;
-	/**
-	 * 折扣(%)
-	 */
-	private int discount = DEFAULT_DISCOUNT;
 
 	/**
 	 * 返还积分比例
@@ -84,7 +72,6 @@ public class Goods implements Serializable {
 	 */
 	private String remark;
 
-	public static final int DEFAULT_DISCOUNT = 100;
 	/**
 	 * 新建
 	 */
@@ -163,36 +150,12 @@ public class Goods implements Serializable {
 		this.pinyin = pinyin;
 	}
 
-	public int getOriginalPrice() {
-		return originalPrice;
-	}
-
-	public void setOriginalPrice(int originalPrice) {
-		this.originalPrice = originalPrice;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
-	}
-
 	public int getSalePrice() {
 		return salePrice;
 	}
 
 	public void setSalePrice(int salePrice) {
 		this.salePrice = salePrice;
-	}
-
-	public int getMemberPrice() {
-		return memberPrice;
-	}
-
-	public void setMemberPrice(int memberPrice) {
-		this.memberPrice = memberPrice;
 	}
 
 	public int getScoreRatio() {
