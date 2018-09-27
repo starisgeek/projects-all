@@ -9,13 +9,8 @@
         <result property="name" column="name"/>
         <result property="pinyin" column="pinyin"/>
         <result property="shopId" column="shop_id"/>
-        <result property="latestBuyPrice" column="latest_buy_price"/>
-        <result property="originalPrice" column="original_price"/>
         <result property="salePrice" column="sale_price"/>
-        <result property="memberPrice" column="member_price"/>
-        <result property="discount" column="discount"/>
         <result property="scoreRatio" column="score_ratio"/>
-        <result property="stockQuantity" column="stock_quantity"/>
         <result property="status" column="status"/>
         <result property="createTime" column="create_time"/>
         <result property="remark" column="remark"/>
@@ -42,10 +37,10 @@
     
     <insert id="insertGoods" parameterType="com.yunfenghui.erp.goods.model.Goods" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO goods (barcode, name, pinyin, shop_id, original_price, sale_price, member_price, discount, score_ratio,
+        INSERT INTO goods (barcode, name, pinyin, shop_id, sale_price, score_ratio,
                                category_id, brand_id, unit_id, create_time, status, remark)
-        VALUES (#{barcode}, #{name}, #{pinyin}, #{shopId}, #{originalPrice}, #{salePrice}, #{memberPrice},
-                            #{discount}, #{scoreRatio}, #{category.id}, #{brand.id}, #{unit.id}, #{createTime}, #{status}, #{remark})
+        VALUES (#{barcode}, #{name}, #{pinyin}, #{shopId}, #{salePrice},
+                            #{scoreRatio}, #{category.id}, #{brand.id}, #{unit.id}, #{createTime}, #{status}, #{remark})
     </insert>
     
     <update id="updateGoodsStatus">
@@ -71,9 +66,9 @@
     
     <sql id="selectAllColumns">
         SELECT
-            t.id, t.barcode, t.name, t.pinyin, t.shop_id, t.latest_buy_price,
-            t.original_price, t.sale_price, t.member_price, t.discount, t.score_ratio,
-            t.stock_quantity, t.status, t.create_time, t.remark,
+            t.id, t.barcode, t.name, t.pinyin, t.shop_id,
+            t.sale_price, t.score_ratio,
+            t.status, t.create_time, t.remark,
             t.category_id, c.name AS category_name,
             t.brand_id, g.name AS brand_name, 
             t.unit_id, u.name AS unit_name
