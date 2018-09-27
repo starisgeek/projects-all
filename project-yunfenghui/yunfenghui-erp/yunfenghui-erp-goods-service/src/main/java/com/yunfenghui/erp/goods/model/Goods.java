@@ -38,10 +38,6 @@ public class Goods implements Serializable {
 	 */
 	private GoodsCategory category;
 	/**
-	 * 最新的供应商
-	 */
-	private Supplier latestSupplier;
-	/**
 	 * 品牌
 	 */
 	private GoodsBrand brand;
@@ -53,10 +49,6 @@ public class Goods implements Serializable {
 	 * 拼音码
 	 */
 	private String pinyin;
-	/**
-	 * 最新进货价
-	 */
-	private int latestBuyPrice;
 	/**
 	 * 原价
 	 */
@@ -79,10 +71,6 @@ public class Goods implements Serializable {
 	 */
 	private int scoreRatio;
 
-	/**
-	 * 库存数量
-	 */
-	private int stockQuantity;
 	/**
 	 * 状态(1-新建，2-上架，3-下架)
 	 */
@@ -167,28 +155,12 @@ public class Goods implements Serializable {
 		this.shopId = shopId;
 	}
 
-	public Supplier getLatestSupplier() {
-		return latestSupplier;
-	}
-
-	public void setLatestSupplier(Supplier latestSupplier) {
-		this.latestSupplier = latestSupplier;
-	}
-
 	public String getPinyin() {
 		return pinyin;
 	}
 
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
-	}
-
-	public int getLatestBuyPrice() {
-		return latestBuyPrice;
-	}
-
-	public void setLatestBuyPrice(int latestBuyPrice) {
-		this.latestBuyPrice = latestBuyPrice;
 	}
 
 	public int getOriginalPrice() {
@@ -253,14 +225,6 @@ public class Goods implements Serializable {
 
 	public void setUnit(GoodsUnit unit) {
 		this.unit = unit;
-	}
-
-	public int getStockQuantity() {
-		return stockQuantity;
-	}
-
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity = stockQuantity;
 	}
 
 	public int getStatus() {
