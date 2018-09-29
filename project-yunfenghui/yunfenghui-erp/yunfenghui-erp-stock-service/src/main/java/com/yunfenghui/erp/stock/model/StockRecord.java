@@ -33,7 +33,7 @@ public class StockRecord implements Serializable {
 	/**
 	 * 供应商
 	 */
-	private int supplierId;
+	private Supplier supplier;
 	/**
 	 * 总金额(分)
 	 */
@@ -79,12 +79,12 @@ public class StockRecord implements Serializable {
 		this.createUserId = createUserId;
 	}
 
-	public int getSupplierId() {
-		return supplierId;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 
 	public int getTotalAmount() {
