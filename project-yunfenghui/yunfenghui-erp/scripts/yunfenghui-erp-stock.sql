@@ -35,3 +35,28 @@ CREATE TABLE `stock_record_item` (
   `present_quantity` int(11) NOT NULL COMMENT '赠送量'
   `total_amount` int(11) NOT NULL COMMENT `入库单Item总金额`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `stock_frozen_record` (
+  `order_no` varchar(32) NOT NULL COMMENT '订单号',
+  `shop_id` int(11) NOT NULL COMMENT '门店id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`order_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `stock_frozen_record_item` (
+  `order_no` varchar(32) NOT NULL COMMENT '订单号',
+  `goods_id` int(11) NOT NULL COMMENT '商品id',
+  `frozen_quantity` int(11) NOT NULL COMMENT '冻结数量',
+  PRIMARY KEY (`order_no`, `goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `stock_change_record` (
+  `serial_number` varchar(32) NOT NULL COMMENT '流水号',
+  `goods_id` int(11) NOT NULL COMMENT '商品id',
+  `shop_id` int(11) NOT NULL COMMENT '门店id',
+  `change_amount` int(11) NOT NULL COMMENT '变动数量',
+  `deal_type` int(11) NOT NULL COMMENT '交易类型',
+  `original_record_no` varchar(32) NOT NULL COMMENT '源记录号',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`serial_number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
