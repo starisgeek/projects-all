@@ -60,6 +60,24 @@ public interface GoodsDao {
 			@Param("barcode") String barcode);
 
 	/**
+	 * 根据shopId和barcode查询商品
+	 * 
+	 * @param shopId
+	 * @param barcode
+	 * @return
+	 */
+	Goods queryGoodsByShopIdAndBarcode(@Param("shopId") int shopId,
+			@Param("barcode") String barcode);
+
+	/**
+	 * 根据id查询商品
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Goods queryGoodsById(@Param("id") int id);
+
+	/**
 	 * 根据条件查询Goods
 	 * 
 	 * @param query
