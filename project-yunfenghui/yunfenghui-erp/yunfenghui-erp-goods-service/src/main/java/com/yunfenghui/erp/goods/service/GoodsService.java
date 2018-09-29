@@ -69,12 +69,13 @@ public interface GoodsService {
 	Goods getGoodsById(int goodsId);
 
 	/**
-	 * 根据条形码查询
+	 * 根据shopId和条形码查询
 	 *
-	 * @param code
+	 * @param shopId
+	 * @param barcode
 	 * @return
 	 */
-	Goods getGoodsByCode(String code);
+	Goods getGoodsByShopIdAndBarcode(int shopId, String barcode);
 
 	/**
 	 * 分页查询商品列表

@@ -1,7 +1,10 @@
 package com.yunfenghui.erp.goods.service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageRowBounds;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
+import com.yunfenghui.common.service.NumberGenerator;
 import com.yunfenghui.erp.common.ERPException;
+import com.yunfenghui.erp.goods.dao.GoodsAdjustPriceRecordDao;
 import com.yunfenghui.erp.goods.dao.GoodsDao;
 import com.yunfenghui.erp.goods.model.Goods;
-import com.yunfenghui.erp.goods.model.StockRecord;
-import com.yunfenghui.erp.goods.model.StockRecordItem;
+import com.yunfenghui.erp.goods.model.GoodsAdjustPriceRecord;
 import com.yunfenghui.erp.goods.util.GoodsMessageCode;
 
 @Service(GoodsService.ID)
@@ -26,6 +30,10 @@ public class GoodsServiceImpl implements GoodsService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private GoodsDao goodsDao;
+	@Autowired
+	private GoodsAdjustPriceRecordDao adjustPriceRecordDao;
+	@Resource(name = "numberGenerator")
+	private NumberGenerator numberGenerator;
 
 	@Override
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
@@ -54,34 +62,43 @@ public class GoodsServiceImpl implements GoodsService {
 					goods.getBarcode(), goods.getShopId());
 			throw new ERPException(GoodsMessageCode.GOODS_BARCODE_EXISTS);
 		}
-		goods.setSalePrice(goods.getOriginalPrice());
-		goods.setMemberPrice(goods.getOriginalPrice());
 		goods.setCreateTime(new Date());
 		goodsDao.insertGoods(goods);
 	}
 
 	@Override
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
 	public void putAwayGoods(int goodsId) throws ERPException {
-		// TODO Auto-generated method stub
-
+		modifyGoodsStatus(goodsId, new int[] { Goods.STATUS_NEW, Goods.STATUS_SOLD_OUT },
+				Goods.STATUS_PUT_AWAY);
 	}
 
 	@Override
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
 	public void soldOutGoods(int goodsId) throws ERPException {
-		// TODO Auto-generated method stub
+		modifyGoodsStatus(goodsId, new int[] { Goods.STATUS_NEW, Goods.STATUS_PUT_AWAY },
+				Goods.STATUS_SOLD_OUT);
+	}
 
+	private void modifyGoodsStatus(int goodsId, int[] expectedStatuses, int updatedStatus)
+			throws ERPException {
+		int updated = goodsDao.updateGoodsStatus(goodsId, expectedStatuses, updatedStatus);
+		if (updated != 1) {
+			logger.error(
+					"Failed to updateGoodsStatus, goodsId:{}, expected statuses:{}, updated status:{}",
+					goodsId, Arrays.asList(expectedStatuses), updatedStatus);
+			throw new ERPException(GoodsMessageCode.GOODS_NOT_EXISTS_OR_STATUS_ERROR);
+		}
 	}
 
 	@Override
 	public Goods getGoodsById(int goodsId) {
-		// TODO Auto-generated method stub
-		return null;
+		return goodsDao.queryGoodsById(goodsId);
 	}
 
 	@Override
-	public Goods getGoodsByCode(String code) {
-		// TODO Auto-generated method stub
-		return null;
+	public Goods getGoodsByShopIdAndBarcode(int shopId, String barcode) {
+		return goodsDao.queryGoodsByShopIdAndBarcode(shopId, barcode);
 	}
 
 	@Override
@@ -93,33 +110,23 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void createStockRecord(StockRecord record) throws ERPException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public StockRecord getStockRecordByNo(String recordNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<StockRecordItem> getStockRecordItems(String recordNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String generateRecordNo(int shopId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PageResult<StockRecord> getStockRecordsBy(StockRecordQuery query, Page page) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
+	public void adjustSalePrice(int goodsId, int newSalePrice, int createUserId, String reason)
+			throws ERPException {
+		Goods goods = goodsDao.queryGoodsById(goodsId);
+		if (goods == null) {
+			logger.error("queryGoodsById:{}, but not exists", goodsId);
+			throw new ERPException(GoodsMessageCode.GOODS_NOT_EXISTS);
+		}
+		adjustPriceRecordDao.insertAdjustPriceRecord(GoodsAdjustPriceRecord.newBuilder()
+				.recordNo(numberGenerator.generate()).shopId(goods.getShopId()).goodsId(goodsId)
+				.oldPrice(goods.getSalePrice()).newPrice(newSalePrice).createUserId(createUserId)
+				.createTime(new Date()).reason(reason).build());
+		int updated = goodsDao.updateGoodsSalePrice(goodsId, newSalePrice);
+		if (updated != 1) {
+			logger.error("Failed to updateGoodsSalePrice, goodsId:{} not exists", goodsId);
+			throw new ERPException(GoodsMessageCode.GOODS_NOT_EXISTS);
+		}
 	}
 
 }
