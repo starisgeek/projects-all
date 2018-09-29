@@ -28,6 +28,16 @@ public class Stock implements Serializable {
 	 */
 	private int frozenQuantity;
 
+	/**
+	 * 最新进价
+	 */
+	private int latestBuyPrice;
+
+	/**
+	 * 最新供应商
+	 */
+	private Supplier latestSupplier;
+
 	public int getGoodsId() {
 		return goodsId;
 	}
@@ -58,6 +68,22 @@ public class Stock implements Serializable {
 
 	public void setFrozenQuantity(int frozenQuantity) {
 		this.frozenQuantity = frozenQuantity;
+	}
+
+	public int getLatestBuyPrice() {
+		return latestBuyPrice;
+	}
+
+	public void setLatestBuyPrice(int latestBuyPrice) {
+		this.latestBuyPrice = latestBuyPrice;
+	}
+
+	public Supplier getLatestSupplier() {
+		return latestSupplier;
+	}
+
+	public void setLatestSupplier(Supplier latestSupplier) {
+		this.latestSupplier = latestSupplier;
 	}
 
 }
