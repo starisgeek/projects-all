@@ -20,6 +20,10 @@ public class StockChangeRecord implements Serializable {
 	 */
 	private int goodsId;
 	/**
+	 * 门店id
+	 */
+	private int shopId;
+	/**
 	 * 变动数量
 	 */
 	private int changeAmount;
@@ -50,6 +54,14 @@ public class StockChangeRecord implements Serializable {
 
 	public void setGoodsId(int goodsId) {
 		this.goodsId = goodsId;
+	}
+
+	public int getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
 	}
 
 	public int getChangeAmount() {
