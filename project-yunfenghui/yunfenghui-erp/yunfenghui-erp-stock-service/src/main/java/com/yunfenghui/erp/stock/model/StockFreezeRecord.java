@@ -17,9 +17,14 @@ public class StockFreezeRecord implements Serializable {
 	private String orderNo;
 
 	/**
+	 * 门店id
+	 */
+	private int shopId;
+
+	/**
 	 * 创建时间
 	 */
-	private Date createDate;
+	private Date createTime;
 
 	public String getOrderNo() {
 		return orderNo;
@@ -29,12 +34,20 @@ public class StockFreezeRecord implements Serializable {
 		this.orderNo = orderNo;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public int getShopId() {
+		return shopId;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }
