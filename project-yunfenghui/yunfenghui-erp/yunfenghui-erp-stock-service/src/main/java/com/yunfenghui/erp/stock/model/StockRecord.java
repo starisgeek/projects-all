@@ -88,6 +88,11 @@ public class StockRecord implements Serializable {
 	}
 
 	public int getTotalAmount() {
+		if (totalAmount == 0 && (items != null && !items.isEmpty())) {
+			for (StockRecordItem item : items) {
+				totalAmount += item.getTotalAmount();
+			}
+		}
 		return totalAmount;
 	}
 

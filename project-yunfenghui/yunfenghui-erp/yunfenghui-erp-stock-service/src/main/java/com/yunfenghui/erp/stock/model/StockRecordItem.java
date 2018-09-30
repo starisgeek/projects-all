@@ -78,7 +78,10 @@ public class StockRecordItem implements Serializable {
 	}
 
 	public int getTotalAmount() {
-		return totalAmount;
+		if (this.totalAmount == 0) {
+			this.totalAmount = this.buyPrice * this.buyQuantity;
+		}
+		return this.totalAmount;
 	}
 
 	public void setTotalAmount(int totalAmount) {
