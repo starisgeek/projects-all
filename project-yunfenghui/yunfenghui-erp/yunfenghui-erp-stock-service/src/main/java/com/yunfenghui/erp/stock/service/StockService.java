@@ -5,7 +5,11 @@ import java.util.List;
 
 import com.yunfenghui.common.DateTimes;
 import com.yunfenghui.common.KeyValue;
+import com.yunfenghui.common.page.Page;
+import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.erp.common.ERPException;
+import com.yunfenghui.erp.stock.model.StockRecord;
+import com.yunfenghui.erp.stock.model.StockRecordItem;
 
 /**
  * 库存服务接口
@@ -14,6 +18,47 @@ import com.yunfenghui.erp.common.ERPException;
  *
  */
 public interface StockService {
+	String ID = "stockService";
+
+	/**
+	 * 创建入库单
+	 * 
+	 * @param record
+	 * @throws ERPException
+	 */
+	void createStockRecord(StockRecord record);
+
+	/**
+	 * 根据no查询入库单
+	 * 
+	 * @param recordNo
+	 * @return
+	 */
+	StockRecord getStockRecordByNo(String recordNo);
+
+	/**
+	 * 根据入库单编号查询入库单明细
+	 * 
+	 * @param recordNo
+	 * @return
+	 */
+	List<StockRecordItem> getStockRecordItems(String recordNo);
+
+	/**
+	 * 生成入库单号
+	 * 
+	 * @param shopId
+	 * @return
+	 */
+	String generateRecordNo(int shopId);
+
+	/**
+	 * 根据条件查询供应商
+	 * 
+	 * @param shopId
+	 * @return
+	 */
+	PageResult<StockRecord> getStockRecordsBy(StockRecordQuery query, Page page);
 
 	/**
 	 * 根据订单冻结库存数量。用于创建订单时调用。
