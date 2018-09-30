@@ -60,3 +60,15 @@ CREATE TABLE `stock_change_record` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`serial_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '供应商名称',
+  `link_man` varchar(32) NOT NULL COMMENT '联系人',
+  `link_man_phone` varchar(20) NOT NULL COMMENT '联系电话',
+  `location` varchar(50) COMMENT '详细地址',
+  `shop_id` int(11) NOT NULL COMMENT '门店ID',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `remark` varchar(100) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
