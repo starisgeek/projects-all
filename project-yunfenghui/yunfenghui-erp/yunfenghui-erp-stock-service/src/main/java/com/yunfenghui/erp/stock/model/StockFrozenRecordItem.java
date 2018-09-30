@@ -21,7 +21,7 @@ public class StockFrozenRecordItem implements Serializable {
 	/**
 	 * 冻结数量
 	 */
-	private int freezeQuantity;
+	private int frozenQuantity;
 
 	public String getOrderNo() {
 		return orderNo;
@@ -39,12 +39,12 @@ public class StockFrozenRecordItem implements Serializable {
 		this.goodsId = goodsId;
 	}
 
-	public int getFreezeQuantity() {
-		return freezeQuantity;
+	public int getFrozenQuantity() {
+		return frozenQuantity;
 	}
 
-	public void setFreezeQuantity(int freezeQuantity) {
-		this.freezeQuantity = freezeQuantity;
+	public void setFrozenQuantity(int frozenQuantity) {
+		this.frozenQuantity = frozenQuantity;
 	}
 
 }
