@@ -146,4 +146,14 @@ public class StockChangeRecord implements Serializable {
 			return this.record;
 		}
 	}
+
+	/**
+	 * 进货
+	 */
+	public static final int DEAL_TYPE_CREATE_STOCK = 1;
+
+	/**
+	 * 消费
+	 */
+	public static final int DEAL_TYPE_CONSUME = 2;
 }
