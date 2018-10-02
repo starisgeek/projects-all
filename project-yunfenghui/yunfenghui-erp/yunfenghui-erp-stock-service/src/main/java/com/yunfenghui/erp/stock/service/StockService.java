@@ -66,11 +66,13 @@ public interface StockService {
 	 * 
 	 * @param orderNo
 	 * @param goodsIdAndFreezeQuantityList
+	 * @param shopId
+	 * 
 	 * @throws ERPException
 	 *             订单号已存在。商品不存在。
 	 */
-	void freezeStock(String orderNo, List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList)
-			throws ERPException;
+	void freezeStock(String orderNo, List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList,
+			int shopId) throws ERPException;
 
 	/**
 	 * 解冻库存数量。用于创建订单失败时调用。
