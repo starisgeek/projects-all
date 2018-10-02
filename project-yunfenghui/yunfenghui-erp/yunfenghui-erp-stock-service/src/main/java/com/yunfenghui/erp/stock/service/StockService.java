@@ -26,7 +26,7 @@ public interface StockService {
 	 * @param record
 	 * @throws ERPException
 	 */
-	void createStockRecord(StockRecord record);
+	void createStockRecord(StockRecord record) throws ERPException;
 
 	/**
 	 * 根据no查询入库单
