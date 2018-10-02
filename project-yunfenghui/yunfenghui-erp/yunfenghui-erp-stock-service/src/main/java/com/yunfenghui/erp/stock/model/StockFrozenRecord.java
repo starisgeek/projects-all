@@ -1,7 +1,7 @@
 package com.yunfenghui.erp.stock.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * 库存冻结记录
