@@ -96,11 +96,11 @@ public class StockChangeRecord implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public Builder newBuilder() {
+	public static Builder newBuilder() {
 		return new Builder();
 	}
 
-	public class Builder {
+	public static class Builder {
 		private final StockChangeRecord record;
 
 		private Builder() {
