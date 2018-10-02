@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.stock.dao.StockDao">
+	<resultMap id="stockResultMap" type="com.yunfenghui.erp.stock.model.Stock">
+		<id property="goodsId" column="goods_id"/>
+		<result property="shopId" column="shop_id"/>
+		<result property="quantity" column="quantity"/>
+		<result property="frozenQuantity" column="frozen_quantity"/>
+		<result property="latestBuyPrice" column="latest_buy_price"/>
+		<association property="latestSupplier" javaType="com.yunfenghui.erp.stock.model.Supplier">
+			<id property="id" column="latest_supplier_id"/>
+		</association>
+	</resultMap>
+	
+	<insert id="insertStock" parameterType="com.yunfenghui.erp.stock.model.Stock">
+		INSERT INTO stock(goods_id, shop_id, quantity, frozen_quantity, latest_buy_price, latest_supplier_id)
+		VALUES(#{goodsId}, #{shopId}, #{quantity}, #{frozenQuantity}, #{latestBuyPrice}, #{latestSupplier.id})
+	</insert>
+	
+	<insert id="batchInsertStocks">
+		INSERT INTO stock(goods_id, shop_id, quantity, frozen_quantity, latest_buy_price, latest_supplier_id)
+        VALUES
+            <foreach collection="stocks" item="stock" separator=",">
+              (#{stock.goodsId}, #{stock.shopId}, #{stock.quantity}, #{stock.frozenQuantity}, #{stock.latestBuyPrice}, #{stock.latestSupplier.id})
+            </foreach>
+	</insert>
+	
+	<select id="queryStockByGoodsId" resultMap="stockResultMap">
+		SELECT goods_id, shop_id, quantity, frozen_quantity, latest_buy_price, latest_supplier_id
+		FROM stock WHERE goods_id = #{goodsId}
+	</select>
+	
+	<select id="queryStockGoodsIds" resultType="integer">
+		SELECT goods_id FROM stock WHERE goods_id IN
+		<foreach collection="goodsIds" item="goodsId" open="(" close=")" separator=",">
+        	#{goodsId}
+        </foreach>
+		
+	</select>
+	
+	<update id="increaseQuantity">
+		UPDATE stock SET quantity = quantity + #{increment} WHERE goods_id = #{goodsId}
+	</update>
+	
+	<update id="decreaseStockQuantity">
+		UPDATE stock SET quantity = quantity - #{decrement} 
+		WHERE goods_id = #{goodsId} AND quantity >= #{decrement} + frozen_quantity
+	</update>
+	
+	<update id="increaseFrozenQuantity">
+		UPDATE stock SET frozen_quantity = frozen_quantity + #{increment} WHERE goods_id = #{goodsId}
+	</update>
+	
+	<update id="decreaseFrozenQuantity">
+		UPDATE stock SET frozen_quantity = frozen_quantity - #{decrement} WHERE goods_id = #{goodsId}
+	</update>
+	
+	<update id="decreaseQuantityAndFrozenQuantity">
+		UPDATE stock SET quantity = quantity - #{decrement}, frozen_quantity = frozen_quantity - #{decrement}
+		WHERE goods_id = #{goodsId}
+	</update>
+	
+	<update id="increaseQuantityAndUpdateLatestBuyPriceAndLatestSupplierId">
+		UPDATE stock SET quantity = quantity + #{increment}, latest_buy_price = #{latestBuyPrice},
+		latest_supplier_id = #{latestSupplierId} WHERE goods_id = #{goodsId}
+	</update>
+</mapper>

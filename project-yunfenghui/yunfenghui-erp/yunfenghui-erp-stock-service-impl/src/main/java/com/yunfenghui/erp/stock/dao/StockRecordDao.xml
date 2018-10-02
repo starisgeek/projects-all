@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.stock.dao.StockRecordDao">
+
+    <resultMap id="stockRecordResultMap" type="com.yunfenghui.erp.stock.model.StockRecord">
+        <id property="recordNo" column="record_no" />
+        <result property="shopId" column="shop_id"/>
+        <result property="totalAmount" column="total_amount" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id"/>
+        <result property="remark" column="remark" />
+        <association property="supplier" javaType="com.yunfenghui.erp.stock.model.Supplier">
+            <id property="id" column="supplier_id"/>
+            <result property="name" column="supplier_name"/>
+        </association>
+    </resultMap>
+
+    <sql id="selectAllColumns">
+        SELECT er.record_no, er.total_amount, er.supplier_id, er.create_time, er.remark, er.shop_id,
+            er.create_user_id AS user_id, esl.name AS supplier_name
+        FROM stock_record er
+        LEFT JOIN supplier esl ON er.supplier_id = esl.id
+    </sql>
+
+    <insert id="insertStockRecord" parameterType="com.yunfenghui.erp.stock.model.StockRecord">
+        INSERT INTO stock_record(record_no ,shop_id, total_amount, create_user_id, create_time, supplier_id, remark)
+        VALUES (#{recordNo}, #{shopId}, #{totalAmount}, #{createUserId}, #{createTime}, #{supplier.id}, #{remark});
+    </insert>
+
+    <select id="queryStockRecordsBy" resultMap="stockRecordResultMap">
+        <include refid="selectAllColumns" />
+        <where>
+            <if test="query.shopId != null">er.shop_id = #{query.shopId}</if>
+            <if test="query.recordNo != null and query.recordNo != ''">AND er.record_no = #{query.recordNo}</if>
+            <if test="query.startTime != null">AND er.create_time >= #{query.earliestStartTime}</if>
+            <if test="query.endTime != null"><![CDATA[AND er.create_time <= #{query.latestEndTime}]]></if>
+        </where>
+        ORDER BY er.create_time DESC
+    </select>
+	
+	<resultMap id="fullStockResultMap" type="com.yunfenghui.erp.stock.model.StockRecord">
+        <id property="recordNo" column="record_no" />
+        <result property="shopId" column="shop_id"/>
+        <result property="totalAmount" column="total_amount" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id"/>
+        <result property="remark" column="remark" />
+        <association property="supplier" javaType="com.yunfenghui.erp.stock.model.Supplier">
+            <id property="id" column="supplier_id"/>
+            <result property="name" column="supplier_name"/>
+        </association>
+        <collection property="items" ofType="com.yunfenghui.erp.stock.model.StockRecordItem">
+            <result property="recordNo" column="record_no" />
+            <result property="goodsId" column="goods_id" />
+            <result property="buyPrice" column="buy_price"/>
+            <result property="buyQuantity" column="buy_quantity" />
+            <result property="presentQuantity" column="present_quantity" />
+            <result property="totalAmount" column="item_total_amount"/>
+        </collection>
+    </resultMap>
+    
+    <select id="queryStockRecordByNo" resultMap="fullStockResultMap">
+        SELECT r.record_no AS record_no, r.shop_id AS shop_id, r.total_amount AS total_amount,
+        r.create_user_id AS create_user_id, r.create_time AS create_time, r.remark AS remark,
+        i.goods_id AS goods_id, i.buy_price AS buy_price, i.buy_quantity AS buy_quantity,
+        i.present_quantity AS present_quantity, i.total_amount AS item_total_amount,
+        s.id AS supplier_id, s.name AS supplier_name 
+        FROM stock_record r, stock_record_item i, supplier s 
+        WHERE r.record_no = #{recordNo} AND r.record_no = i.record_no
+        AND r.supplier_id = s.id
+    </select>
+
+</mapper>

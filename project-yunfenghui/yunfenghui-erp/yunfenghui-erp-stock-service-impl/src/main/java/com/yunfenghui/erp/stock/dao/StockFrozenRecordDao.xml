@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.stock.dao.StockFrozenRecordDao">
+	<insert id="insertFrozenRecord" parameterType="com.yunfenghui.erp.stock.model.StockFrozenRecord">
+		INSERT INTO stock_frozen_record(order_no, shop_id, create_time)
+		VALUES(#{orderNo}, #{shopId}, #{createTime})
+	</insert>
+	
+	<delete id="deleteFrozenRecord">
+		DELETE FROM stock_frozen_record WHERE order_no = #{orderNo}
+	</delete>
+</mapper>
