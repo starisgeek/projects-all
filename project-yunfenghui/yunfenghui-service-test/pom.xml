@@ -127,5 +127,10 @@
 			<artifactId>yunfenghui-erp-goods-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.yunfenghui</groupId>
+			<artifactId>yunfenghui-erp-stock-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
