@@ -79,8 +79,10 @@ public interface StockService {
 	 * 扣减库存冻结数量，删除冻结记录。
 	 * 
 	 * @param freezeRecordNo
+	 * @param goodsIdAndFreezeQuantityList
 	 */
-	void unfreezeStock(String orderNo);
+	void unfreezeStock(String orderNo,
+			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList) throws ERPException;
 
 	/**
 	 * 根据订单号扣减库存数量。用于订单支付完成时调用。
