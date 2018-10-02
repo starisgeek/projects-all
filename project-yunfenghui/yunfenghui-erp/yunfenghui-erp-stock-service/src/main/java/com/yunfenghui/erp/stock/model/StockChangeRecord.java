@@ -96,4 +96,54 @@ public class StockChangeRecord implements Serializable {
 		this.createTime = createTime;
 	}
 
+	public Builder newBuilder() {
+		return new Builder();
+	}
+
+	public class Builder {
+		private final StockChangeRecord record;
+
+		private Builder() {
+			this.record = new StockChangeRecord();
+		}
+
+		public Builder serialNumber(String serialNumber) {
+			this.record.setSerialNumber(serialNumber);
+			return this;
+		}
+
+		public Builder goodsId(int goodsId) {
+			this.record.setGoodsId(goodsId);
+			return this;
+		}
+
+		public Builder shopId(int shopId) {
+			this.record.setShopId(shopId);
+			return this;
+		}
+
+		public Builder changeAmount(int changeAmount) {
+			this.record.setChangeAmount(changeAmount);
+			return this;
+		}
+
+		public Builder dealType(int dealType) {
+			this.record.setDealType(dealType);
+			return this;
+		}
+
+		public Builder originalRecordNo(String originalRecordNo) {
+			this.record.setOriginalRecordNo(originalRecordNo);
+			return this;
+		}
+
+		public Builder createTime(Date createTime) {
+			this.record.setCreateTime(createTime);
+			return this;
+		}
+
+		public StockChangeRecord build() {
+			return this.record;
+		}
+	}
 }
