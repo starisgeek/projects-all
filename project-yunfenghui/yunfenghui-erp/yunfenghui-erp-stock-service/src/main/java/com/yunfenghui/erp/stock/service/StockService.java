@@ -90,9 +90,10 @@ public interface StockService {
 	 * 
 	 * @param orderNo
 	 * @param goodsIdAndFreezeQuantityList
+	 * @param shopId
 	 */
 	void decreaseStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList);
+			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList, int shopId);
 
 	/**
 	 * 入库单查询条件
