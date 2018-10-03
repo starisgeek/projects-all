@@ -23,14 +23,6 @@ public class OrderItemCreateRequest implements Serializable {
 	 */
 	private String goodsName;
 	/**
-	 * 原价
-	 */
-	private int originalPrice;
-	/**
-	 * 折扣
-	 */
-	private int discount;
-	/**
 	 * 售价
 	 */
 	private int salePrice;
@@ -65,22 +57,6 @@ public class OrderItemCreateRequest implements Serializable {
 
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
-	}
-
-	public int getOriginalPrice() {
-		return originalPrice;
-	}
-
-	public void setOriginalPrice(int originalPrice) {
-		this.originalPrice = originalPrice;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
 	}
 
 	public int getSalePrice() {
