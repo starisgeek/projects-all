@@ -204,6 +204,10 @@ public class OrderItem implements Serializable {
 			return this;
 		}
 
+		public OrderItem build() {
+			return this.item;
+		}
+
 		private Builder() {
 			this.item = new OrderItem();
 		}
