@@ -198,7 +198,7 @@ public class Order implements Serializable {
 		this.modifyTime = modifyTime;
 	}
 
-	public Builder newBuilder() {
+	public static Builder newBuilder() {
 		return new Builder();
 	}
 
