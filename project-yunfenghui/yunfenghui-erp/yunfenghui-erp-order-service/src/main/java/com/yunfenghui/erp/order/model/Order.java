@@ -127,6 +127,11 @@ public class Order implements Serializable {
 	}
 
 	public int getTotalAmount() {
+		if (this.totalAmount == 0 && items != null && !items.isEmpty()) {
+			for (OrderItem item : items) {
+				this.totalAmount += item.getTotalAmount();
+			}
+		}
 		return totalAmount;
 	}
 
@@ -143,6 +148,11 @@ public class Order implements Serializable {
 	}
 
 	public int getTotalSendScores() {
+		if (this.totalSendScores == 0 && items != null && !items.isEmpty()) {
+			for (OrderItem item : items) {
+				this.totalSendScores += item.getSendScores();
+			}
+		}
 		return totalSendScores;
 	}
 
@@ -239,18 +249,8 @@ public class Order implements Serializable {
 			return this;
 		}
 
-		public Builder totalAmount(int totalAmount) {
-			order.setTotalAmount(totalAmount);
-			return this;
-		}
-
 		public Builder totalRefundAmount(int totalRefundAmount) {
 			order.setTotalRefundAmount(totalRefundAmount);
-			return this;
-		}
-
-		public Builder totalSendScores(int totalSendScores) {
-			order.setTotalSendScores(totalSendScores);
 			return this;
 		}
 
