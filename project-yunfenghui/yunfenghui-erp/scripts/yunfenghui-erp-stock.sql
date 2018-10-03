@@ -32,8 +32,8 @@ CREATE TABLE `stock_record_item` (
   `goods_id` int(11) NOT NULL COMMENT '商品id',
   `buy_price` int(11) NOT NULL COMMENT '进价',
   `buy_quantity` int(11) NOT NULL COMMENT '进货量',
-  `present_quantity` int(11) NOT NULL COMMENT '赠送量'
-  `total_amount` int(11) NOT NULL COMMENT `入库单Item总金额`
+  `present_quantity` int(11) NOT NULL COMMENT '赠送量',
+  `total_amount` int(11) NOT NULL COMMENT '入库单Item总金额'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `stock_frozen_record` (
