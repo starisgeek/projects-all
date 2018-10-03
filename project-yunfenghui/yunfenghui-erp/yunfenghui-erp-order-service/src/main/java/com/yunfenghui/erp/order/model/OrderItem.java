@@ -27,14 +27,6 @@ public class OrderItem implements Serializable {
 	 */
 	private String goodsName;
 	/**
-	 * 原价
-	 */
-	private int originalPrice;
-	/**
-	 * 折扣
-	 */
-	private int discount;
-	/**
 	 * 售价
 	 */
 	private int salePrice;
@@ -100,22 +92,6 @@ public class OrderItem implements Serializable {
 		this.goodsName = goodsName;
 	}
 
-	public int getOriginalPrice() {
-		return originalPrice;
-	}
-
-	public void setOriginalPrice(int originalPrice) {
-		this.originalPrice = originalPrice;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
-	}
-
 	public int getSalePrice() {
 		return salePrice;
 	}
@@ -133,6 +109,9 @@ public class OrderItem implements Serializable {
 	}
 
 	public int getSendScores() {
+		if (this.sendScores == 0) {
+			this.sendScores = this.salePrice * this.sendScoreRatio / 100;
+		}
 		return sendScores;
 	}
 
@@ -149,7 +128,10 @@ public class OrderItem implements Serializable {
 	}
 
 	public int getTotalAmount() {
-		return totalAmount;
+		if (this.totalAmount == 0) {
+			this.totalAmount = this.salePrice * this.quantity;
+		}
+		return this.totalAmount;
 	}
 
 	public void setTotalAmount(int totalAmount) {
@@ -180,4 +162,50 @@ public class OrderItem implements Serializable {
 		this.refundScores = refundScores;
 	}
 
+	public static Builder newBuilder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private final OrderItem item;
+
+		public Builder orderNo(String orderNo) {
+			this.item.setOrderNo(orderNo);
+			return this;
+		}
+
+		public Builder goodsId(int goodsId) {
+			this.item.setGoodsId(goodsId);
+			return this;
+		}
+
+		public Builder goodsBarcode(String goodsBarcode) {
+			this.item.setGoodsBarcode(goodsBarcode);
+			return this;
+		}
+
+		public Builder goodsName(String goodsName) {
+			this.item.setGoodsName(goodsName);
+			return this;
+		}
+
+		public Builder salePrice(int salePrice) {
+			this.item.setSalePrice(salePrice);
+			return this;
+		}
+
+		public Builder sendScoreRatio(int sendScoreRatio) {
+			this.item.setSendScoreRatio(sendScoreRatio);
+			return this;
+		}
+
+		public Builder quantity(int quantity) {
+			this.item.setQuantity(quantity);
+			return this;
+		}
+
+		private Builder() {
+			this.item = new OrderItem();
+		}
+	}
 }
