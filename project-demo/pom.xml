@@ -49,6 +49,7 @@
 		<pinyin4j.version>2.5.1</pinyin4j.version>
 		<alipay-sdk-java.version>3.0.0</alipay-sdk-java.version>
 		<commons-httpclient.version>3.1</commons-httpclient.version>
+		<netty.version>4.1.24.Final</netty.version>
 	</properties>
 
 	<dependencyManagement>
@@ -378,6 +379,11 @@
 				<groupId>commons-httpclient</groupId>
 				<artifactId>commons-httpclient</artifactId>
 				<version>${commons-httpclient.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>${netty.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
