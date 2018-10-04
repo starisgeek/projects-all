@@ -16,7 +16,6 @@ import io.netty.util.concurrent.GenericFutureListener;
 
 public class ImServerBootstrap {
 	private static final Logger logger = LoggerFactory.getLogger(ImServerBootstrap.class);
-	private static final String KEY_IM_SERVER_PORT = "im.server.port";
 
 	public static void main(String[] args) throws Exception {
 		NioEventLoopGroup boss = new NioEventLoopGroup(1);
@@ -31,7 +30,8 @@ public class ImServerBootstrap {
 					}
 				});
 		ChannelFuture f = boot
-				.bind(Integer.valueOf(ApplicationConfigurer.valueOf(KEY_IM_SERVER_PORT)))
+				.bind(Integer.valueOf(
+						ApplicationConfigurer.valueOf(ApplicationConfigurer.KEY_IM_SERVER_PORT)))
 				.addListener(new GenericFutureListener<Future<? super Void>>() {
 					@Override
 					public void operationComplete(Future<? super Void> future) throws Exception {
