@@ -3,7 +3,7 @@ package com.star.im.server.boot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.star.im.util.ApplicationConfigurer;
+import com.star.im.util.Configs;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -29,9 +29,7 @@ public class ImServerBootstrap {
 
 					}
 				});
-		ChannelFuture f = boot
-				.bind(Integer.valueOf(
-						ApplicationConfigurer.valueOf(ApplicationConfigurer.KEY_IM_SERVER_PORT)))
+		ChannelFuture f = boot.bind(Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)))
 				.addListener(new GenericFutureListener<Future<? super Void>>() {
 					@Override
 					public void operationComplete(Future<? super Void> future) throws Exception {
