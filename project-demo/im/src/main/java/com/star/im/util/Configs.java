@@ -19,6 +19,7 @@ public class Configs {
 
 	public static final String KEY_IM_SERVER_ADDRESS = "im.server.address";
 	public static final String KEY_IM_SERVER_PORT = "im.server.port";
+	public static final String KEY_IM_CLIENT_CONNECT_MAX_RETRIES = "im.client.connect.max.retries";
 
 	private static final Map<String, String> configs;
 
