@@ -17,6 +17,9 @@ public class ApplicationConfigurer {
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationConfigurer.class);
 	private static final String CONFIG_LOCATION = "application.properties";
 
+	public static final String KEY_IM_SERVER_ADDRESS = "im.server.address";
+	public static final String KEY_IM_SERVER_PORT = "im.server.port";
+
 	private static final Map<String, String> configs;
 
 	static {
