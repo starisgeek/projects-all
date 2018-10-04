@@ -20,9 +20,9 @@ public class GoodsDaoTest extends BaseDaoTest {
 
 	@Test
 	public void testInsertGoods() {
-		Goods goods = Goods.newBuilder().barcode("41736A505").name("SELECTED思莱德挺括涤纶面料男士合体商务正装西裤T")
-				.shopId(1).salePrice(49900).scoreRatio(80).categoryId(1).brandId(1).unitId(1)
-				.status(Goods.STATUS_NEW).createTime(new Date()).remark("挺括透气 耐磨").build();
+		Goods goods = Goods.newBuilder().barcode("418310515").name("SELECTED思莱德新款男士山羊皮立领商务休闲皮衣外套S")
+				.shopId(1).salePrice(179900).scoreRatio(60).categoryId(1).brandId(1).unitId(1)
+				.status(Goods.STATUS_NEW).createTime(new Date()).remark("拉链门襟 口袋口袋拉链").build();
 		goodsDao.insertGoods(goods);
 		logger.info("insertGoods:{} success", goods.getId());
 	}
