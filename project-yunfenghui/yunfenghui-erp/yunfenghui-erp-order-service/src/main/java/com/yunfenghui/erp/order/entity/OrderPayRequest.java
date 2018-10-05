@@ -18,6 +18,11 @@ public class OrderPayRequest implements Serializable {
 	 * 支付方式
 	 */
 	private int payWay;
+
+	/**
+	 * 支付金额
+	 */
+	private int payAmount;
 	/**
 	 * 授权码
 	 */
@@ -37,6 +42,14 @@ public class OrderPayRequest implements Serializable {
 
 	public void setPayWay(int payWay) {
 		this.payWay = payWay;
+	}
+
+	public int getPayAmount() {
+		return payAmount;
+	}
+
+	public void setPayAmount(int payAmount) {
+		this.payAmount = payAmount;
 	}
 
 	public String getAuthCode() {
