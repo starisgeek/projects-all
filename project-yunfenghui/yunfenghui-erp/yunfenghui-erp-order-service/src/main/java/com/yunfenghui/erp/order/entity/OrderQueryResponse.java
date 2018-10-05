@@ -21,6 +21,11 @@ public class OrderQueryResponse extends BaseResponse {
 	 */
 	private String tradeStatus;
 
+	/**
+	 * 支付状态
+	 */
+	private int payStatus;
+
 	public String getTradeNo() {
 		return tradeNo;
 	}
@@ -43,6 +48,14 @@ public class OrderQueryResponse extends BaseResponse {
 
 	public void setTradeStatus(String tradeStatus) {
 		this.tradeStatus = tradeStatus;
+	}
+
+	public int getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(int payStatus) {
+		this.payStatus = payStatus;
 	}
 
 	public static Builder newBuilder() {
@@ -88,6 +101,11 @@ public class OrderQueryResponse extends BaseResponse {
 
 		public Builder tradeStatus(String tradeStatus) {
 			response.setTradeStatus(tradeStatus);
+			return this;
+		}
+
+		public Builder payStatus(int payStatus) {
+			response.setPayStatus(payStatus);
 			return this;
 		}
 
