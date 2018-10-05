@@ -10,6 +10,8 @@ import com.yunfenghui.erp.order.entity.OrderQueryRequest;
 import com.yunfenghui.erp.order.entity.OrderQueryResponse;
 import com.yunfenghui.erp.order.entity.OrderRefundRequest;
 import com.yunfenghui.erp.order.entity.OrderRefundResponse;
+import com.yunfenghui.erp.order.entity.OrderRevokeRequest;
+import com.yunfenghui.erp.order.entity.OrderRevokeResponse;
 
 public interface OrderService {
 	/**
@@ -63,6 +65,15 @@ public interface OrderService {
 	 *             订单号不存在。错误的订单状态，不能取消订单。
 	 */
 	void cancelOrder(String orderNo) throws ERPException;
+
+	/**
+	 * 撤销订单。现金支付方式不支持撤销
+	 * 
+	 * @param revokeRequest
+	 * @return
+	 * @throws ERPException
+	 */
+	OrderRevokeResponse revokeOrder(OrderRevokeRequest revokeRequest) throws ERPException;
 
 	/**
 	 * 关闭订单
