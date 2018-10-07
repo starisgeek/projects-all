@@ -1,5 +1,8 @@
 package com.yunfenghui.erp.stock.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +24,14 @@ public interface StockFrozenRecordDao {
 	 * @return
 	 */
 	int deleteFrozenRecord(@Param("orderNo") String orderNo);
+
+	/**
+	 * 查询topN条StockFrozenRecord订单号，必须早于createTime
+	 * 
+	 * @param topN
+	 * @param createTime
+	 * @return
+	 */
+	List<String> queryTopNFrozenRecordNosBefore(@Param("topN") int topN,
+			@Param("createTime") Date createTime);
 }

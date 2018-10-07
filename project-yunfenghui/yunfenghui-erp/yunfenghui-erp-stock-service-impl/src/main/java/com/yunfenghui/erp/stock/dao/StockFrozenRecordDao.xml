@@ -11,4 +11,10 @@
 	<delete id="deleteFrozenRecord">
 		DELETE FROM stock_frozen_record WHERE order_no = #{orderNo}
 	</delete>
+	
+	<select id="queryTopNFrozenRecordNosBefore" resultMap="memberAccountResultMap">
+		<![CDATA[SELECT order_no FROM stock_frozen_record
+		WHERE create_time < #{createTime}
+		ORDER BY create_time LIMIT #{topN}]]>
+	</select>
 </mapper>
