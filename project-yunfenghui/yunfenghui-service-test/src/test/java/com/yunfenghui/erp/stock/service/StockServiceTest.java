@@ -135,11 +135,7 @@ public class StockServiceTest extends AbstractJUnit4SpringContextTests {
 	@Test
 	public void testDecreaseStock() {
 		String orderNo = "1538489923610";
-		List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList = new ArrayList<>();
-		goodsIdAndFreezeQuantityList.add(new KeyValue<Integer, Integer>(1, 2));
-		goodsIdAndFreezeQuantityList.add(new KeyValue<Integer, Integer>(2, 5));
-		int shopId = 1;
-		stockService.decreaseStock(orderNo, goodsIdAndFreezeQuantityList, shopId);
+		stockService.decreaseStock(orderNo);
 		logger.info("decreaseStock:{} success", orderNo);
 	}
 
