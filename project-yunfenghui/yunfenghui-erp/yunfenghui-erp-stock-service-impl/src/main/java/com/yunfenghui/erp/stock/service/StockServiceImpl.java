@@ -198,6 +198,11 @@ public class StockServiceImpl implements StockService {
 		stockChangeRecordDao.batchInsertChangeRecords(changeRecords);
 	}
 
+	@Override
+	public List<String> getTopNStockFrozenRecordNosBefore(int topN, Date createTime) {
+		return stockFrozenRecordDao.queryTopNFrozenRecordNosBefore(topN, createTime);
+	}
+
 	private void removeStockFrozenRecordAndItems(String orderNo) {
 		stockFrozenRecordDao.deleteFrozenRecord(orderNo);
 		stockFrozenRecordItemDao.deleteFrozenRecordItems(orderNo);
