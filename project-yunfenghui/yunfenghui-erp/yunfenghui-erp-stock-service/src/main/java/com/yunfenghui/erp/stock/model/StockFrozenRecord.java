@@ -2,6 +2,7 @@ package com.yunfenghui.erp.stock.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 库存冻结记录
@@ -26,6 +27,11 @@ public class StockFrozenRecord implements Serializable {
 	 */
 	private Date createTime;
 
+	/**
+	 * 冻结记录明细
+	 */
+	private List<StockFrozenRecordItem> items;
+
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -48,6 +54,14 @@ public class StockFrozenRecord implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public List<StockFrozenRecordItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<StockFrozenRecordItem> items) {
+		this.items = items;
 	}
 
 }
