@@ -8,7 +8,6 @@ import com.yunfenghui.common.KeyValue;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.erp.common.ERPException;
-import com.yunfenghui.erp.stock.model.StockFrozenRecord;
 import com.yunfenghui.erp.stock.model.StockRecord;
 import com.yunfenghui.erp.stock.model.StockRecordItem;
 
@@ -95,15 +94,15 @@ public interface StockService {
 	 */
 	void decreaseStock(String orderNo,
 			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList, int shopId);
-	
+
 	/**
-	 * 查询topN条StockFrozenRecord，必须早于createTime
+	 * 查询topN条StockFrozenRecord订单号，必须早于createTime
 	 * 
 	 * @param topN
 	 * @param createTime
 	 * @return
 	 */
-	List<StockFrozenRecord> getTopNStockFrozenRecordsBefore(int topN, Date createTime);
+	List<String> getTopNStockFrozenRecordNosBefore(int topN, Date createTime);
 
 	/**
 	 * 入库单查询条件
