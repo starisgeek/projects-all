@@ -179,23 +179,33 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
-	public void decreaseStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList, int shopId) {
-		List<StockChangeRecord> changeRecords = new ArrayList<>(
-				goodsIdAndFreezeQuantityList.size());
-		Date now = new Date();
-		for (KeyValue<Integer, Integer> goodsIdAndFreezeQuantity : goodsIdAndFreezeQuantityList) {
-			stockDao.decreaseQuantityAndFrozenQuantity(goodsIdAndFreezeQuantity.getKey(),
-					goodsIdAndFreezeQuantity.getValue());
-			changeRecords
-					.add(StockChangeRecord.newBuilder().serialNumber(numberGenerator.generate())
-							.goodsId(goodsIdAndFreezeQuantity.getKey()).shopId(shopId)
-							.changeAmount(-goodsIdAndFreezeQuantity.getValue())
-							.dealType(StockChangeRecord.DEAL_TYPE_CONSUME).originalRecordNo(orderNo)
-							.createTime(now).build());
+	public void decreaseStock(String orderNo) {
+		StockFrozenRecord frozenRecord = stockFrozenRecordDao.queryFrozenRecordByOrderNo(orderNo);
+		if (frozenRecord != null) {
+			List<StockFrozenRecordItem> items = frozenRecord.getItems();
+			if (items != null && !items.isEmpty()) {
+				List<StockChangeRecord> changeRecords = new ArrayList<>(items.size());
+				Date now = new Date();
+				for (StockFrozenRecordItem item : items) {
+					stockDao.decreaseQuantityAndFrozenQuantity(item.getGoodsId(),
+							item.getFrozenQuantity());
+					changeRecords.add(
+							StockChangeRecord.newBuilder().serialNumber(numberGenerator.generate())
+									.goodsId(item.getGoodsId()).shopId(frozenRecord.getShopId())
+									.changeAmount(-item.getFrozenQuantity())
+									.dealType(StockChangeRecord.DEAL_TYPE_CONSUME)
+									.originalRecordNo(orderNo).createTime(now).build());
+				}
+				removeStockFrozenRecordAndItems(orderNo);
+				stockChangeRecordDao.batchInsertChangeRecords(changeRecords);
+			} else {
+				logger.warn("Items of StockFrozenRecord:{} is null, this should not happen",
+						orderNo);
+			}
+		} else {
+			logger.info("queryFrozenRecordByOrderNo:{} but not found", orderNo);
 		}
-		removeStockFrozenRecordAndItems(orderNo);
-		stockChangeRecordDao.batchInsertChangeRecords(changeRecords);
+
 	}
 
 	@Override
