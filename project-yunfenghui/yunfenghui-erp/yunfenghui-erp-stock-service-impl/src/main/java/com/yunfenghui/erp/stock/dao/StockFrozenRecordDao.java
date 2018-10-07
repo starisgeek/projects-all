@@ -26,6 +26,14 @@ public interface StockFrozenRecordDao {
 	int deleteFrozenRecord(@Param("orderNo") String orderNo);
 
 	/**
+	 * 根据订单号查询(包括StockFrozenRecordItem)
+	 * 
+	 * @param orderNo
+	 * @return
+	 */
+	StockFrozenRecord queryFrozenRecordByOrderNo(@Param("orderNo") String orderNo);
+
+	/**
 	 * 查询topN条StockFrozenRecord订单号，必须早于createTime
 	 * 
 	 * @param topN

@@ -12,6 +12,24 @@
 		DELETE FROM stock_frozen_record WHERE order_no = #{orderNo}
 	</delete>
 	
+	<resultMap type="com.yunfenghui.erp.stock.model.StockFrozenRecord" id="frozenRecordResultMap">
+		<id property="orderNo" column="order_no"/>
+		<result property="shopId" column="shop_id"/>
+		<result property="createTime" column="create_time"/>
+		<collection property="items" ofType="com.yunfenghui.erp.stock.model.StockFrozenRecordItem" column="item_order_no">
+			<result property="orderNo" column="item_order_no"/>
+			<result property="goodsId" column="goods_id"/>
+			<result property="frozenQuantity" column="frozen_quantity"/>
+		</collection>
+	</resultMap>
+	
+	<select id="queryFrozenRecordByOrderNo" resultMap="frozenRecordResultMap">
+		SELECT r.order_no AS order_no, r.shop_id AS shop_id, r.create_time AS create_time,
+		i.order_no AS item_order_no, i.goods_id AS goods_id, i.frozen_quantity AS frozen_quantity 
+		FROM stock_frozen_record r, stock_frozen_record_item i
+		WHERE r.order_no = #{orderNo} AND r.order_no = i.order_no
+	</select>
+	
 	<select id="queryTopNFrozenRecordNosBefore" resultMap="memberAccountResultMap">
 		<![CDATA[SELECT order_no FROM stock_frozen_record
 		WHERE create_time < #{createTime}
