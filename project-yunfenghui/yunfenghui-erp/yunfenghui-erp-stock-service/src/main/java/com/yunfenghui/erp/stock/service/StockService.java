@@ -89,11 +89,8 @@ public interface StockService {
 	 * 扣减库存冻结数量，删除冻结记录及明细，扣减库存数量，添加库存变动明细。
 	 * 
 	 * @param orderNo
-	 * @param goodsIdAndFreezeQuantityList
-	 * @param shopId
 	 */
-	void decreaseStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList, int shopId);
+	void decreaseStock(String orderNo);
 
 	/**
 	 * 查询topN条StockFrozenRecord订单号，必须早于createTime
