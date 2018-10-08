@@ -135,30 +135,18 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
-	public void freezeStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList, int shopId)
-			throws ERPException {
-		List<StockFrozenRecordItem> items = new ArrayList<>(goodsIdAndFreezeQuantityList.size());
-		for (KeyValue<Integer, Integer> goodsIdAndFreezeQuantity : goodsIdAndFreezeQuantityList) {
-			int updated = stockDao.increaseFrozenQuantity(goodsIdAndFreezeQuantity.getKey(),
-					goodsIdAndFreezeQuantity.getValue());
+	public void freezeStock(StockFrozenRecord frozenRecord) throws ERPException {
+		for (StockFrozenRecordItem item : frozenRecord.getItems()) {
+			int updated = stockDao.increaseFrozenQuantity(item.getGoodsId(),
+					item.getFrozenQuantity());
 			if (updated != 1) {
 				logger.error("Failed to increaseFrozenQuantity, goodsId:{} not exists",
-						goodsIdAndFreezeQuantity.getKey());
+						item.getGoodsId());
 				throw new ERPException(StockMessageCode.STOCK_GOODS_NOT_EXISTS);
 			}
-			StockFrozenRecordItem item = new StockFrozenRecordItem();
-			item.setOrderNo(orderNo);
-			item.setGoodsId(goodsIdAndFreezeQuantity.getKey());
-			item.setFrozenQuantity(goodsIdAndFreezeQuantity.getValue());
-			items.add(item);
 		}
-		StockFrozenRecord frozenRecord = new StockFrozenRecord();
-		frozenRecord.setOrderNo(orderNo);
-		frozenRecord.setShopId(shopId);
-		frozenRecord.setCreateTime(new Date());
 		stockFrozenRecordDao.insertFrozenRecord(frozenRecord);
-		stockFrozenRecordItemDao.batchInsertFrozenRecordItems(items);
+		stockFrozenRecordItemDao.batchInsertFrozenRecordItems(frozenRecord.getItems());
 	}
 
 	@Override
