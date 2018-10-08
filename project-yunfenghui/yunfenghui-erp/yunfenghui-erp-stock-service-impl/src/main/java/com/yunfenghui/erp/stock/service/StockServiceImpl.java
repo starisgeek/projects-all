@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageRowBounds;
 import com.google.common.collect.Sets;
-import com.yunfenghui.common.KeyValue;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.common.service.NumberGenerator;
@@ -151,18 +150,17 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = ERPException.class)
-	public void unfreezeStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList) throws ERPException {
-		for (KeyValue<Integer, Integer> goodsIdAndFreezeQuantity : goodsIdAndFreezeQuantityList) {
-			int updated = stockDao.decreaseFrozenQuantity(goodsIdAndFreezeQuantity.getKey(),
-					goodsIdAndFreezeQuantity.getValue());
+	public void unfreezeStock(StockFrozenRecord frozenRecord) throws ERPException {
+		for (StockFrozenRecordItem item : frozenRecord.getItems()) {
+			int updated = stockDao.decreaseFrozenQuantity(item.getGoodsId(),
+					item.getFrozenQuantity());
 			if (updated != 1) {
 				logger.error("Failed to decreaseFrozenQuantity, goodsId:{} not exists",
-						goodsIdAndFreezeQuantity.getKey());
+						item.getGoodsId());
 				throw new ERPException(StockMessageCode.STOCK_GOODS_NOT_EXISTS);
 			}
 		}
-		removeStockFrozenRecordAndItems(orderNo);
+		removeStockFrozenRecordAndItems(frozenRecord.getOrderNo());
 	}
 
 	@Override
