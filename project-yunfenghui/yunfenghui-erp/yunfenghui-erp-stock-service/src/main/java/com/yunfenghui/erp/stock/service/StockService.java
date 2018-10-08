@@ -8,6 +8,7 @@ import com.yunfenghui.common.KeyValue;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.erp.common.ERPException;
+import com.yunfenghui.erp.stock.model.StockFrozenRecord;
 import com.yunfenghui.erp.stock.model.StockRecord;
 import com.yunfenghui.erp.stock.model.StockRecordItem;
 
@@ -61,18 +62,13 @@ public interface StockService {
 	PageResult<StockRecord> getStockRecordsBy(StockRecordQuery query, Page page);
 
 	/**
-	 * 根据订单冻结库存数量。用于创建订单时调用。
-	 * 增加冻结库存数量。
+	 * 冻结库存
 	 * 
-	 * @param orderNo
-	 * @param goodsIdAndFreezeQuantityList
-	 * @param shopId
-	 * 
+	 * @param frozenRecord
 	 * @throws ERPException
 	 *             订单号已存在。商品不存在。
 	 */
-	void freezeStock(String orderNo, List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList,
-			int shopId) throws ERPException;
+	void freezeStock(StockFrozenRecord frozenRecord) throws ERPException;
 
 	/**
 	 * 解冻库存数量。用于创建订单失败时调用。
