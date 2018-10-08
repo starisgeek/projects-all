@@ -2,6 +2,7 @@ package com.yunfenghui.erp.order.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 退款记录
@@ -12,21 +13,21 @@ import java.util.Date;
 public class RefundRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * 源商户交易号
+	 * 订单号
 	 */
-	private String tradeNo;
+	private String orderNo;
 	/**
 	 * 退款交易号
 	 */
-	private String refundTradeNo;
+	private String refundRecordNo;
 	/**
 	 * 第三方退款交易号
 	 */
 	private String outRefundTradeNo;
 	/**
-	 * 退款金额
+	 * 退款总金额
 	 */
-	private int refundAmount;
+	private int totalRefundAmount;
 	/**
 	 * 待退款/退款成功/退款失败
 	 */
@@ -40,20 +41,35 @@ public class RefundRecord implements Serializable {
 	 */
 	private Date modifyTime;
 
-	public String getTradeNo() {
-		return tradeNo;
+	private List<RefundRecordItem> items;
+
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setTradeNo(String tradeNo) {
-		this.tradeNo = tradeNo;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
-	public String getRefundTradeNo() {
-		return refundTradeNo;
+	public String getRefundRecordNo() {
+		return refundRecordNo;
 	}
 
-	public void setRefundTradeNo(String refundTradeNo) {
-		this.refundTradeNo = refundTradeNo;
+	public void setRefundRecordNo(String refundRecordNo) {
+		this.refundRecordNo = refundRecordNo;
+	}
+
+	public int getTotalRefundAmount() {
+		if (totalRefundAmount == 0 && items != null && !items.isEmpty()) {
+			for (RefundRecordItem item : items) {
+				totalRefundAmount += item.getRefundAmount();
+			}
+		}
+		return totalRefundAmount;
+	}
+
+	public void setTotalRefundAmount(int totalRefundAmount) {
+		this.totalRefundAmount = totalRefundAmount;
 	}
 
 	public String getOutRefundTradeNo() {
@@ -62,14 +78,6 @@ public class RefundRecord implements Serializable {
 
 	public void setOutRefundTradeNo(String outRefundTradeNo) {
 		this.outRefundTradeNo = outRefundTradeNo;
-	}
-
-	public int getRefundAmount() {
-		return refundAmount;
-	}
-
-	public void setRefundAmount(int refundAmount) {
-		this.refundAmount = refundAmount;
 	}
 
 	public int getRefundStatus() {
@@ -107,13 +115,13 @@ public class RefundRecord implements Serializable {
 			this.record = new RefundRecord();
 		}
 
-		public Builder tradeNo(String tradeNo) {
-			this.record.setTradeNo(tradeNo);
+		public Builder orderNo(String orderNo) {
+			this.record.setOrderNo(orderNo);
 			return this;
 		}
 
-		public Builder refundTradeNo(String refundTradeNo) {
-			this.record.setRefundTradeNo(refundTradeNo);
+		public Builder refundRecordNo(String refundRecordNo) {
+			this.record.setRefundRecordNo(refundRecordNo);
 			return this;
 		}
 
@@ -122,8 +130,8 @@ public class RefundRecord implements Serializable {
 			return this;
 		}
 
-		public Builder refundAmount(int refundAmount) {
-			this.record.setRefundAmount(refundAmount);
+		public Builder totalRefundAmount(int totalRefundAmount) {
+			this.record.setTotalRefundAmount(totalRefundAmount);
 			return this;
 		}
 
