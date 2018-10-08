@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.yunfenghui.common.DateTimes;
-import com.yunfenghui.common.KeyValue;
 import com.yunfenghui.common.page.Page;
 import com.yunfenghui.common.page.PageResult;
 import com.yunfenghui.erp.common.ERPException;
@@ -62,7 +61,7 @@ public interface StockService {
 	PageResult<StockRecord> getStockRecordsBy(StockRecordQuery query, Page page);
 
 	/**
-	 * 冻结库存
+	 * 冻结库存。用于创建订单前调用。
 	 * 
 	 * @param frozenRecord
 	 * @throws ERPException
@@ -74,11 +73,9 @@ public interface StockService {
 	 * 解冻库存数量。用于创建订单失败时调用。
 	 * 扣减库存冻结数量，删除冻结记录。
 	 * 
-	 * @param freezeRecordNo
-	 * @param goodsIdAndFreezeQuantityList
+	 * @param frozenRecord
 	 */
-	void unfreezeStock(String orderNo,
-			List<KeyValue<Integer, Integer>> goodsIdAndFreezeQuantityList) throws ERPException;
+	void unfreezeStock(StockFrozenRecord frozenRecord) throws ERPException;
 
 	/**
 	 * 根据订单号扣减库存数量。用于订单支付完成时调用。
