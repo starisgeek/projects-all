@@ -164,10 +164,6 @@ public class Order implements Serializable {
 		return payWay;
 	}
 
-	public boolean isCashPay() {
-		return payWay == PAY_WAY_CASH;
-	}
-
 	public void setPayWay(int payWay) {
 		this.payWay = payWay;
 	}
