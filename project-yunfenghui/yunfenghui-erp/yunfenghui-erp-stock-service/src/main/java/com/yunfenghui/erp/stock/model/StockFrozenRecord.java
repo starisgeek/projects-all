@@ -25,7 +25,7 @@ public class StockFrozenRecord implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createTime;
+	private Date createTime = new Date();
 
 	/**
 	 * 冻结记录明细
