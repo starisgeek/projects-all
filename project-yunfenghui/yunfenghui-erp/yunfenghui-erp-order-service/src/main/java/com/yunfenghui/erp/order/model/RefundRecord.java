@@ -50,6 +50,11 @@ public class RefundRecord implements Serializable {
 	 */
 	private Date modifyTime;
 
+	/**
+	 * 退款原因
+	 */
+	private String reason;
+
 	private List<RefundRecordItem> items;
 
 	public String getOrderNo() {
@@ -137,6 +142,14 @@ public class RefundRecord implements Serializable {
 		this.modifyTime = modifyTime;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public static Builder newBuilder() {
 		return new Builder();
 	}
@@ -190,6 +203,11 @@ public class RefundRecord implements Serializable {
 
 		public Builder modifyTime(Date modifyTime) {
 			this.record.setModifyTime(modifyTime);
+			return this;
+		}
+
+		public Builder reason(String reason) {
+			this.record.setReason(reason);
 			return this;
 		}
 
