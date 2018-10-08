@@ -28,6 +28,11 @@ public class RefundRecord implements Serializable {
 	 * 退款总金额
 	 */
 	private int totalRefundAmount;
+
+	/**
+	 * 门店id
+	 */
+	private int shopId;
 	/**
 	 * 待退款/退款成功/退款失败
 	 */
@@ -70,6 +75,22 @@ public class RefundRecord implements Serializable {
 
 	public void setTotalRefundAmount(int totalRefundAmount) {
 		this.totalRefundAmount = totalRefundAmount;
+	}
+
+	public int getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
+	}
+
+	public List<RefundRecordItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<RefundRecordItem> items) {
+		this.items = items;
 	}
 
 	public String getOutRefundTradeNo() {
@@ -135,6 +156,11 @@ public class RefundRecord implements Serializable {
 			return this;
 		}
 
+		public Builder shopId(int shopId) {
+			this.record.setShopId(shopId);
+			return this;
+		}
+
 		public Builder refundStatus(int refundStatus) {
 			this.record.setRefundStatus(refundStatus);
 			return this;
@@ -147,6 +173,11 @@ public class RefundRecord implements Serializable {
 
 		public Builder modifyTime(Date modifyTime) {
 			this.record.setModifyTime(modifyTime);
+			return this;
+		}
+
+		public Builder items(List<RefundRecordItem> items) {
+			this.record.setItems(items);
 			return this;
 		}
 
