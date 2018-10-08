@@ -38,6 +38,10 @@ public class RefundRecord implements Serializable {
 	 */
 	private int refundStatus;
 	/**
+	 * 创建人id
+	 */
+	private int createUserId;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -109,6 +113,14 @@ public class RefundRecord implements Serializable {
 		this.refundStatus = refundStatus;
 	}
 
+	public int getCreateUserId() {
+		return createUserId;
+	}
+
+	public void setCreateUserId(int createUserId) {
+		this.createUserId = createUserId;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -163,6 +175,11 @@ public class RefundRecord implements Serializable {
 
 		public Builder refundStatus(int refundStatus) {
 			this.record.setRefundStatus(refundStatus);
+			return this;
+		}
+
+		public Builder createUserId(int createUserId) {
+			this.record.setCreateUserId(createUserId);
 			return this;
 		}
 
