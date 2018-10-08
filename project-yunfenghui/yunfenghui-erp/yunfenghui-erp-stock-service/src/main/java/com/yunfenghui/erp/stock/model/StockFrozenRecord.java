@@ -61,6 +61,11 @@ public class StockFrozenRecord implements Serializable {
 	}
 
 	public void setItems(List<StockFrozenRecordItem> items) {
+		if (orderNo != null && items != null && !items.isEmpty()) {
+			for (StockFrozenRecordItem item : items) {
+				item.setOrderNo(orderNo);
+			}
+		}
 		this.items = items;
 	}
 
