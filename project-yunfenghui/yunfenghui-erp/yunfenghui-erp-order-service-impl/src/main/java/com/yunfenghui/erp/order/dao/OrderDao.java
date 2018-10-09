@@ -56,4 +56,24 @@ public interface OrderDao {
 	int updateOrderStatusAndOutTradeNo(@Param("orderNo") String orderNo,
 			@Param("expectedStatus") int expectedStatus, @Param("updatedStatus") int updatedStatus,
 			@Param("outTradeNo") String outTradeNo, @Param("modifyTime") Date modifyTime);
+
+	/**
+	 * 增加退款总金额
+	 * 
+	 * @param orderNo
+	 * @param increment
+	 * @return
+	 */
+	int increaseOrderTotalRefundAmount(@Param("orderNo") String orderNo,
+			@Param("increment") int increment);
+
+	/**
+	 * 减少退款总金额
+	 * 
+	 * @param orderNo
+	 * @param decrement
+	 * @return
+	 */
+	int decreaseOrderTotalRefundAmount(@Param("orderNo") String orderNo,
+			@Param("decrement") int decrement);
 }

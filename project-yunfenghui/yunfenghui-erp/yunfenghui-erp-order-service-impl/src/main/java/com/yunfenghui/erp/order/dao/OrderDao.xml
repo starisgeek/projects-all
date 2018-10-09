@@ -81,4 +81,14 @@
     	UPDATE `order` SET status = #{updatedStatus}, out_trade_no = #{outTradeNo}, modified_time = #{modifyTime}
     	WHERE order_no = #{orderNo} AND status = #{expectedStatus}
     </update>
+    
+    <update id="increaseOrderTotalRefundAmount">
+    	UPDATE `order` SET total_refund_amount = total_refund_amount + #{increment}
+    	WHERE order_no = #{orderNo} AND total_amount >= total_refund_amount + #{increment}
+    </update>
+    
+    <update id="decreaseOrderTotalRefundAmount">
+    	UPDATE `order` SET total_refund_amount = total_refund_amount - #{decrement}
+    	WHERE order_no = #{orderNo} AND total_refund_amount >= #{decrement}
+    </update>
 </mapper>
