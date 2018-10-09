@@ -13,7 +13,10 @@ public interface OrderMessageCode {
 	 * 退款订单项数量超出购买数量
 	 */
 	String REFUND_ORDER_ITEM_QUANTITY_OVERFLOW = "erp.refund.order.item.quantity.overflow";
-
+	/**
+	 * 订单退款金额超出付款金额
+	 */
+	String REFUND_ORDER_AMOUNT_OVERFLOW = "erp.refund.order.amount.overflow";
 	/**
 	 * 退款订单项在原订单中不存在
 	 */
