@@ -7,4 +7,10 @@
 		INSERT INTO order_refund_record(refund_record_no, order_no, shop_id, total_refund_amount, refund_status, create_user_id, create_time, reason)
 		VALUES(#{refundRecordNo}, #{orderNo}, #{shopId}, #{totalRefundAmount}, #{refundStatus}, #{createUserId}, #{createTime}, #{reason})
 	</insert>
+	
+	<update id="updateRefundRecordStatusAndOutRefundTradeNo">
+		UPDATE order_refund_record SET refund_status = #{updatedStatus}, out_refund_trade_no = #{outRefundTradeNo},
+		modified_time = #{modifyTime}
+		WHERE refund_record_no = #{refundRecordNo} AND refund_status = #{expectedStatus}
+	</update>
 </mapper>
