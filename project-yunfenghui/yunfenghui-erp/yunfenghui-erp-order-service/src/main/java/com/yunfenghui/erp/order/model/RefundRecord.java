@@ -57,6 +57,19 @@ public class RefundRecord implements Serializable {
 
 	private List<RefundRecordItem> items;
 
+	/**
+	 * 等待退款
+	 */
+	public static final int REFUND_STATUS_WAIT = 1;
+	/**
+	 * 退款成功
+	 */
+	public static final int REFUND_STATUS_SUCCESS = 2;
+	/**
+	 * 退款失败
+	 */
+	public static final int REFUND_STATUS_FAILED = 3;
+
 	public String getOrderNo() {
 		return orderNo;
 	}
