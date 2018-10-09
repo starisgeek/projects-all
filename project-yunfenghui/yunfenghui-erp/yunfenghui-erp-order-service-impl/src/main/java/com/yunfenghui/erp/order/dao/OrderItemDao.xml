@@ -11,4 +11,20 @@
         	#{item.sendScores}, #{item.quantity}, #{item.totalAmount}, #{item.refundQuantity}, #{item.refundAmount}, #{item.refundScores})
         </foreach>
     </insert>
+    
+    <update id="increaseRefundQuantityAndRefundAmount">
+    	UPDATE order_item SET refund_amount = refund_amount + #{refundAmountIncrement},
+    	refund_quantity = refund_quantity + #{refundQuantityIncrement}
+    	WHERE order_no = #{orderNo} AND goods_Id = #{goodsId}
+    	AND total_amount >= refund_amount + #{refundAmountIncrement}
+    	AND quantity >= refund_quantity + #{refundQuantityIncrement}
+    </update>
+    
+    <update id="decreaseRefundQuantityAndRefundAmount">
+    	UPDATE order_item SET refund_amount = refund_amount - #{refundAmountDecrement},
+    	refund_quantity = refund_quantity - #{refundQuantityDecrement}
+    	WHERE order_no = #{orderNo} AND goods_Id = #{goodsId}
+    	AND refund_amount >= #{refundAmountDecrement}
+    	AND refund_quantity >= #{refundQuantityDecrement}
+    </update>
 </mapper>
