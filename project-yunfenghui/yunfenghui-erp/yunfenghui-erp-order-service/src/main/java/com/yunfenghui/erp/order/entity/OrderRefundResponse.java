@@ -17,6 +17,11 @@ public class OrderRefundResponse extends BaseResponse {
 	 */
 	private String outTradeNo;
 
+	/**
+	 * 是否成功
+	 */
+	private boolean isSuccess;
+
 	public String getTradeNo() {
 		return tradeNo;
 	}
@@ -31,6 +36,14 @@ public class OrderRefundResponse extends BaseResponse {
 
 	public void setOutTradeNo(String outTradeNo) {
 		this.outTradeNo = outTradeNo;
+	}
+
+	public boolean isSuccess() {
+		return isSuccess;
+	}
+
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
 	}
 
 	public static Builder newBuilder() {
@@ -71,6 +84,11 @@ public class OrderRefundResponse extends BaseResponse {
 
 		public Builder outTradeNo(String outTradeNo) {
 			response.setOutTradeNo(outTradeNo);
+			return this;
+		}
+
+		public Builder isSuccess(boolean isSuccess) {
+			response.setSuccess(isSuccess);
 			return this;
 		}
 
