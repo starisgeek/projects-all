@@ -22,6 +22,11 @@ public class OrderRefundResponse extends BaseResponse {
 	 */
 	private boolean isSuccess;
 
+	/**
+	 * 是否失败
+	 */
+	private boolean isFailed;
+
 	public String getTradeNo() {
 		return tradeNo;
 	}
@@ -44,6 +49,14 @@ public class OrderRefundResponse extends BaseResponse {
 
 	public void setSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
+	}
+
+	public boolean isFailed() {
+		return isFailed;
+	}
+
+	public void setFailed(boolean isFailed) {
+		this.isFailed = isFailed;
 	}
 
 	public static Builder newBuilder() {
@@ -89,6 +102,11 @@ public class OrderRefundResponse extends BaseResponse {
 
 		public Builder isSuccess(boolean isSuccess) {
 			response.setSuccess(isSuccess);
+			return this;
+		}
+
+		public Builder isFailed(boolean isFailed) {
+			response.setFailed(isFailed);
 			return this;
 		}
 
