@@ -25,6 +25,14 @@ public interface OrderDao {
 	Order queryOrderByNo(@Param("orderNo") String orderNo);
 
 	/**
+	 * 根据订单号查询订单(包括OrderItem)
+	 * 
+	 * @param orderNo
+	 * @return
+	 */
+	Order queryFullOrderByNo(@Param("orderNo") String orderNo);
+
+	/**
 	 * 修改支付方式
 	 * 
 	 * @param orderNo

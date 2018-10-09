@@ -20,8 +20,39 @@
 		<result property="modifyTime" column="modified_time"/>
 	</resultMap>
 	
+	<resultMap type="com.yunfenghui.erp.order.model.Order" id="fullOrderResultMap">
+		<id property="orderNo" column="order_no"/>
+		<result property="shopId" column="shop_id"/>
+		<result property="memberId" column="member_id"/>
+		<result property="memberPhone" column="member_phone"/>
+		<result property="memberName" column="member_name"/>
+		<result property="totalAmount" column="total_amount"/>
+		<result property="totalRefundAmount" column="total_refund_amount"/>
+		<result property="totalSendScores" column="total_send_scores"/>
+		<result property="outTradeNo" column="out_trade_no"/>
+		<result property="payWay" column="pay_way"/>
+		<result property="status" column="status"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modified_time"/>
+		<collection property="items" ofType="com.yunfenghui.erp.order.model.OrderItem" column="item_order_no">
+			<result property="orderNo" column="item_order_no"/>
+			<result property="goodsId" column="goods_Id"/>
+			<result property="goodsBarcode" column="goods_barcode"/>
+			<result property="goodsName" column="goods_name"/>
+			<result property="salePrice" column="sale_price"/>
+			<result property="sendScoreRatio" column="send_score_ratio"/>
+			<result property="sendScores" column="send_scores"/>
+			<result property="quantity" column="quantity"/>
+			<result property="totalAmount" column="item_total_amount"/>
+			<result property="refundQuantity" column="refund_quantity"/>
+			<result property="refundAmount" column="refund_amount"/>
+			<result property="refundScores" column="refund_scores"/>
+		</collection>
+	</resultMap>
+	
     <insert id="insertOrder" parameterType="com.yunfenghui.erp.order.model.Order">
-    	INSERT INTO order(order_no, shop_id, member_id, member_phone, member_name, total_amount, total_send_scores, total_refund_amount,
+    	INSERT INTO `order`(order_no, shop_id, member_id, member_phone, member_name, total_amount, total_send_scores, total_refund_amount,
     	pay_way, create_user_id, create_time, status)
     	VALUES(#{orderNo}, #{shopId}, #{memberId}, #{memberPhone}, #{memberName}, #{totalAmount}, #{totalSendScores}, #{totalRefundAmount},
     	#{payWay}, #{createUserId}, #{createTime}, #{status})
@@ -30,16 +61,24 @@
     <select id="queryOrderByNo" resultMap="orderResultMap">
     	SELECT order_no, shop_id, member_id, member_phone, member_name, total_amount, total_send_scores, 
     	total_refund_amount, out_trade_no, pay_way, create_user_id, create_time, modified_time, status 
-    	FROM order WHERE order_no = #{orderNo}
+    	FROM `order` WHERE order_no = #{orderNo}
+    </select>
+    
+    <select id="queryFullOrderByNo" resultMap="fullOrderResultMap">
+    	SELECT o.order_no, o.shop_id, o.member_id, o.member_phone, o.member_name, o.total_amount, o.total_send_scores, 
+    	o.total_refund_amount, o.out_trade_no, o.pay_way, o.create_user_id, o.create_time, o.modified_time, o.status,
+    	i.order_no AS item_order_no, i.goods_Id, i.goods_barcode, i.goods_name, i.sale_price, i.send_score_ratio, i.send_scores, i.quantity, 
+    	i.total_amount AS item_total_amount, i.refund_quantity, i.refund_amount, i.refund_scores
+    	FROM `order` o, order_item i WHERE o.order_no = #{orderNo} AND o.order_no = i.order_no
     </select>
     
     <update id="updateOrderPayWay">
-    	UPDATE order SET pay_way = #{payWay}, modified_time = #{modifyTime}
+    	UPDATE `order` SET pay_way = #{payWay}, modified_time = #{modifyTime}
     	WHERE order_no = #{orderNo}
     </update>
     
     <update id="updateOrderStatusAndOutTradeNo">
-    	UPDATE order SET status = #{updatedStatus}, out_trade_no = #{outTradeNo}, modified_time = #{modifyTime}
+    	UPDATE `order` SET status = #{updatedStatus}, out_trade_no = #{outTradeNo}, modified_time = #{modifyTime}
     	WHERE order_no = #{orderNo} AND status = #{expectedStatus}
     </update>
 </mapper>
