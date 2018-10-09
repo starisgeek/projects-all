@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.order.dao.OrderItemDao">
+    <insert id="batchInsertOrderItems">
+    	INSERT INTO order_item(order_no, goods_Id, goods_barcode, goods_name, sale_price, send_score_ratio, send_scores, quantity,
+    	total_amount, refund_quantity, refund_amount, refund_scores) VALUES
+    	<foreach collection="items" item="item" separator=",">
+        	(#{item.orderNo}, #{item.goodsId}, #{item.goodsBarcode}, #{item.goodsName}, #{item.salePrice}, #{item.sendScoreRatio}, 
+        	#{item.sendScores}, #{item.quantity}, #{item.totalAmount}, #{item.refundQuantity}, #{item.refundAmount}, #{item.refundScores})
+        </foreach>
+    </insert>
+</mapper>

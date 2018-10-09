@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.order.dao.OrderDao">
+	<resultMap type="com.yunfenghui.erp.order.model.Order" id="orderResultMap">
+		<id property="orderNo" column="order_no"/>
+		<result property="shopId" column="shop_id"/>
+		<result property="memberId" column="member_id"/>
+		<result property="memberPhone" column="member_phone"/>
+		<result property="memberName" column="member_name"/>
+		<result property="totalAmount" column="total_amount"/>
+		<result property="totalRefundAmount" column="total_refund_amount"/>
+		<result property="totalSendScores" column="total_send_scores"/>
+		<result property="outTradeNo" column="out_trade_no"/>
+		<result property="payWay" column="pay_way"/>
+		<result property="status" column="status"/>
+		<result property="createUserId" column="create_user_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifyTime" column="modified_time"/>
+	</resultMap>
+	
+    <insert id="insertOrder" parameterType="com.yunfenghui.erp.order.model.Order">
+    	INSERT INTO order(order_no, shop_id, member_id, member_phone, member_name, total_amount, total_send_scores, total_refund_amount,
+    	pay_way, create_user_id, create_time, status)
+    	VALUES(#{orderNo}, #{shopId}, #{memberId}, #{memberPhone}, #{memberName}, #{totalAmount}, #{totalSendScores}, #{totalRefundAmount},
+    	#{payWay}, #{createUserId}, #{createTime}, #{status})
+    </insert>
+    
+    <select id="queryOrderByNo" resultMap="orderResultMap">
+    	SELECT order_no, shop_id, member_id, member_phone, member_name, total_amount, total_send_scores, 
+    	total_refund_amount, out_trade_no, pay_way, create_user_id, create_time, modified_time, status 
+    	FROM order WHERE order_no = #{orderNo}
+    </select>
+    
+    <update id="updateOrderPayWay">
+    	UPDATE order SET pay_way = #{payWay}, modified_time = #{modifyTime}
+    	WHERE order_no = #{orderNo}
+    </update>
+    
+    <update id="updateOrderStatusAndOutTradeNo">
+    	UPDATE order SET status = #{updatedStatus}, out_trade_no = #{outTradeNo}, modified_time = #{modifyTime}
+    	WHERE order_no = #{orderNo} AND status = #{expectedStatus}
+    </update>
+</mapper>
