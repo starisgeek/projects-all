@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunfenghui.erp.order.dao.RefundMessageDao">
+	<insert id="insertRefundMessage" parameterType="com.yunfenghui.erp.order.model.RefundMessage">
+		INSERT INTO order_refund_message(refund_record_no, create_time)
+		VALUES(#{refundRecordNo}, #{createTime})
+	</insert>
+</mapper>
