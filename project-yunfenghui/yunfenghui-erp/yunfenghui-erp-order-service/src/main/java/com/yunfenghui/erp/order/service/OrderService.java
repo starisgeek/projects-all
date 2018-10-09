@@ -8,10 +8,10 @@ import com.yunfenghui.erp.order.entity.OrderPayRequest;
 import com.yunfenghui.erp.order.entity.OrderPayResponse;
 import com.yunfenghui.erp.order.entity.OrderQueryRequest;
 import com.yunfenghui.erp.order.entity.OrderQueryResponse;
-import com.yunfenghui.erp.order.entity.OrderRefundRequest;
 import com.yunfenghui.erp.order.entity.OrderRefundResponse;
 import com.yunfenghui.erp.order.entity.OrderRevokeRequest;
 import com.yunfenghui.erp.order.entity.OrderRevokeResponse;
+import com.yunfenghui.erp.order.model.RefundRecord;
 
 public interface OrderService {
 	/**
@@ -49,11 +49,11 @@ public interface OrderService {
 	/**
 	 * 订单退款
 	 * 
-	 * @param refundRequest
+	 * @param refundRecord
 	 * @return 退款订单号
 	 * @throws ERPException
 	 */
-	OrderRefundResponse refundOrder(OrderRefundRequest refundRequest) throws ERPException;
+	OrderRefundResponse refundOrder(RefundRecord refundRecord) throws ERPException;
 
 	/**
 	 * 取消订单.
