@@ -50,7 +50,7 @@ public interface OrderService {
 	 * 订单退款
 	 * 
 	 * @param refundRecord
-	 * @return 退款订单号
+	 * @return
 	 * @throws ERPException
 	 */
 	OrderRefundResponse refundOrder(RefundRecord refundRecord) throws ERPException;
