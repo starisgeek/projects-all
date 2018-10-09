@@ -1,12 +1,14 @@
 package com.star.im.entity;
 
+import com.star.im.util.Commands;
+
 /**
  * 登录请求类
  * 
  * @author Administrator
  *
  */
-public class LoginRequest {
+public class LoginRequest extends Packet {
 	/**
 	 * 用户名
 	 */
@@ -30,6 +32,11 @@ public class LoginRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public byte getCommand() {
+		return Commands.LOGIN_REQUEST;
 	}
 
 }

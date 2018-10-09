@@ -3,6 +3,7 @@ package com.star.im.server.boot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.star.im.server.handler.ServerHandler;
 import com.star.im.util.Configs;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -26,7 +27,7 @@ public class ImServerBootstrap {
 				.childHandler(new ChannelInitializer<Channel>() {
 					@Override
 					protected void initChannel(Channel ch) throws Exception {
-
+						ch.pipeline().addLast(new ServerHandler());
 					}
 				});
 		ChannelFuture f = boot.bind(Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)))

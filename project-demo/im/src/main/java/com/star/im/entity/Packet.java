@@ -1,5 +1,7 @@
 package com.star.im.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 通信协议类
  * 
@@ -7,12 +9,13 @@ package com.star.im.entity;
  *
  * @param <Body>
  */
-public class Packet<Body> {
+public abstract class Packet {
+	@JSONField(serialize = false, deserialize = false)
 	private int magic = 0x12345678;
+	@JSONField(serialize = false, deserialize = false)
 	private byte version = 1;
+	@JSONField(serialize = false, deserialize = false)
 	private byte serialize = 0;
-	private byte command;
-	private Body body;
 
 	public int getMagic() {
 		return magic;
@@ -38,20 +41,6 @@ public class Packet<Body> {
 		this.serialize = serialize;
 	}
 
-	public byte getCommand() {
-		return command;
-	}
-
-	public void setCommand(byte command) {
-		this.command = command;
-	}
-
-	public Body getBody() {
-		return body;
-	}
-
-	public void setBody(Body body) {
-		this.body = body;
-	}
-
+	@JSONField(serialize = false, deserialize = false)
+	public abstract byte getCommand();
 }
