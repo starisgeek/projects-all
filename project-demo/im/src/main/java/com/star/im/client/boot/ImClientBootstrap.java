@@ -3,11 +3,11 @@ package com.star.im.client.boot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.star.im.client.handler.ClientHandler;
 import com.star.im.util.Configs;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -24,31 +24,36 @@ public class ImClientBootstrap {
 				.handler(new ChannelInitializer<Channel>() {
 					@Override
 					protected void initChannel(Channel ch) throws Exception {
-
+						ch.pipeline().addLast(buildClientHandlerFromCommandLineArgs(args));
 					}
 				});
-		ChannelFuture future = boot.connect(Configs.valueOf(Configs.KEY_IM_SERVER_ADDRESS),
-				Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)));
-		future.addListener(new GenericFutureListener<Future<? super Void>>() {
-			@Override
-			public void operationComplete(Future<? super Void> future) throws Exception {
-				if (future.isSuccess()) {
-					logger.info("connect server success");
-				}
-			}
-		});
-		try {
-			future.sync();
-			future.channel().closeFuture()
+		connect(boot,
+				Integer.valueOf(Configs.valueOf(Configs.KEY_IM_CLIENT_CONNECT_MAX_RETRIES)) + 1);
+	}
+
+	private static ClientHandler buildClientHandlerFromCommandLineArgs(String[] args) {
+		return new ClientHandler(args[0], args[1]);
+	}
+
+	private static void connect(Bootstrap boot, int retries) {
+		if (retries > 0) {
+			boot.connect(Configs.valueOf(Configs.KEY_IM_SERVER_ADDRESS),
+					Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)))
 					.addListener(new GenericFutureListener<Future<? super Void>>() {
 						@Override
 						public void operationComplete(Future<? super Void> future)
 								throws Exception {
-							logger.info("client connection close");
+							if (future.isSuccess()) {
+								logger.info("Client connect server success");
+							} else {
+								logger.error("Client connect server failed, retring connect");
+								connect(boot, retries - 1);
+							}
 						}
-					}).sync();
-		} catch (InterruptedException e) {
-			logger.error("Failed to sync", e);
+					});
+		} else {
+			logger.error("all retry connect failed");
 		}
+
 	}
 }
