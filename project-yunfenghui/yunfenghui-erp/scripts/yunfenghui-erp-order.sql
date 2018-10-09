@@ -64,3 +64,9 @@ CREATE TABLE `order_refund_record_item` (
   `refund_amount` int(11) NOT NULL COMMENT '退款金额',
   PRIMARY KEY (`refund_record_no`, `goods_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `order_refund_message` (
+  `refund_record_no` varchar(32) NOT NULL COMMENT '退款记录号',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`refund_record_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
