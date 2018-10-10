@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
-import com.star.im.util.LoginUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -29,10 +28,15 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 	}
 
 	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		logger.info("Channel inactive");
+		super.channelInactive(ctx);
+	}
+
+	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, LoginResponse response)
 			throws Exception {
 		if (response.isSuccess()) {
-			LoginUtil.markLogin(ctx.channel());
 			logger.info("Client login server success");
 		} else {
 			logger.info("Client login server failed:{}", response.getMessage());
