@@ -11,7 +11,6 @@ import com.star.im.handler.MessageResponseHandler;
 import com.star.im.handler.PacketDecoder;
 import com.star.im.handler.PacketEncoder;
 import com.star.im.util.Configs;
-import com.star.im.util.LoginUtil;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -77,14 +76,12 @@ public class ImClientBootstrap {
 			public void run() {
 				Scanner scanner = null;
 				while (!Thread.currentThread().isInterrupted()) {
-					if (LoginUtil.hasLogin(channel)) {
-						scanner = new Scanner(System.in);
-						String line = scanner.nextLine();
+					scanner = new Scanner(System.in);
+					String line = scanner.nextLine();
 
-						MessageRequest request = new MessageRequest();
-						request.setMessage(line);
-						channel.writeAndFlush(request);
-					}
+					MessageRequest request = new MessageRequest();
+					request.setMessage(line);
+					channel.writeAndFlush(request);
 				}
 				if (scanner != null) {
 					scanner.close();
