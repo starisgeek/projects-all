@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.star.im.handler.LoginRequestHandler;
+import com.star.im.handler.MessageRequestHandler;
 import com.star.im.handler.PacketDecoder;
 import com.star.im.handler.PacketEncoder;
 import com.star.im.util.Configs;
@@ -14,6 +15,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -29,8 +31,11 @@ public class ImServerBootstrap {
 				.childHandler(new ChannelInitializer<Channel>() {
 					@Override
 					protected void initChannel(Channel ch) throws Exception {
+						ch.pipeline()
+								.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
 						ch.pipeline().addLast(new PacketDecoder());
 						ch.pipeline().addLast(new LoginRequestHandler());
+						ch.pipeline().addLast(new MessageRequestHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}
 				});
