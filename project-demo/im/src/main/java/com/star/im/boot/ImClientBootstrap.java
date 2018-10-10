@@ -51,21 +51,21 @@ public class ImClientBootstrap {
 
 	private static void connect(Bootstrap boot, int retries) {
 		if (retries > 0) {
-			final ChannelFuture channelFuture = boot.connect(
-					Configs.valueOf(Configs.KEY_IM_SERVER_ADDRESS),
-					Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)));
-			channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
-				@Override
-				public void operationComplete(Future<? super Void> future) throws Exception {
-					if (future.isSuccess()) {
-						logger.info("Client connect server success");
-						startConsoleThread(channelFuture.channel());
-					} else {
-						logger.error("Client connect server failed, retring connect");
-						connect(boot, retries - 1);
-					}
-				}
-			});
+			boot.connect(Configs.valueOf(Configs.KEY_IM_SERVER_ADDRESS),
+					Integer.valueOf(Configs.valueOf(Configs.KEY_IM_SERVER_PORT)))
+					.addListener(new GenericFutureListener<Future<? super Void>>() {
+						@Override
+						public void operationComplete(Future<? super Void> future)
+								throws Exception {
+							if (future.isSuccess()) {
+								logger.info("Client connect server success");
+								startConsoleThread(((ChannelFuture) future).channel());
+							} else {
+								logger.error("Client connect server failed, retring connect");
+								connect(boot, retries - 1);
+							}
+						}
+					});
 		} else {
 			logger.error("all retry connect failed");
 		}
