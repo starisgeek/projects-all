@@ -1,5 +1,7 @@
 package com.star.im.entity;
 
+import com.star.im.util.Commands;
+
 /**
  * 消息请求包
  * 
@@ -19,8 +21,7 @@ public class MessageRequest extends Packet {
 
 	@Override
 	public byte getCommand() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Commands.MESSAGE_REQUEST;
 	}
 
 }
