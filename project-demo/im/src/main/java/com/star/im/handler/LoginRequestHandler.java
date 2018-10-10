@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
+import com.star.im.util.LoginUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -18,6 +19,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 		if (validate(request.getUsername(), request.getPassword())) {
 			logger.info("validate login request success");
 			response.setSuccess(true);
+			LoginUtil.markLogin(ctx.channel());
 		} else {
 			logger.info("validate login request error");
 			response.setSuccess(false);
