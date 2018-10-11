@@ -12,13 +12,13 @@ public class SessionManager {
 
 	public static void bindSession(Session session, Channel channel) {
 		userIdAndChannelMap.putIfAbsent(session.getUserId(), channel);
-		channel.attr(Attributes.SESSION).setIfAbsent(session);
+		channel.attr(Session.ATTRIBUTE_KEY).setIfAbsent(session);
 	}
 
 	public static void unbindSession(Channel channel) {
 		if (hasLogin(channel)) {
 			userIdAndChannelMap.remove(getSession(channel).getUserId());
-			channel.attr(Attributes.SESSION).set(null);
+			channel.attr(Session.ATTRIBUTE_KEY).set(null);
 		}
 	}
 
@@ -27,10 +27,10 @@ public class SessionManager {
 	}
 
 	public static Session getSession(Channel channel) {
-		return channel.attr(Attributes.SESSION).get();
+		return channel.attr(Session.ATTRIBUTE_KEY).get();
 	}
 
 	public static boolean hasLogin(Channel channel) {
-		return channel.hasAttr(Attributes.SESSION);
+		return channel.hasAttr(Session.ATTRIBUTE_KEY);
 	}
 }
