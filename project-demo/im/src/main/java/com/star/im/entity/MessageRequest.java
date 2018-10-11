@@ -9,7 +9,16 @@ import com.star.im.util.Commands;
  *
  */
 public class MessageRequest extends Packet {
+	private String toUserId;
 	private String message;
+
+	public String getToUserId() {
+		return toUserId;
+	}
+
+	public void setToUserId(String toUserId) {
+		this.toUserId = toUserId;
+	}
 
 	public String getMessage() {
 		return message;

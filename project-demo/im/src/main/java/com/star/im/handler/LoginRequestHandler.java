@@ -1,35 +1,34 @@
 package com.star.im.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
-import com.star.im.util.LoginUtil;
+import com.star.im.entity.Session;
+import com.star.im.entity.User;
+import com.star.im.util.SessionManager;
+import com.star.im.util.UserDao;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequest> {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private UserDao userDao = new UserDao();
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, LoginRequest request) throws Exception {
 		LoginResponse response = new LoginResponse();
-		if (validate(request.getUsername(), request.getPassword())) {
-			logger.info("validate login request success");
+		User user = userDao.getUser(request.getUsername(), request.getPassword());
+		if (user != null) {
+			System.out.println("[" + request.getUsername() + "]登录成功");
+			response.setUserId(user.getUserId());
+			response.setUsername(request.getUsername());
 			response.setSuccess(true);
-			LoginUtil.markLogin(ctx.channel());
+			SessionManager.bindSession(new Session(user.getUserId(), user.getUsername()), ctx.channel());
 		} else {
-			logger.info("validate login request error");
+			System.out.println("用户[" + request.getUsername() + "]登录失败,用户名或者密码错误");
 			response.setSuccess(false);
 			response.setMessage("username or password is wrong.");
 		}
 		ctx.channel().writeAndFlush(response);
-	}
-
-	private boolean validate(String username, String password) {
-		return "star".equals(username) && "123456".equals(password);
 	}
 
 }

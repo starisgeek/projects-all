@@ -1,16 +1,19 @@
 package com.star.im.boot;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.star.im.entity.LoginRequest;
 import com.star.im.entity.MessageRequest;
 import com.star.im.handler.LoginResponseHandler;
 import com.star.im.handler.MessageResponseHandler;
 import com.star.im.handler.PacketDecoder;
 import com.star.im.handler.PacketEncoder;
 import com.star.im.util.Configs;
+import com.star.im.util.SessionManager;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -35,17 +38,13 @@ public class ImClientBootstrap {
 						ch.pipeline()
 								.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
 						ch.pipeline().addLast(new PacketDecoder());
-						ch.pipeline().addLast(buildLoginResponseHandler(args));
+						ch.pipeline().addLast(new LoginResponseHandler());
 						ch.pipeline().addLast(new MessageResponseHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}
 				});
 		connect(boot,
 				Integer.valueOf(Configs.valueOf(Configs.KEY_IM_CLIENT_CONNECT_MAX_RETRIES)) + 1);
-	}
-
-	private static LoginResponseHandler buildLoginResponseHandler(String[] args) {
-		return new LoginResponseHandler("star", "123456");
 	}
 
 	private static void connect(Bootstrap boot, int retries) {
@@ -57,10 +56,10 @@ public class ImClientBootstrap {
 						public void operationComplete(Future<? super Void> future)
 								throws Exception {
 							if (future.isSuccess()) {
-								logger.info("Client connect server success");
+								logger.info("连接成功,启动控制台线程...");
 								startConsoleThread(((ChannelFuture) future).channel());
 							} else {
-								logger.error("Client connect server failed, retring connect");
+								logger.error("连接失败,重新开始连接...");
 								connect(boot, retries - 1);
 							}
 						}
@@ -76,17 +75,37 @@ public class ImClientBootstrap {
 			public void run() {
 				Scanner scanner = null;
 				while (!Thread.currentThread().isInterrupted()) {
-					scanner = new Scanner(System.in);
-					String line = scanner.nextLine();
-
-					MessageRequest request = new MessageRequest();
-					request.setMessage(line);
-					channel.writeAndFlush(request);
+					if (!SessionManager.hasLogin(channel)) {
+						System.out.println("请输入用户名和密码:");
+						scanner = new Scanner(System.in);
+						String username = scanner.next();
+						String password = scanner.next();
+						LoginRequest loginRequest = new LoginRequest();
+						loginRequest.setUsername(username);
+						loginRequest.setPassword(password);
+						channel.writeAndFlush(loginRequest);
+						waitForLoginResponse();
+					} else {
+						String toUserIdAndMessage = scanner.nextLine();
+						int idx = toUserIdAndMessage.indexOf(" ");
+						MessageRequest request = new MessageRequest();
+						request.setToUserId(toUserIdAndMessage.substring(0, idx));
+						request.setMessage(
+								toUserIdAndMessage.substring(idx + 1, toUserIdAndMessage.length()));
+						channel.writeAndFlush(request);
+					}
 				}
 				if (scanner != null) {
 					scanner.close();
 				}
 			}
 		}).start();
+	}
+
+	private static void waitForLoginResponse() {
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+		}
 	}
 }

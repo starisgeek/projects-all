@@ -9,7 +9,25 @@ import com.star.im.util.Commands;
  *
  */
 public class MessageResponse extends Packet {
+	private String fromUserId;
+	private String fromUsername;
 	private String message;
+
+	public String getFromUserId() {
+		return fromUserId;
+	}
+
+	public void setFromUserId(String fromUserId) {
+		this.fromUserId = fromUserId;
+	}
+
+	public String getFromUsername() {
+		return fromUsername;
+	}
+
+	public void setFromUsername(String fromUsername) {
+		this.fromUsername = fromUsername;
+	}
 
 	public String getMessage() {
 		return message;

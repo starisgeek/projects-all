@@ -3,29 +3,15 @@ package com.star.im.handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
+import com.star.im.entity.Session;
+import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponse> {
 	private Logger logger = LoggerFactory.getLogger(getClass());
-
-	private final String username;
-	private final String password;
-
-	public LoginResponseHandler(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-
-	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		// 和ctx.channel().writeAndFlush()区别？
-		// ctx.writeAndFlush(buildLoginRequest());
-		ctx.channel().writeAndFlush(buildLoginRequest());
-	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -37,17 +23,13 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 	protected void channelRead0(ChannelHandlerContext ctx, LoginResponse response)
 			throws Exception {
 		if (response.isSuccess()) {
-			logger.info("Client login server success");
+			SessionManager.bindSession(new Session(response.getUserId(), response.getUsername()),
+					ctx.channel());
+			System.out.println(
+					"[" + response.getUsername() + "]登录成功, userId为: " + response.getUserId());
 		} else {
-			logger.info("Client login server failed:{}", response.getMessage());
+			System.out.println("用户登录失败:" + response.getMessage());
 		}
-	}
-
-	private LoginRequest buildLoginRequest() {
-		LoginRequest request = new LoginRequest();
-		request.setUsername(this.username);
-		request.setPassword(this.password);
-		return request;
 	}
 
 }
