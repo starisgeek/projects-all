@@ -1,13 +1,14 @@
 package com.star.im.boot;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.star.im.entity.LoginRequest;
-import com.star.im.entity.MessageRequest;
+import com.star.im.command.CommandManager;
+import com.star.im.command.ConsoleCommand;
+import com.star.im.command.LoginCommand;
+import com.star.im.handler.CreateGroupResponseHandler;
 import com.star.im.handler.LoginResponseHandler;
 import com.star.im.handler.MessageResponseHandler;
 import com.star.im.handler.PacketDecoder;
@@ -40,6 +41,7 @@ public class ImClientBootstrap {
 						ch.pipeline().addLast(new PacketDecoder());
 						ch.pipeline().addLast(new LoginResponseHandler());
 						ch.pipeline().addLast(new MessageResponseHandler());
+						ch.pipeline().addLast(new CreateGroupResponseHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}
 				});
@@ -73,26 +75,14 @@ public class ImClientBootstrap {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Scanner scanner = null;
+				Scanner scanner = new Scanner(System.in);
+				ConsoleCommand loginCommand = new LoginCommand();
+				ConsoleCommand commandManager = new CommandManager();
 				while (!Thread.currentThread().isInterrupted()) {
 					if (!SessionManager.hasLogin(channel)) {
-						System.out.println("请输入用户名和密码:");
-						scanner = new Scanner(System.in);
-						String username = scanner.next();
-						String password = scanner.next();
-						LoginRequest loginRequest = new LoginRequest();
-						loginRequest.setUsername(username);
-						loginRequest.setPassword(password);
-						channel.writeAndFlush(loginRequest);
-						waitForLoginResponse();
+						loginCommand.execute(scanner, channel);
 					} else {
-						String toUserIdAndMessage = scanner.nextLine();
-						int idx = toUserIdAndMessage.indexOf(" ");
-						MessageRequest request = new MessageRequest();
-						request.setToUserId(toUserIdAndMessage.substring(0, idx));
-						request.setMessage(
-								toUserIdAndMessage.substring(idx + 1, toUserIdAndMessage.length()));
-						channel.writeAndFlush(request);
+						commandManager.execute(scanner, channel);
 					}
 				}
 				if (scanner != null) {
@@ -102,10 +92,4 @@ public class ImClientBootstrap {
 		}).start();
 	}
 
-	private static void waitForLoginResponse() {
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-		}
-	}
 }
