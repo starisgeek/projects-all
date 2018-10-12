@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.star.im.entity.CreateGroupRequest;
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
 import com.star.im.entity.MessageRequest;
@@ -19,6 +20,7 @@ public class CommandMapping {
 		map.put(Commands.LOGIN_RESPONSE, LoginResponse.class);
 		map.put(Commands.MESSAGE_REQUEST, MessageRequest.class);
 		map.put(Commands.MESSAGE_RESPONSE, MessageResponse.class);
+		map.put(Commands.CREATE_GROUP_REQUEST, CreateGroupRequest.class);
 
 		mapping = Collections.unmodifiableMap(map);
 	}
