@@ -23,6 +23,18 @@ public class UserDao {
 		user.setUsername("lifang");
 		user.setPassword("123456");
 		users.add(user);
+
+		user = new User();
+		user.setUserId(Integer.toHexString(base + r.nextInt(v)));
+		user.setUsername("wangyang");
+		user.setPassword("123456");
+		users.add(user);
+
+		user = new User();
+		user.setUserId(Integer.toHexString(base + r.nextInt(v)));
+		user.setUsername("zhaohu");
+		user.setPassword("123456");
+		users.add(user);
 	}
 
 	public User getUser(String username, String password) {
@@ -33,7 +45,7 @@ public class UserDao {
 		}
 		return null;
 	}
-	
+
 	public static void main(String[] args) {
 		for (User user : users) {
 			System.out.println(user.getUserId());
