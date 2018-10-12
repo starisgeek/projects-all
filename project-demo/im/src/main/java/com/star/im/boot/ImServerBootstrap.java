@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.star.im.handler.AuthHandler;
+import com.star.im.handler.CreateGroupRequestHandler;
 import com.star.im.handler.LoginRequestHandler;
 import com.star.im.handler.MessageRequestHandler;
 import com.star.im.handler.PacketDecoder;
@@ -38,6 +39,7 @@ public class ImServerBootstrap {
 						ch.pipeline().addLast(new LoginRequestHandler());
 						ch.pipeline().addLast(new AuthHandler());
 						ch.pipeline().addLast(new MessageRequestHandler());
+						ch.pipeline().addLast(new CreateGroupRequestHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}
 				});
