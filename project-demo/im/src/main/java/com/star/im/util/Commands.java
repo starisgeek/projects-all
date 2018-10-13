@@ -27,4 +27,14 @@ public interface Commands {
 	 * 建群响应
 	 */
 	byte CREATE_GROUP_RESPONSE = 6;
+
+	/**
+	 * 加入群请求
+	 */
+	byte JOIN_GROUP_REQUEST = 7;
+
+	/**
+	 * 加入群响应
+	 */
+	byte JOIN_GROUP_RESPONSE = 8;
 }
