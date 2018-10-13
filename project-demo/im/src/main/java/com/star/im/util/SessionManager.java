@@ -6,9 +6,11 @@ import java.util.concurrent.ConcurrentMap;
 import com.star.im.entity.Session;
 
 import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
 
 public class SessionManager {
 	private static final ConcurrentMap<String, Channel> userIdAndChannelMap = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, ChannelGroup> groupIdAndChannelGroupMap = new ConcurrentHashMap<>();
 
 	public static void bindSession(Session session, Channel channel) {
 		userIdAndChannelMap.putIfAbsent(session.getUserId(), channel);
@@ -32,5 +34,13 @@ public class SessionManager {
 
 	public static boolean hasLogin(Channel channel) {
 		return channel.hasAttr(Session.ATTRIBUTE_KEY);
+	}
+
+	public static void bindChannelGroup(String groupId, ChannelGroup channelGroup) {
+		groupIdAndChannelGroupMap.putIfAbsent(groupId, channelGroup);
+	}
+
+	public static ChannelGroup getChannelGroup(String groupId) {
+		return groupIdAndChannelGroupMap.get(groupId);
 	}
 }
