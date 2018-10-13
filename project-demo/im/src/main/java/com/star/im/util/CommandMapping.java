@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.star.im.entity.CreateGroupRequest;
 import com.star.im.entity.CreateGroupResponse;
+import com.star.im.entity.JoinGroupRequest;
+import com.star.im.entity.JoinGroupResponse;
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
 import com.star.im.entity.MessageRequest;
@@ -23,6 +25,8 @@ public class CommandMapping {
 		map.put(Commands.MESSAGE_RESPONSE, MessageResponse.class);
 		map.put(Commands.CREATE_GROUP_REQUEST, CreateGroupRequest.class);
 		map.put(Commands.CREATE_GROUP_RESPONSE, CreateGroupResponse.class);
+		map.put(Commands.JOIN_GROUP_REQUEST, JoinGroupRequest.class);
+		map.put(Commands.JOIN_GROUP_RESPONSE, JoinGroupResponse.class);
 
 		mapping = Collections.unmodifiableMap(map);
 	}
