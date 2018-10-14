@@ -21,6 +21,7 @@ public class CommandManager implements ConsoleCommand {
 		map.put("createGroup", new CreateGroupCommand());
 		map.put("joinGroup", new JoinGroupCommand());
 		map.put("quitGroup", new QuitGroupCommand());
+		map.put("listGroupMembers", new ListGroupMembersCommand());
 		map.put("logout", new LogoutCommand());
 
 		commands = Collections.unmodifiableMap(map);
