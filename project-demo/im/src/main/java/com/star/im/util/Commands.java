@@ -47,4 +47,14 @@ public interface Commands {
 	 * 退群响应
 	 */
 	byte QUIT_GROUP_RESPONSE = 10;
+
+	/**
+	 * 获取群成员列表请求
+	 */
+	byte LIST_GROUP_MEMBERS_REQUEST = 11;
+
+	/**
+	 * 获取群成员列表响应
+	 */
+	byte LIST_GROUP_MEMBERS_RESPONSE = 12;
 }
