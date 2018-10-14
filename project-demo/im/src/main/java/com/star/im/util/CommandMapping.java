@@ -13,6 +13,8 @@ import com.star.im.entity.LoginResponse;
 import com.star.im.entity.MessageRequest;
 import com.star.im.entity.MessageResponse;
 import com.star.im.entity.Packet;
+import com.star.im.entity.QuitGroupRequest;
+import com.star.im.entity.QuitGroupResponse;
 
 public class CommandMapping {
 	private static final Map<Byte, Class<? extends Packet>> mapping;
@@ -27,6 +29,8 @@ public class CommandMapping {
 		map.put(Commands.CREATE_GROUP_RESPONSE, CreateGroupResponse.class);
 		map.put(Commands.JOIN_GROUP_REQUEST, JoinGroupRequest.class);
 		map.put(Commands.JOIN_GROUP_RESPONSE, JoinGroupResponse.class);
+		map.put(Commands.QUIT_GROUP_REQUEST, QuitGroupRequest.class);
+		map.put(Commands.QUIT_GROUP_RESPONSE, QuitGroupResponse.class);
 
 		mapping = Collections.unmodifiableMap(map);
 	}
