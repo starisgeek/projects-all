@@ -61,10 +61,10 @@ public interface Commands {
 	/**
 	 * 发送群消息请求
 	 */
-	byte SEND_TO_GROUP_REQUEST = 13;
+	byte GROUP_MESSAGE_REQUEST = 13;
 
 	/**
 	 * 发送群消息响应
 	 */
-	byte SEND_TO_GROUP_RESPONSE = 14;
+	byte GROUP_MESSAGE_RESPONSE = 14;
 }
