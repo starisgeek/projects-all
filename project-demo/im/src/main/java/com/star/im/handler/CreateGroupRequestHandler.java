@@ -34,6 +34,7 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
 			}
 		}
 		String groupId = generateGroupId();
+		SessionManager.bindChannelGroup(groupId, channelGroup);
 		CreateGroupResponse response = new CreateGroupResponse();
 		response.setSuccess(true);
 		response.setGroupId(groupId);
