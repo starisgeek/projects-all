@@ -8,6 +8,8 @@ import com.star.im.entity.CreateGroupRequest;
 import com.star.im.entity.CreateGroupResponse;
 import com.star.im.entity.JoinGroupRequest;
 import com.star.im.entity.JoinGroupResponse;
+import com.star.im.entity.ListGroupMembersRequest;
+import com.star.im.entity.ListGroupMembersResponse;
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
 import com.star.im.entity.MessageRequest;
@@ -31,6 +33,8 @@ public class CommandMapping {
 		map.put(Commands.JOIN_GROUP_RESPONSE, JoinGroupResponse.class);
 		map.put(Commands.QUIT_GROUP_REQUEST, QuitGroupRequest.class);
 		map.put(Commands.QUIT_GROUP_RESPONSE, QuitGroupResponse.class);
+		map.put(Commands.LIST_GROUP_MEMBERS_REQUEST, ListGroupMembersRequest.class);
+		map.put(Commands.LIST_GROUP_MEMBERS_RESPONSE, ListGroupMembersResponse.class);
 
 		mapping = Collections.unmodifiableMap(map);
 	}
