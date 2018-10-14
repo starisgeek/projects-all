@@ -37,4 +37,14 @@ public interface Commands {
 	 * 加入群响应
 	 */
 	byte JOIN_GROUP_RESPONSE = 8;
+
+	/**
+	 * 退群请求
+	 */
+	byte QUIT_GROUP_REQUEST = 9;
+
+	/**
+	 * 退群响应
+	 */
+	byte QUIT_GROUP_RESPONSE = 10;
 }
