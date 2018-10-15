@@ -10,8 +10,9 @@ import com.alibaba.fastjson.annotation.JSONField;
  * @param <Body>
  */
 public abstract class Packet {
+	public static final int MAGIC_NUMBER = 0x12345678;
 	@JSONField(serialize = false, deserialize = false)
-	private int magic = 0x12345678;
+	private int magic = MAGIC_NUMBER;
 	@JSONField(serialize = false, deserialize = false)
 	private byte version = 1;
 	@JSONField(serialize = false, deserialize = false)
