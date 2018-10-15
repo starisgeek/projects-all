@@ -17,10 +17,14 @@ public class SessionManager {
 		channel.attr(Session.ATTRIBUTE_KEY).setIfAbsent(session);
 	}
 
-	public static void unbindSession(Channel channel) {
+	public static Session unbindSession(Channel channel) {
 		if (hasLogin(channel)) {
-			userIdAndChannelMap.remove(getSession(channel).getUserId());
+			Session session = getSession(channel);
+			userIdAndChannelMap.remove(session.getUserId());
 			channel.attr(Session.ATTRIBUTE_KEY).set(null);
+			return session;
+		} else {
+			return null;
 		}
 	}
 
