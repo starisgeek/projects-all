@@ -1,8 +1,5 @@
 package com.star.im.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.star.im.entity.LoginResponse;
 import com.star.im.entity.Session;
 import com.star.im.util.SessionManager;
@@ -11,14 +8,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponse> {
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
-	@Override
-	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.info("Channel inactive");
-		super.channelInactive(ctx);
-	}
-
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, LoginResponse response)
 			throws Exception {
