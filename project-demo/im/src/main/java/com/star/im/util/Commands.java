@@ -67,4 +67,14 @@ public interface Commands {
 	 * 发送群消息响应
 	 */
 	byte GROUP_MESSAGE_RESPONSE = 14;
+
+	/**
+	 * 退出请求
+	 */
+	byte LOGOUT_REQUEST = 15;
+
+	/**
+	 * 退出响应
+	 */
+	byte LOGOUT_RESPONSE = 16;
 }
