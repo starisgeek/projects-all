@@ -14,6 +14,8 @@ import com.star.im.entity.ListGroupMembersRequest;
 import com.star.im.entity.ListGroupMembersResponse;
 import com.star.im.entity.LoginRequest;
 import com.star.im.entity.LoginResponse;
+import com.star.im.entity.LogoutRequest;
+import com.star.im.entity.LogoutResponse;
 import com.star.im.entity.MessageRequest;
 import com.star.im.entity.MessageResponse;
 import com.star.im.entity.Packet;
@@ -39,6 +41,8 @@ public class CommandMapping {
 		map.put(Commands.LIST_GROUP_MEMBERS_RESPONSE, ListGroupMembersResponse.class);
 		map.put(Commands.GROUP_MESSAGE_REQUEST, GroupMessageRequest.class);
 		map.put(Commands.GROUP_MESSAGE_RESPONSE, GroupMessageResponse.class);
+		map.put(Commands.LOGOUT_REQUEST, LogoutRequest.class);
+		map.put(Commands.LOGOUT_RESPONSE, LogoutResponse.class);
 
 		mapping = Collections.unmodifiableMap(map);
 	}
