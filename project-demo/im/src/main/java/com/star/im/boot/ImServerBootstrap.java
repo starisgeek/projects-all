@@ -7,7 +7,6 @@ import com.star.im.handler.AuthHandler;
 import com.star.im.handler.ImHandler;
 import com.star.im.handler.ImLengthFieldDecoder;
 import com.star.im.handler.LoginRequestHandler;
-import com.star.im.handler.LogoutRequestHandler;
 import com.star.im.handler.PacketCodec;
 import com.star.im.util.Configs;
 
@@ -36,7 +35,6 @@ public class ImServerBootstrap {
 						ch.pipeline().addLast(PacketCodec.INSTANCE);
 						ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
 						ch.pipeline().addLast(AuthHandler.INSTANCE);
-						ch.pipeline().addLast(LogoutRequestHandler.INSTANCE);
 						ch.pipeline().addLast(ImHandler.INSTANCE);
 					}
 				});
