@@ -35,7 +35,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 			response.setSuccess(false);
 			response.setMessage("username or password is wrong.");
 		}
-		ctx.channel().writeAndFlush(response);
+		ctx.writeAndFlush(response);
 	}
 
 }

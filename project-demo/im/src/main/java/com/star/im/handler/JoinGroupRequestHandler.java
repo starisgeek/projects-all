@@ -29,7 +29,7 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
 			response.setSuccess(false);
 			response.setReason("群id:" + groupId + "不存在");
 		}
-		ctx.channel().writeAndFlush(response);
+		ctx.writeAndFlush(response);
 	}
 
 }

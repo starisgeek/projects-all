@@ -34,7 +34,7 @@ public class QuitGroupRequestHandler extends SimpleChannelInboundHandler<QuitGro
 			response.setSuccess(false);
 			response.setReason("群id:" + groupId + "不存在");
 		}
-		ctx.channel().writeAndFlush(response);
+		ctx.writeAndFlush(response);
 	}
 
 }

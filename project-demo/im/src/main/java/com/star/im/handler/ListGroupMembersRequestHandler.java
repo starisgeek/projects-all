@@ -42,7 +42,7 @@ public class ListGroupMembersRequestHandler
 		ListGroupMembersResponse response = new ListGroupMembersResponse();
 		response.setGroupId(groupId);
 		response.setUsernameList(usernameList);
-		ctx.channel().writeAndFlush(response);
+		ctx.writeAndFlush(response);
 	}
 
 }
