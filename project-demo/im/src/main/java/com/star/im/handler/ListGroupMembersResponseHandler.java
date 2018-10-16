@@ -4,9 +4,15 @@ import com.star.im.entity.ListGroupMembersResponse;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class ListGroupMembersResponseHandler
 		extends SimpleChannelInboundHandler<ListGroupMembersResponse> {
+	public static final ListGroupMembersResponseHandler INSTANCE = new ListGroupMembersResponseHandler();
+
+	private ListGroupMembersResponseHandler() {
+	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, ListGroupMembersResponse msg)

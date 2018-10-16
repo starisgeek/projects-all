@@ -10,12 +10,18 @@ import com.star.im.entity.Session;
 import com.star.im.util.SessionManager;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 
+@Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequest> {
+	public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
+	private CreateGroupRequestHandler() {
+	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequest msg)

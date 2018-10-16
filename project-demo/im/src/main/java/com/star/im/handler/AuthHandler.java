@@ -7,9 +7,15 @@ import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	public static final AuthHandler INSTANCE = new AuthHandler();
+
+	private AuthHandler() {
+	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

@@ -6,9 +6,15 @@ import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.group.ChannelGroup;
 
+@Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequest> {
+	public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
+
+	private JoinGroupRequestHandler() {
+	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequest msg) throws Exception {

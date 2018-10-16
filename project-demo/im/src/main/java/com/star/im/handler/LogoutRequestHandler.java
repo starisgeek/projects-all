@@ -7,8 +7,13 @@ import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequest> {
+	public static final LogoutRequestHandler INSTANCE = new LogoutRequestHandler();
+	
+	private LogoutRequestHandler() {}
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, LogoutRequest msg) throws Exception {
 		Session session = SessionManager.unbindSession(ctx.channel());

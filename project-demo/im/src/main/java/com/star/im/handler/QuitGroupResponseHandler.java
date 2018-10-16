@@ -4,8 +4,15 @@ import com.star.im.entity.QuitGroupResponse;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class QuitGroupResponseHandler extends SimpleChannelInboundHandler<QuitGroupResponse> {
+	public static final QuitGroupResponseHandler INSTANCE = new QuitGroupResponseHandler();
+
+	private QuitGroupResponseHandler() {
+	}
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, QuitGroupResponse msg) throws Exception {
 		if (msg.isSuccess()) {

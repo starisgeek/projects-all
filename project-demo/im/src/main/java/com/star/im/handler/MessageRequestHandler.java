@@ -8,8 +8,15 @@ import com.star.im.util.SessionManager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequest> {
+	public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
+	private MessageRequestHandler() {
+	}
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, MessageRequest request)
 			throws Exception {

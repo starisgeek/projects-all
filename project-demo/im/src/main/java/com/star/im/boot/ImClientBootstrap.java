@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 import com.star.im.command.CommandManager;
 import com.star.im.command.ConsoleCommand;
 import com.star.im.command.LoginCommand;
-import com.star.im.handler.CreateGroupResponseHandler;
+import com.star.im.handler.ImHandler;
+import com.star.im.handler.ImLengthFieldDecoder;
 import com.star.im.handler.LoginResponseHandler;
-import com.star.im.handler.MessageResponseHandler;
-import com.star.im.handler.PacketDecoder;
-import com.star.im.handler.PacketEncoder;
+import com.star.im.handler.LogoutResponseHandler;
+import com.star.im.handler.PacketCodec;
 import com.star.im.util.Configs;
 import com.star.im.util.SessionManager;
 
@@ -22,7 +22,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -36,13 +35,11 @@ public class ImClientBootstrap {
 				.handler(new ChannelInitializer<Channel>() {
 					@Override
 					protected void initChannel(Channel ch) throws Exception {
-						ch.pipeline()
-								.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
-						ch.pipeline().addLast(new PacketDecoder());
-						ch.pipeline().addLast(new LoginResponseHandler());
-						ch.pipeline().addLast(new MessageResponseHandler());
-						ch.pipeline().addLast(new CreateGroupResponseHandler());
-						ch.pipeline().addLast(new PacketEncoder());
+						ch.pipeline().addLast(new ImLengthFieldDecoder());
+						ch.pipeline().addLast(PacketCodec.INSTANCE);
+						ch.pipeline().addLast(LoginResponseHandler.INSTANCE);
+						ch.pipeline().addLast(LogoutResponseHandler.INSTANCE);
+						ch.pipeline().addLast(ImHandler.INSTANCE);
 					}
 				});
 		connect(boot,

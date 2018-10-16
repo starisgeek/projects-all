@@ -12,10 +12,16 @@ import com.star.im.util.SessionManager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.group.ChannelGroup;
 
+@Sharable
 public class ListGroupMembersRequestHandler
 		extends SimpleChannelInboundHandler<ListGroupMembersRequest> {
+	public static final ListGroupMembersRequestHandler INSTANCE = new ListGroupMembersRequestHandler();
+
+	private ListGroupMembersRequestHandler() {
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")

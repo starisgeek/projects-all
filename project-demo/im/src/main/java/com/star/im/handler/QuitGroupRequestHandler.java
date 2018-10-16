@@ -6,9 +6,15 @@ import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.group.ChannelGroup;
 
+@Sharable
 public class QuitGroupRequestHandler extends SimpleChannelInboundHandler<QuitGroupRequest> {
+	public static final QuitGroupRequestHandler INSTANCE = new QuitGroupRequestHandler();
+
+	private QuitGroupRequestHandler() {
+	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, QuitGroupRequest msg) throws Exception {

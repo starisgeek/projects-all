@@ -6,8 +6,15 @@ import com.star.im.util.SessionManager;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelHandler.Sharable;
 
+@Sharable
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponse> {
+	public static final LoginResponseHandler INSTANCE = new LoginResponseHandler();
+
+	private LoginResponseHandler() {
+	}
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, LoginResponse response)
 			throws Exception {
