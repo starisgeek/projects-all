@@ -11,7 +11,6 @@ import com.star.im.command.LoginCommand;
 import com.star.im.handler.ImHandler;
 import com.star.im.handler.ImLengthFieldDecoder;
 import com.star.im.handler.LoginResponseHandler;
-import com.star.im.handler.LogoutResponseHandler;
 import com.star.im.handler.PacketCodec;
 import com.star.im.util.Configs;
 import com.star.im.util.SessionManager;
@@ -38,7 +37,6 @@ public class ImClientBootstrap {
 						ch.pipeline().addLast(new ImLengthFieldDecoder());
 						ch.pipeline().addLast(PacketCodec.INSTANCE);
 						ch.pipeline().addLast(LoginResponseHandler.INSTANCE);
-						ch.pipeline().addLast(LogoutResponseHandler.INSTANCE);
 						ch.pipeline().addLast(ImHandler.INSTANCE);
 					}
 				});
