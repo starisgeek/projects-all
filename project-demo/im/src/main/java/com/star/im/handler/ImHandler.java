@@ -30,6 +30,8 @@ public class ImHandler extends SimpleChannelInboundHandler<Packet> {
 				ListGroupMembersResponseHandler.INSTANCE);
 		handlers.put(Commands.GROUP_MESSAGE_REQUEST, GroupMessageRequestHandler.INSTANCE);
 		handlers.put(Commands.GROUP_MESSAGE_RESPONSE, GroupMessageResponseHandler.INSTANCE);
+		handlers.put(Commands.LOGOUT_REQUEST, LogoutRequestHandler.INSTANCE);
+		handlers.put(Commands.LOGOUT_RESPONSE, LogoutResponseHandler.INSTANCE);
 	}
 
 	private Map<Byte, SimpleChannelInboundHandler<? extends Packet>> handlers;
