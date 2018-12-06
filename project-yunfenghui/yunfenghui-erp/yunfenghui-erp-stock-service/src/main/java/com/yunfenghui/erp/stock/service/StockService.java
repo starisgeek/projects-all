@@ -53,7 +53,7 @@ public interface StockService {
 	String generateRecordNo(int shopId);
 
 	/**
-	 * 根据条件查询供应商
+	 * 根据条件查询入库单
 	 * 
 	 * @param shopId
 	 * @return
