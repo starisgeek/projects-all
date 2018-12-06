@@ -92,8 +92,8 @@ public class Goods implements Serializable {
     static {
         KeyValue<Integer, String>[] status = new KeyValue[3];
         status[0] = new KeyValue<>(STATUS_NEW, "新建");
-        status[1] = new KeyValue<>(STATUS_NEW, "已上架");
-        status[2] = new KeyValue<>(STATUS_NEW, "已下架");
+        status[1] = new KeyValue<>(STATUS_PUT_AWAY, "已上架");
+        status[2] = new KeyValue<>(STATUS_SOLD_OUT, "已下架");
 
         STATUSES = status;
     }
