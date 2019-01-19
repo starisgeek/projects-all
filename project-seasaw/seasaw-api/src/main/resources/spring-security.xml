@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="jwtFilter" class="com.seasaw.api.security.JWTFilter">
+    	<property name="usernameParam" value="username" />
+		<property name="passwordParam" value="password" />
+		<property name="loginUrl" value="/login" />
+    </bean>
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="filters">
+			<map>
+				<entry key="jwtAuth" value-ref="jwtFilter" />
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				/register = anon
+				/accessToken = anon
+				/** = jwtAuth
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm">
+			<bean class="com.seasaw.api.security.MemberRealm" />
+		</property>
+		<property name="subjectDAO">
+			<bean class="org.apache.shiro.mgt.DefaultSubjectDAO">
+				<property name="sessionStorageEvaluator">
+					<bean class="org.apache.shiro.mgt.DefaultSessionStorageEvaluator">
+						<property name="sessionStorageEnabled" value="false" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>
